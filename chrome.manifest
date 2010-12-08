@@ -1,0 +1,24 @@
+# Functional content
+## Components
+component	{62da6726-6d2b-4916-8bf7-fe48b986edb3}		components/ddSignonCategoryStorage.js
+contract	@daniel.dawson/signoncategorystorage;1		{62da6726-6d2b-4916-8bf7-fe48b986edb3}
+category	profile-after-change	ddSignonCategoryStorage	@daniel.dawson/signoncategorystorage;1
+interfaces	components/ddISignonCategoryStorage.xpt
+
+## Chrome
+content	passwordcategories		chrome/content/
+
+# Language-specific content
+locale	passwordcategories	en-US	chrome/locale/en-US/
+locale	passwordcategories	fr	chrome/locale/fr/
+locale	passwordcategories	hu-HU	chrome/locale/hu-HU/
+locale	passwordcategories	nl	chrome/locale/nl/
+locale	passwordcategories	ru	chrome/locale/ru/
+locale	passwordcategories	sr	chrome/locale/sr/
+locale	passwordcategories	sv-SE	chrome/locale/sv-SE/
+locale	passwordcategories	zh-CN	chrome/locale/zh-CN/
+
+# What goes where
+## Password Manager (why does SeaMonkey have two?)
+overlay chrome://passwordmgr/content/passwordManager.xul chrome://passwordcategories/content/pwdmgrOverlay.xul
+overlay chrome://communicator/content/passwordManager.xul chrome://passwordcategories/content/pwdmgrOverlay.xul
