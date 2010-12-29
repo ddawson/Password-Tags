@@ -23,6 +23,9 @@
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script type="text/javascript"
           src="chrome://passwordcategories/content/pwdmgrOverlay.js"/>
+  <keyset>
+    <key key="e" modifiers="control" oncommand="document.getElementById('signonsTree').startEditing(0, getColumnByName('category'));"/>
+  </keyset>
 
   <tree id="signonsTree" editable="true">
     <!-- This is not the correct place to put these. Unfortunately, the

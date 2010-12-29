@@ -136,5 +136,13 @@
         <maxVersion>3.3a1</maxVersion>
       </RDF:Description>
     </targetApplication>
+
+    <targetApplication>
+      <RDF:Description>
+        <id>{a79fe89b-6662-4ff4-8e88-09950ad4dfde}</id> <!-- Conkeror -->
+        <minVersion>0.9</minVersion>
+        <maxVersion>0.9.*</maxVersion>
+      </RDF:Description>
+    </targetApplication>
   </RDF:Description>
 </RDF:RDF>

@@ -16,10 +16,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-var _origGetColumnByName, _pcatGetColumnByName,
-    _origSignonColumnSort, _pcatSignonColumnSort,
-    _origSignonMatchesFilter, _pcatSignonMatchesFilter;
-
 document.addEventListener(
   "DOMContentLoaded",
   function dclHandler (ev) {
@@ -32,27 +28,23 @@ document.addEventListener(
 
     // Replacing functions to "wedge" in our functionality
     // Is there a better way to accomplish this?
+    var origGetCellText = signonsTreeView.getCellText;
     function pcatGetCellText (row, column) {
-      var signon = signonsTreeView._filterSet.length ?
-                   signonsTreeView._filterSet[row] : signons[row];
-      if (column.id == "catCol") {
-        var category = catStorage.getCategory(signon);
-        return category;
-      }
-      return signonsTreeView._origGetCellText(row, column);
+      var signon = this._filterSet.length ?
+                   this._filterSet[row] : signons[row];
+      return column.id == "catCol" ? catStorage.getCategory(signon) :
+                                     origGetCellText.call(this, row, column);
     }
-    signonsTreeView._origGetCellText = signonsTreeView.getCellText;
-    signonsTreeView._pcatGetCellText =
-      signonsTreeView.getCellText = pcatGetCellText;
+    signonsTreeView.getCellText = pcatGetCellText;
 
-    function pcatIsEditable (row, col) {
-      if (col.id == "catCol")
-        return true;
-      else
-        return false;
-    }
+    var origIsEditable = signonsTreeView.isEditable;
+    if (!origIsEditable) origIsEditable = function () false;
+    function pcatIsEditable (row, col)
+      col.id == "catCol" ? true : origIsEditable.call(this, row, col);
     signonsTreeView.isEditable = pcatIsEditable;
 
+    var origSetCellText = signonsTreeView.setCellText;
+    if (!origSetCellText) origSetCellText = function () {};
     function pcatSetCellText (row, col, value) {
       if (col.id == "catCol") {
         let signon = signonsTreeView._filterSet.length ?
@@ -60,33 +52,30 @@ document.addEventListener(
         catStorage.setCategory(signon, value);
         LoadSignons();
       }
+      origSetCellText.call(this, row, col, value);
     }
     signonsTreeView.setCellText = pcatSetCellText;
 
-    function pcatGetColumnByName (column) {
-      if (column == "category")
-        return document.getElementById("catCol");
-      return _origGetColumnByName(column);
-    }
-    if (window.hasOwnProperty("getColumnByName")) {
-      _origGetColumnByName = getColumnByName;
-      _pcatGetColumnByName = getColumnByName = pcatGetColumnByName;
-    }
+    var origGetColumnByName = getColumnByName;
+    if (!origGetColumnByName) origGetColumnByName = function () null;
+    function pcatGetColumnByName (column)
+      column == "category" ? document.getElementById("catCol") :
+                             origGetColumnByName(column);
+    getColumnByName = pcatGetColumnByName;
 
-    function cloneLoginInfo (loginInfo) {
-      var obj = {
-        cloned: true,
-        hostname: loginInfo.hostname,
-        httpRealm: loginInfo.httpRealm,
-        formSubmitURL: loginInfo.formSubmitURL,
-        username: loginInfo.username,
-        password: loginInfo.password,
-        usernameField: loginInfo.usernameField,
-        passwordField: loginInfo.passwordField
-      };
-      return obj;
-    }
+    function cloneLoginInfo (loginInfo) ({
+      cloned: true,
+      hostname: loginInfo.hostname,
+      httpRealm: loginInfo.httpRealm,
+      formSubmitURL: loginInfo.formSubmitURL,
+      username: loginInfo.username,
+      password: loginInfo.password,
+      usernameField: loginInfo.usernameField,
+      passwordField: loginInfo.passwordField
+    });
 
+    var origSignonColumnSort = SignonColumnSort;
+    if (!origSignonColumnSort) origSignonColumnSort = function () {};
     function pcatSignonColumnSort (column) {
       var l = signonsTreeView._filterSet.length;
       if (!l) {
@@ -104,20 +93,20 @@ document.addEventListener(
           fs[i].category = category;
         }
       }
-      _origSignonColumnSort(column);
+      origSignonColumnSort(column);
     }
-    _origSignonColumnSort = SignonColumnSort;
-    _pcatSignonColumnSort = SignonColumnSort = pcatSignonColumnSort;
+    SignonColumnSort = pcatSignonColumnSort;
 
+    var origSignonMatchesFilter = SignonMatchesFilter;
+    if (!origSignonMatchesFilter) origSignonMatchesFilter = function () false;
     function pcatSignonMatchesFilter (signon, filterValue) {
-      if (_origSignonMatchesFilter(signon, filterValue)) return true;
+      if (origSignonMatchesFilter(signon, filterValue)) return true;
       if (signon.category &&
           signon.category.toLowerCase().indexOf(filterValue) != -1)
         return true;
       return false;
     }
-    _origSignonMatchesFilter = SignonMatchesFilter;
-    _pcatSignonMatchesFilter = SignonMatchesFilter = pcatSignonMatchesFilter;
+    SignonMatchesFilter = pcatSignonMatchesFilter;
 
     document.removeEventListener("DOMContentLoaded", dclHandler, false);
   },
