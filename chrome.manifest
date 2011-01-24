@@ -6,23 +6,24 @@ category	profile-after-change	ddSignonCategoryStorage	@daniel.dawson/signoncateg
 interfaces	components/ddISignonCategoryStorage.xpt
 
 ## Chrome
-content	passwordcategories		chrome/content/
+content	passwordtags		chrome/content/
 
 # Language-specific content
-locale	passwordcategories	de	chrome/locale/de/
-locale	passwordcategories	en-US	chrome/locale/en-US/
-locale	passwordcategories	fr	chrome/locale/fr/
-locale	passwordcategories	he	chrome/locale/he/
-locale	passwordcategories	hu-HU	chrome/locale/hu-HU/
-locale	passwordcategories	nl	chrome/locale/nl/
-locale	passwordcategories	ru	chrome/locale/ru/
-locale	passwordcategories	sr	chrome/locale/sr/
-locale	passwordcategories	sv-SE	chrome/locale/sv-SE/
-locale	passwordcategories	uk-UA	chrome/locale/uk-UA/
-locale	passwordcategories	zh-CN	chrome/locale/zh-CN/
-locale	passwordcategories	zh-TW	chrome/locale/zh-TW/
+locale	passwordtags	de	chrome/locale/de/
+locale	passwordtags	en-US	chrome/locale/en-US/
+locale	passwordtags	fr	chrome/locale/fr/
+locale	passwordtags	he	chrome/locale/he/
+locale	passwordtags	hu-HU	chrome/locale/hu-HU/
+locale	passwordtags	nl	chrome/locale/nl/
+locale	passwordtags	pl	chrome/locale/pl/
+locale	passwordtags	ru	chrome/locale/ru/
+locale	passwordtags	sr	chrome/locale/sr/
+locale	passwordtags	sv-SE	chrome/locale/sv-SE/
+locale	passwordtags	uk-UA	chrome/locale/uk-UA/
+locale	passwordtags	zh-CN	chrome/locale/zh-CN/
+locale	passwordtags	zh-TW	chrome/locale/zh-TW/
 
 # What goes where
 ## Password Manager (why does SeaMonkey have two?)
-overlay chrome://passwordmgr/content/passwordManager.xul chrome://passwordcategories/content/pwdmgrOverlay.xul
-overlay chrome://communicator/content/passwordManager.xul chrome://passwordcategories/content/pwdmgrOverlay.xul
+overlay chrome://passwordmgr/content/passwordManager.xul chrome://passwordtags/content/pwdmgrOverlay.xul
+overlay chrome://communicator/content/passwordManager.xul chrome://passwordtags/content/pwdmgrOverlay.xul

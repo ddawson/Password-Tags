@@ -1,5 +1,5 @@
 /*
-    Password Categories, extension for Firefox 3.5+ and others
+    Password Tags, extension for Firefox 3.5+ and others
     Copyright (C) 2010  Daniel Dawson <ddawson@icehouse.net>
 
     This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@ Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 function ddSignonCategoryStorage () {}
 
 ddSignonCategoryStorage.prototype = {
-  classDescription:  "Signon Category Storage",
+  classDescription:  "Signon Tags Storage",
   classID:           Components.ID("{62da6726-6d2b-4916-8bf7-fe48b986edb3}"),
   contractID:        "@daniel.dawson/signoncategorystorage;1",
   _xpcom_categories: [{ category: "app-startup", service: true }],
@@ -45,13 +45,14 @@ ddSignonCategoryStorage.prototype = {
       break;
 
     case "profile-after-change":
-      this._readCatFile();
       uc.charset = "UTF-8";
       break;
     }
   },
 
   getCategory: function (signon) {
+    if (!this._tags) this._readTagsFile();
+
     var hostname = signon.hostname || "",
         httpRealm = signon.httpRealm || "",
         formSubmitURL = signon.formSubmitURL || "",
@@ -63,17 +64,19 @@ ddSignonCategoryStorage.prototype = {
     ch.init(ch.MD5);
     ch.update(usernameBytes, usernameBytes.length);
     var usernameHash = ch.finish(true);
-    var catspec =
-      this._cats[this._index_concat(
+    var tagsspec =
+      this._tags[this._index_concat(
                    hostname, httpRealm, formSubmitURL, usernameField,
                    passwordField, usernameHash)];
-    if (catspec === undefined)
+    if (tagsspec === undefined)
       return "";
     else
-      return catspec.category;
+      return tagsspec.tags;
   },
   
-  setCategory: function (signon, category) {
+  setCategory: function (signon, tags) {
+    if (!this._tags) this._readTagsFile();
+
     var hostname = signon.hostname || "",
         httpRealm = signon.httpRealm || "",
         formSubmitURL = signon.formSubmitURL || "",
@@ -85,18 +88,34 @@ ddSignonCategoryStorage.prototype = {
     ch.init(ch.MD5);
     ch.update(usernameBytes, usernameBytes.length);
     var usernameHash = ch.finish(true);
-    if (category)
-      this._cats[this._index_concat(
+
+    if (tags) {
+      let tagsAry = [str.trim() for each (str in tags.split(","))];
+      tagsAry.sort();
+      let prevString = null;
+      let i = 0;
+      while (i < tagsAry.length) {
+        let str = tagsAry[i];
+        if (str == prevString)
+          tagsAry.splice(i, 1);
+        else {
+          prevString = str;
+          i++;
+        }
+      }
+      tags = tagsAry.join(",");
+
+      this._tags[this._index_concat(
                    hostname, httpRealm, formSubmitURL, usernameField,
                    passwordField, usernameHash)] = {
         hostname: hostname, httpRealm: httpRealm, formSubmitURL: formSubmitURL,
         usernameField: usernameField, passwordField: passwordField,
-        usernameHash: usernameHash, category: category };
-    else
-      delete this._cats[this._index_concat(
+        usernameHash: usernameHash, tags: tags };
+    } else
+      delete this._tags[this._index_concat(
                           hostname, httpRealm, formSubmitURL, usernameField,
                           passwordField, usernameHash)];
-    this._writeCatFile();
+    this._writeTagsFile();
   },
 
   _index_concat: function (a,b,c,d,e,f) {
@@ -106,18 +125,18 @@ ddSignonCategoryStorage.prototype = {
            e.replace(pat, rep)+","+f.replace(pat, rep)+",";
   },
 
-  _readCatFile: function () {
-    this._catFile = Cc["@mozilla.org/file/directory_service;1"].
+  _readTagsFile: function () {
+    this._tagsFile = Cc["@mozilla.org/file/directory_service;1"].
       getService(Ci.nsIProperties).get("ProfD", Ci.nsILocalFile);
-    this._catFile.append(CAT_FILENAME);
-    this._cats = new Object();
-    if (!this._catFile.exists()) return;
+    this._tagsFile.append(CAT_FILENAME);
+    this._tags = new Object();
+    if (!this._tagsFile.exists()) return;
 
     var fstream = Cc["@mozilla.org/network/file-input-stream;1"].
                   createInstance(Ci.nsIFileInputStream);
     var sstream = Cc["@mozilla.org/scriptableinputstream;1"].
                   createInstance(Ci.nsIScriptableInputStream);
-    fstream.init(this._catFile, -1, 0, 0);
+    fstream.init(this._tagsFile, -1, 0, 0);
     sstream.init(fstream);
     var contents = sstream.read(sstream.available());
     sstream.close();
@@ -128,47 +147,54 @@ ddSignonCategoryStorage.prototype = {
               parseFromString(contents, "text/xml");
 
     var root = doc.documentElement;
-    if (root.tagName != "cats" || !root.hasAttribute("version") ||
-        root.getAttribute("version") != "1")
+    if ((root.tagName != "cats" && root.tagName != "tags") ||
+        !root.hasAttribute("version"))
+      return;
+    let version = root.getAttribute("version");
+    if (version != "1" && version != "2")
       return;
 
     for (let elem = root.firstChild; elem; elem = elem.nextSibling) {
       if (elem.nodeType != 1 || elem.tagName != "signon")
         continue;
+      uc.charset = "UTF-8";
       let hostname = elem.getAttribute("hostname"),
           httpRealm = elem.getAttribute("httpRealm"),
           formSubmitURL = elem.getAttribute("formSubmitURL"),
           usernameField = elem.getAttribute("usernameField"),
           passwordField = elem.getAttribute("passwordField"),
           usernameHash = elem.getAttribute("usernameHash"),
-          category = elem.getAttribute("category");
-      this._cats[this._index_concat(
+          tags = uc.ConvertToUnicode(
+            elem.getAttribute(version == "2" ? "tags" : "category"));
+      this._tags[this._index_concat(
                    hostname, httpRealm, formSubmitURL, usernameField,
                    passwordField, usernameHash)] = {
         hostname: hostname, httpRealm: httpRealm, formSubmitURL: formSubmitURL,
         usernameField: usernameField, passwordField: passwordField,
-        usernameHash: usernameHash, category: category };
+        usernameHash: usernameHash, tags: tags };
     }
   },
 
-  _writeCatFile: function () {
-    var doc = <cats version="1"/>;
-    for each (let val in this._cats) {
+  _writeTagsFile: function () {
+    var doc = <tags version="2"/>;
+    for each (let val in this._tags) {
       let signon = <signon hostname={val.hostname} httpRealm={val.httpRealm}
                            formSubmitURL={val.formSubmitURL}
                            usernameField={val.usernameField}
                            passwordField={val.passwordField}
                            usernameHash={val.usernameHash}
-                           category={val.category}/>;
+                           tags={val.tags}/>;
       doc.appendChild(signon);
     }
 
+    uc.charset = "UTF-8";
     var docString = uc.ConvertFromUnicode(
                       '<?xml version="1.0" encoding="UTF-8"?>\n' +
+                      '<!-- Tags storage for Password Tags add-on -->\n' +
                       doc.toXMLString()) + uc.Finish();
     var stream = Cc["@mozilla.org/network/file-output-stream;1"].
                  createInstance(Ci.nsIFileOutputStream);
-    stream.init(this._catFile, -1, -1, -1);
+    stream.init(this._tagsFile, -1, -1, -1);
     stream.write(docString, docString.length);
     stream.close();
   },

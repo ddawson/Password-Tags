@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Password Categories, extension for Firefox 3.5+ and others
+    Password Tags, extension for Firefox 3.5+ and others
     Copyright (C) 2010  Daniel Dawson <ddawson@icehouse.net>
 
     This program is free software: you can redistribute it and/or modify
@@ -17,22 +17,33 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<!DOCTYPE overlay SYSTEM "chrome://passwordcategories/locale/pwdcat.dtd">
+<!DOCTYPE overlay SYSTEM "chrome://passwordtags/locale/pwdtags.dtd">
 
-<overlay id="pwdcatOverlay"
+<overlay id="pwdtagsOverlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <stringbundleset>
+    <stringbundle id="pwdtagsStrbundle"
+                  src="chrome://passwordtags/locale/pwdtags.properties"/>
+  </stringbundleset>
   <script type="text/javascript"
-          src="chrome://passwordcategories/content/pwdmgrOverlay.js"/>
-  <keyset>
-    <key key="e" modifiers="control" oncommand="document.getElementById('signonsTree').startEditing(0, getColumnByName('category'));"/>
-  </keyset>
+          src="chrome://passwordtags/content/pwdmgrOverlay.js"/>
 
-  <tree id="signonsTree" editable="true">
+  <window id="SignonViewerDialog">
+    <popupset id="signonsTreeContextSet">
+      <menupopup id="signonsTreeContextMenu">
+        <menuitem id="menu_editTags" label="&edittags.label;"
+                  accesskey="&edittags.accesskey;"
+                  oncommand="ptags_edittags();"/>
+      </menupopup>
+    </popupset>
+  </window>
+
+  <tree id="signonsTree" context="signonsTreeContextMenu" editable="true">
     <!-- This is not the correct place to put these. Unfortunately, the
          correct place has no id, so it can't be properly overlayed. Thus,
          I must put them somewhere, then move them in a script. -->
-    <splitter id="catColSplitter" class="tree-splitter"/>
-    <treecol id="catCol" label="&column_category.label;" editable="true"
-             flex="2" onclick="SignonColumnSort('category');" persist="width"/>
+    <splitter id="tagsColSplitter" class="tree-splitter"/>
+    <treecol id="tagsCol" label="&column_tags.label;" editable="true"
+             flex="2" onclick="SignonColumnSort('tags');" persist="width"/>
   </tree>
 </overlay>
