@@ -9,6 +9,7 @@ interfaces	components/ddISignonCategoryStorage.xpt
 content	passwordtags		chrome/content/
 
 # Language-specific content
+locale	passwordtags	bg-BG	chrome/locale/bg-BG/
 locale	passwordtags	de	chrome/locale/de/
 locale	passwordtags	en-US	chrome/locale/en-US/
 locale	passwordtags	fr	chrome/locale/fr/

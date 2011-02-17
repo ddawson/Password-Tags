@@ -1,4 +1,4 @@
-/*
+<!--
     Password Tags, extension for Firefox 3.5+ and others
     Copyright (C) 2010  Daniel Dawson <ddawson@icehouse.net>
 
@@ -14,13 +14,13 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 
-#include "nsISupports.idl"
-#include "nsILoginInfo.idl"
-
-[scriptable, uuid(62da6726-6d2b-4916-8bf7-fe48b986edb3)]
-interface ddISignonCategoryStorage : nsISupports {
-  wstring getCategory (in nsILoginInfo signon);
-  void setCategory (in nsILoginInfo signon, in wstring category);
-};
+-->
+<!-- Please visit the support topic on the BabelZilla forums to find the
+     add-on descriptions to translate:
+     http://www.babelzilla.org/forum/index.php?showtopic=6447 
+-->
+<!ENTITY column_tags.label "Тагове">
+<!ENTITY edittags.label "Редактиране на таговете">
+<!-- Needs to match edittagsAccesskey in pwdtags.properties -->
+<!ENTITY edittags.accesskey "ш">

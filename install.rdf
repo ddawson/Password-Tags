@@ -4,8 +4,9 @@
   <RDF:Description about="urn:mozilla:install-manifest">
     <id>passwordcategories@daniel.dawson</id>
     <name>Password Tags</name>
-    <version>1.1</version>
+    <version>1.1.1</version>
     <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+    <translator>bg-BG: arris (BabelZilla)</translator>
     <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
     <translator>fr: Goofy (BabelZilla)</translator>
     <translator>he: SiiiE (BabelZilla)</translator>
@@ -22,9 +23,30 @@
 
     <localized>
       <RDF:Description>
+        <locale>bg-BG</locale>
+        <name>Password Categories</name>
+        <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <translator>bg-BG: arris (BabelZilla)</translator>
+        <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
+        <translator>fr: Goofy (BabelZilla)</translator>
+        <translator>he: SiiiE (BabelZilla)</translator>
+        <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
+        <translator>nl: markh (BabelZilla)</translator>
+        <translator>pl: Marcin Borowczyk (BabelZilla)</translator>
+        <translator>ru: Пирятинский Виталий "PiVV" (BabelZilla)</translator>
+        <translator>sr: ДакСРБИЈА (BabelZilla)</translator>
+        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
+        <translator>uk-UA: Володимир Савчук "Sappa" (BabelZilla)</translator>
+        <translator>zh-CN: mozillazg "BruceH" (BabelZilla)</translator>
+        <translator>zh-TW: Velociraptor (BabelZilla)</translator>
+        <description>Добавя подбрани бележки посочени от потребителя, в пароли мениджъра.</description>
+      </RDF:Description>
+
+      <RDF:Description>
         <locale>de</locale>
         <name>Password Categories</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
         <translator>fr: Goofy (BabelZilla)</translator>
         <translator>he: SiiiE (BabelZilla)</translator>
@@ -44,6 +66,7 @@
         <locale>fr</locale>
         <name>Password Categories</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
         <translator>fr: Goofy (BabelZilla)</translator>
         <translator>he: SiiiE (BabelZilla)</translator>
@@ -63,6 +86,7 @@
         <locale>he</locale>
         <name>Password Categories</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
         <translator>fr: Goofy (BabelZilla)</translator>
         <translator>he: SiiiE (BabelZilla)</translator>
@@ -82,6 +106,7 @@
         <locale>hu-HU</locale>
         <name>Password Categories</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
         <translator>fr: Goofy (BabelZilla)</translator>
         <translator>he: SiiiE (BabelZilla)</translator>
@@ -101,6 +126,7 @@
         <locale>nl</locale>
         <name>Password Categories</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
         <translator>fr: Goofy (BabelZilla)</translator>
         <translator>he: SiiiE (BabelZilla)</translator>
@@ -120,6 +146,7 @@
         <locale>pl</locale>
         <name>Password Categories</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
         <translator>fr: Goofy (BabelZilla)</translator>
         <translator>he: SiiiE (BabelZilla)</translator>
@@ -139,6 +166,7 @@
         <locale>ru</locale>
         <name>Password Categories</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
         <translator>fr: Goofy (BabelZilla)</translator>
         <translator>he: SiiiE (BabelZilla)</translator>
@@ -158,6 +186,7 @@
         <locale>sr</locale>
         <name>Password Categories</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
         <translator>fr: Goofy (BabelZilla)</translator>
         <translator>he: SiiiE (BabelZilla)</translator>
@@ -176,6 +205,7 @@
       <RDF:Description>
         <locale>sv-SE</locale>
         <name>Password Categories</name>
+        <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
         <translator>fr: Goofy (BabelZilla)</translator>
         <translator>he: SiiiE (BabelZilla)</translator>
@@ -195,6 +225,7 @@
         <locale>uk-UA</locale>
         <name>Password Categories</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
         <translator>fr: Goofy (BabelZilla)</translator>
         <translator>he: SiiiE (BabelZilla)</translator>
@@ -213,6 +244,7 @@
       <RDF:Description>
         <locale>zh-CN</locale>
         <name>Password Categories</name>
+        <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
         <translator>fr: Goofy (BabelZilla)</translator>
         <translator>he: SiiiE (BabelZilla)</translator>
@@ -231,6 +263,7 @@
       <RDF:Description>
         <locale>zh-TW</locale>
         <name>Password Categories</name>
+        <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
         <translator>fr: Goofy (BabelZilla)</translator>
         <translator>he: SiiiE (BabelZilla)</translator>

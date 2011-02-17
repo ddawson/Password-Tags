@@ -161,14 +161,3 @@ function ptags_edittags () {
   var tagsColObj = tree.columns.getNamedColumn("tagsCol");
   tree.startEditing(idx, tagsColObj);
 }
-
-document.getElementById("signonsTree").addEventListener(
-  "keypress",
-  function (evt) {
-    if (evt.charCode ==
-          document.getElementById("pwdtagsStrbundle").
-            getString("edittagsAccesskey").charCodeAt(0) &&
-        !evt.altKey && !evt.ctrlKey && !evt.metaKey)
-      ptags_edittags();
-  },
-  false);
