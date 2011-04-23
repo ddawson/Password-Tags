@@ -284,7 +284,7 @@
       <RDF:Description>
         <id>toolkit@mozilla.org</id> <!-- All applications -->
         <minVersion>1.9.1</minVersion>
-        <maxVersion>2.0.*</maxVersion>
+        <maxVersion>6.0.*</maxVersion>
       </RDF:Description>
     </targetApplication>
   </RDF:Description>
