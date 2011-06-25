@@ -3,8 +3,9 @@
          xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <RDF:Description about="urn:mozilla:install-manifest">
     <id>passwordcategories@daniel.dawson</id>
+    <type>2</type>
     <name>Password Tags</name>
-    <version>1.1.1</version>
+    <version>1.2</version>
     <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
     <translator>bg-BG: arris (BabelZilla)</translator>
     <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
@@ -12,7 +13,8 @@
     <translator>he: SiiiE (BabelZilla)</translator>
     <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
     <translator>nl: markh (BabelZilla)</translator>
-    <translator>pl: Marcin Borowczyk (BabelZilla)</translator>
+    <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
+    <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
     <translator>ru: Pyriatynskyi Vytalyi "PiVV" (BabelZilla)</translator>
     <translator>sr: DakSrbija (BabelZilla)</translator>
     <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
@@ -32,7 +34,8 @@
         <translator>he: SiiiE (BabelZilla)</translator>
         <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
         <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk (BabelZilla)</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
         <translator>ru: Пирятинский Виталий "PiVV" (BabelZilla)</translator>
         <translator>sr: ДакСРБИЈА (BabelZilla)</translator>
         <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
@@ -52,7 +55,8 @@
         <translator>he: SiiiE (BabelZilla)</translator>
         <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
         <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk (BabelZilla)</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
         <translator>ru: Pyriatynskyi Vytalyi "PiVV" (BabelZilla)</translator>
         <translator>sr: DakSrbija (BabelZilla)</translator>
         <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
@@ -72,7 +76,8 @@
         <translator>he: SiiiE (BabelZilla)</translator>
         <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
         <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk (BabelZilla)</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
         <translator>ru: Pyriatynskyi Vytalyi "PiVV" (BabelZilla)</translator>
         <translator>sr: DakSrbija (BabelZilla)</translator>
         <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
@@ -92,7 +97,8 @@
         <translator>he: SiiiE (BabelZilla)</translator>
         <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
         <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk (BabelZilla)</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
         <translator>ru: Pyriatynskyi Vytalyi "PiVV" (BabelZilla)</translator>
         <translator>sr: DakSrbija (BabelZilla)</translator>
         <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
@@ -112,7 +118,8 @@
         <translator>he: SiiiE (BabelZilla)</translator>
         <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
         <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk (BabelZilla)</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
         <translator>ru: Pyriatynskyi Vytalyi "PiVV" (BabelZilla)</translator>
         <translator>sr: DakSrbija (BabelZilla)</translator>
         <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
@@ -132,7 +139,8 @@
         <translator>he: SiiiE (BabelZilla)</translator>
         <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
         <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk (BabelZilla)</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
         <translator>ru: Pyriatynskyi Vytalyi "PiVV" (BabelZilla)</translator>
         <translator>sr: DakSrbija (BabelZilla)</translator>
         <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
@@ -152,7 +160,8 @@
         <translator>he: SiiiE (BabelZilla)</translator>
         <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
         <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk (BabelZilla)</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
         <translator>ru: Pyriatynskyi Vytalyi "PiVV" (BabelZilla)</translator>
         <translator>sr: DakSrbija (BabelZilla)</translator>
         <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
@@ -172,7 +181,8 @@
         <translator>he: SiiiE (BabelZilla)</translator>
         <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
         <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk (BabelZilla)</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
         <translator>ru: Пирятинский Виталий "PiVV" (BabelZilla)</translator>
         <translator>sr: ДакСРБИЈА (BabelZilla)</translator>
         <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
@@ -192,7 +202,8 @@
         <translator>he: SiiiE (BabelZilla)</translator>
         <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
         <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk (BabelZilla)</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
         <translator>ru: Пирятинский Виталий "PiVV" (BabelZilla)</translator>
         <translator>sr: ДакСРБИЈА (BabelZilla)</translator>
         <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
@@ -211,7 +222,8 @@
         <translator>he: SiiiE (BabelZilla)</translator>
         <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
         <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk (BabelZilla)</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
         <translator>ru: Pyriatynskyi Vytalyi "PiVV" (BabelZilla)</translator>
         <translator>sr: DakSrbija (BabelZilla)</translator>
         <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
@@ -231,7 +243,8 @@
         <translator>he: SiiiE (BabelZilla)</translator>
         <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
         <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk (BabelZilla)</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
         <translator>ru: Пирятинский Виталий "PiVV" (BabelZilla)</translator>
         <translator>sr: ДакСРБИЈА (BabelZilla)</translator>
         <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
@@ -250,7 +263,8 @@
         <translator>he: SiiiE (BabelZilla)</translator>
         <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
         <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk (BabelZilla)</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
         <translator>ru: Pyriatynskyi Vytalyi "PiVV" (BabelZilla)</translator>
         <translator>sr: DakSrbija (BabelZilla)</translator>
         <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
@@ -269,7 +283,8 @@
         <translator>he: SiiiE (BabelZilla)</translator>
         <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
         <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk (BabelZilla)</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
         <translator>ru: Pyriatynskyi Vytalyi "PiVV" (BabelZilla)</translator>
         <translator>sr: DakSrbija (BabelZilla)</translator>
         <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
@@ -282,9 +297,30 @@
 
     <targetApplication>
       <RDF:Description>
+        <id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</id> <!-- Firefox -->
+        <minVersion>3.5</minVersion>
+        <maxVersion>7.0a1</maxVersion>
+      </RDF:Description>
+    </targetApplication>
+    <targetApplication>
+      <RDF:Description>
+        <id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</id> <!-- SeaMonkey -->
+        <minVersion>2.0</minVersion>
+        <maxVersion>2.4a1</maxVersion>
+      </RDF:Description>
+    </targetApplication>
+    <targetApplication>
+      <RDF:Description>
+        <id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</id> <!-- Thunderbird -->
+        <minVersion>3.0</minVersion>
+        <maxVersion>7.0a1</maxVersion>
+      </RDF:Description>
+    </targetApplication>
+    <targetApplication>
+      <RDF:Description>
         <id>toolkit@mozilla.org</id> <!-- All applications -->
         <minVersion>1.9.1</minVersion>
-        <maxVersion>6.0.*</maxVersion>
+        <maxVersion>7.0.*</maxVersion>
       </RDF:Description>
     </targetApplication>
   </RDF:Description>

@@ -17,6 +17,7 @@ locale	passwordtags	he	chrome/locale/he/
 locale	passwordtags	hu-HU	chrome/locale/hu-HU/
 locale	passwordtags	nl	chrome/locale/nl/
 locale	passwordtags	pl	chrome/locale/pl/
+locale	passwordtags	pt-BR	chrome/locale/pt-BR/
 locale	passwordtags	ru	chrome/locale/ru/
 locale	passwordtags	sr	chrome/locale/sr/
 locale	passwordtags	sv-SE	chrome/locale/sv-SE/
@@ -25,6 +26,8 @@ locale	passwordtags	zh-CN	chrome/locale/zh-CN/
 locale	passwordtags	zh-TW	chrome/locale/zh-TW/
 
 # What goes where
-## Password Manager (why does SeaMonkey have two?)
+## Password Manager
 overlay chrome://passwordmgr/content/passwordManager.xul chrome://passwordtags/content/pwdmgrOverlay.xul
 overlay chrome://communicator/content/passwordManager.xul chrome://passwordtags/content/pwdmgrOverlay.xul
+overlay chrome://communicator/content/dataman/dataman.xul chrome://passwordtags/content/datamanOverlay.xul
+overlay about:data chrome://passwordtags/content/datamanOverlay.xul

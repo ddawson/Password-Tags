@@ -64,7 +64,7 @@ document.addEventListener(
               getString("edittagsAccesskey").charCodeAt(0) &&
           !evt.altKey && !evt.ctrlKey && !evt.metaKey && tree.editingRow == -1)
         ptags_edittags();
-      else if (evt.keyCode == 46 && tree.editingRow == -1)
+      else if (tree.editingRow == -1)
         return origHandleSignonKeyPress(evt);
     }
     HandleSignonKeyPress = ptagsHandleSignonKeyPress;
