@@ -55,6 +55,14 @@ document.addEventListener(
     }
     gPasswords.setCellText = ptagsSetCellText;
 
+    function ptagsEdittags (evt) {
+        var idx = this.tree.currentIndex;
+        var tagsColObj = this.tree.columns.getNamedColumn("pwdTagsCol");
+        this.tree.startEditing(idx, tagsColObj);
+        evt.stopPropagation();
+    }
+    gPasswords.ptags_edittags = ptagsEdittags;
+
     var origHandleKeyPress = gPasswords.handleKeyPress;
     function ptagsHandleKeyPress (evt) {
       if (evt.charCode ==
@@ -62,10 +70,7 @@ document.addEventListener(
               getString("edittagsAccesskey").charCodeAt(0) &&
           !evt.altKey && !evt.ctrlKey && !evt.metaKey &&
           this.tree.editingRow == -1) {
-        let idx = this.tree.currentIndex;
-        let tagsColObj = this.tree.columns.getNamedColumn("pwdTagsCol");
-        this.tree.startEditing(idx, tagsColObj);
-        evt.stopPropagation();
+        this.ptags_edittags(evt);
       } else if (this.tree.editingRow == -1)
         return origHandleKeyPress.call(this, evt);
     }

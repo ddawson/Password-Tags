@@ -31,7 +31,7 @@
   <menupopup id="passwordsTreeContextMenu">
     <menuitem id="menu_editTags" label="&edittags.label;"
               accesskey="&edittags.accesskey;"
-              oncommand="ptags_edittags();"/>
+              oncommand="gPasswords.ptags_edittags();"/>
   </menupopup>
 
   <tree id="passwordsTree" editable="true">
