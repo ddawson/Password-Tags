@@ -1,7 +1,11 @@
 # Functional content
 ## Components
-component	{62da6726-6d2b-4916-8bf7-fe48b986edb3}		components/ddSignonCategoryStorage.js
-contract	@daniel.dawson/signoncategorystorage;1		{62da6726-6d2b-4916-8bf7-fe48b986edb3}
+component	{82bc2588-7629-498f-9c4a-ae0f96a69ef0}		components/ddSignonCategoryStorage.js
+component	{29d46f03-82ef-47e4-8dd1-2f83f3b8bef6}		components/ddSignonCategoryStorage.js
+component	{dbf0a7d4-14a7-406c-b74d-ddb1e005026b}		components/ddSignonCategoryStorage.js
+contract	@daniel.dawson/signonmetadatafield;1		{82bc2588-7629-498f-9c4a-ae0f96a69ef0}
+contract	@daniel.dawson/signonmetadata;1			{29d46f03-82ef-47e4-8dd1-2f83f3b8bef6}
+contract	@daniel.dawson/signoncategorystorage;1		{dbf0a7d4-14a7-406c-b74d-ddb1e005026b}
 category	profile-after-change	ddSignonCategoryStorage	@daniel.dawson/signoncategorystorage;1
 interfaces	components/ddISignonCategoryStorage.xpt
 

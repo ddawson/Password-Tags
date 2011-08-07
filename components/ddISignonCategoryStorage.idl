@@ -19,8 +19,44 @@
 #include "nsISupports.idl"
 #include "nsILoginInfo.idl"
 
-[scriptable, uuid(62da6726-6d2b-4916-8bf7-fe48b986edb3)]
+[scriptable, uuid(82bc2588-7629-498f-9c4a-ae0f96a69ef0)]
+interface ddISignonMetadataField : nsISupports {
+  void init (in wstring name, in long type, in wstring value);
+  attribute wstring name;
+  attribute long type;
+  attribute wstring value;
+};
+
+[scriptable, uuid(29d46f03-82ef-47e4-8dd1-2f83f3b8bef6)]
+interface ddISignonMetadata : nsISupports {
+  wstring getTags ();
+  wstring serializeMetadata ();
+  void setTags (in wstring tags);
+  void setMetadataFromString (in wstring serialString);
+  long getNumberOfFields ();
+  void insertField (in long idx, in wstring name, in long type,
+                    in wstring value);
+  void removeField (in long idx);
+  ddISignonMetadataField getField (in long idx);
+  void getFields (out unsigned long length,
+                  [array, size_is(length), retval]
+                    out ddISignonMetadataField fields);
+};
+
+[scriptable, uuid(dbf0a7d4-14a7-406c-b74d-ddb1e005026b)]
 interface ddISignonCategoryStorage : nsISupports {
-  wstring getCategory (in nsILoginInfo signon);
-  void setCategory (in nsILoginInfo signon, in wstring category);
+  ddISignonMetadata getMetadata (in nsILoginInfo signon);
+  wstring getTags (in nsILoginInfo signon);
+  [deprecated] wstring getCategory (in nsILoginInfo signon);
+  void setMetadata (in nsILoginInfo signon, in ddISignonMetadata signonMeta);
+  void setTags (in nsILoginInfo signon, in wstring tags);
+  [deprecated] void setCategory (in nsILoginInfo signon,
+                                 in wstring category);
+  long getNumberOfDefaultFields ();
+  void insertDefaultField (in long idx, in wstring name, in long type);
+  void removeDefaultField (in long idx);
+  ddISignonMetadataField getDefaultField (in long idx);
+  void getDefaultFields (out unsigned long length,
+                         [array, size_is(length)]
+                           out ddISignonMetadataField fields);
 };
