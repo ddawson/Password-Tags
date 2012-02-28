@@ -1,33 +1,13 @@
 # Functional content
-## Components
-component	{82bc2588-7629-498f-9c4a-ae0f96a69ef0}		components/ddSignonCategoryStorage.js
-component	{29d46f03-82ef-47e4-8dd1-2f83f3b8bef6}		components/ddSignonCategoryStorage.js
-component	{dbf0a7d4-14a7-406c-b74d-ddb1e005026b}		components/ddSignonCategoryStorage.js
-contract	@daniel.dawson/signonmetadatafield;1		{82bc2588-7629-498f-9c4a-ae0f96a69ef0}
-contract	@daniel.dawson/signonmetadata;1			{29d46f03-82ef-47e4-8dd1-2f83f3b8bef6}
-contract	@daniel.dawson/signoncategorystorage;1		{dbf0a7d4-14a7-406c-b74d-ddb1e005026b}
-category	profile-after-change	ddSignonCategoryStorage	@daniel.dawson/signoncategorystorage;1
-interfaces	components/ddISignonCategoryStorage.xpt
+## Module
+resource	passwordtags	content/
 
 ## Chrome
-content	passwordtags		chrome/content/
+content	passwordtags		content/
+skin	passwordtags	default	skin/
 
 # Language-specific content
-locale	passwordtags	bg-BG	chrome/locale/bg-BG/
-locale	passwordtags	de	chrome/locale/de/
-locale	passwordtags	en-US	chrome/locale/en-US/
-locale	passwordtags	fr	chrome/locale/fr/
-locale	passwordtags	he	chrome/locale/he/
-locale	passwordtags	hu-HU	chrome/locale/hu-HU/
-locale	passwordtags	nl	chrome/locale/nl/
-locale	passwordtags	pl	chrome/locale/pl/
-locale	passwordtags	pt-BR	chrome/locale/pt-BR/
-locale	passwordtags	ru	chrome/locale/ru/
-locale	passwordtags	sr	chrome/locale/sr/
-locale	passwordtags	sv-SE	chrome/locale/sv-SE/
-locale	passwordtags	uk-UA	chrome/locale/uk-UA/
-locale	passwordtags	zh-CN	chrome/locale/zh-CN/
-locale	passwordtags	zh-TW	chrome/locale/zh-TW/
+locale	passwordtags	en-US	locale/en-US/
 
 # What goes where
 ## Password Manager
@@ -35,3 +15,5 @@ overlay chrome://passwordmgr/content/passwordManager.xul chrome://passwordtags/c
 overlay chrome://communicator/content/passwordManager.xul chrome://passwordtags/content/pwdmgrOverlay.xul
 overlay chrome://communicator/content/dataman/dataman.xul chrome://passwordtags/content/datamanOverlay.xul
 overlay about:data chrome://passwordtags/content/datamanOverlay.xul
+overlay chrome://browser/content/browser.xul chrome://passwordtags/content/contextmenuOverlay.xul
+overlay chrome://navigator/content/navigator.xul chrome://passwordtags/content/contextmenuOverlay.xul

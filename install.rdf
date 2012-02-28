@@ -5,7 +5,7 @@
     <id>passwordcategories@daniel.dawson</id>
     <type>2</type>
     <name>Password Tags</name>
-    <version>1.2.1.100branch1metadata</version>
+    <version>2.0pre1</version>
     <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
     <translator>bg-BG: arris (BabelZilla)</translator>
     <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
@@ -23,10 +23,41 @@
     <translator>zh-TW: Velociraptor (BabelZilla)</translator>
     <description>Adds sortable user-specified tags to the password manager.</description>
 
+    <optionsURL>chrome://passwordtags/content/prefwindow.xul</optionsURL>
+
+    <targetApplication>
+      <RDF:Description>
+        <id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</id> <!-- Firefox -->
+        <minVersion>3.6</minVersion>
+        <maxVersion>13.0a1</maxVersion>
+      </RDF:Description>
+    </targetApplication>
+    <targetApplication>
+      <RDF:Description>
+        <id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</id> <!-- SeaMonkey -->
+        <minVersion>2.1</minVersion>
+        <maxVersion>2.10a1</maxVersion>
+      </RDF:Description>
+    </targetApplication>
+    <targetApplication>
+      <RDF:Description>
+        <id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</id> <!-- Thunderbird -->
+        <minVersion>3.1</minVersion>
+        <maxVersion>13.0a1</maxVersion>
+      </RDF:Description>
+    </targetApplication>
+    <targetApplication>
+      <RDF:Description>
+        <id>toolkit@mozilla.org</id> <!-- All applications -->
+        <minVersion>1.9.2</minVersion>
+        <maxVersion>13.0.*</maxVersion>
+      </RDF:Description>
+    </targetApplication>
+
     <localized>
       <RDF:Description>
         <locale>bg-BG</locale>
-        <name>Password Categories</name>
+        <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
         <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
@@ -47,7 +78,7 @@
 
       <RDF:Description>
         <locale>de</locale>
-        <name>Password Categories</name>
+        <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
         <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
@@ -68,7 +99,7 @@
 
       <RDF:Description>
         <locale>fr</locale>
-        <name>Password Categories</name>
+        <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
         <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
@@ -89,7 +120,7 @@
 
       <RDF:Description>
         <locale>he</locale>
-        <name>Password Categories</name>
+        <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
         <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
@@ -110,7 +141,7 @@
 
       <RDF:Description>
         <locale>hu-HU</locale>
-        <name>Password Categories</name>
+        <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
         <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
@@ -131,7 +162,7 @@
 
       <RDF:Description>
         <locale>nl</locale>
-        <name>Password Categories</name>
+        <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
         <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
@@ -152,7 +183,7 @@
 
       <RDF:Description>
         <locale>pl</locale>
-        <name>Password Categories</name>
+        <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
         <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
@@ -173,7 +204,7 @@
 
       <RDF:Description>
         <locale>ru</locale>
-        <name>Password Categories</name>
+        <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
         <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
@@ -194,7 +225,7 @@
 
       <RDF:Description>
         <locale>sr</locale>
-        <name>Password Categories</name>
+        <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
         <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
@@ -215,7 +246,7 @@
 
       <RDF:Description>
         <locale>sv-SE</locale>
-        <name>Password Categories</name>
+        <name>Password Tags</name>
         <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
         <translator>fr: Goofy (BabelZilla)</translator>
@@ -235,7 +266,7 @@
 
       <RDF:Description>
         <locale>uk-UA</locale>
-        <name>Password Categories</name>
+        <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
         <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
@@ -256,7 +287,7 @@
 
       <RDF:Description>
         <locale>zh-CN</locale>
-        <name>Password Categories</name>
+        <name>Password Tags</name>
         <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
         <translator>fr: Goofy (BabelZilla)</translator>
@@ -276,7 +307,7 @@
 
       <RDF:Description>
         <locale>zh-TW</locale>
-        <name>Password Categories</name>
+        <name>Password Tags</name>
         <translator>bg-BG: arris (BabelZilla)</translator>
         <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
         <translator>fr: Goofy (BabelZilla)</translator>
@@ -294,34 +325,5 @@
         <description>在密碼管理員中加入可排序的使用者自訂標籤。</description>
       </RDF:Description>
     </localized>
-
-    <targetApplication>
-      <RDF:Description>
-        <id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</id> <!-- Firefox -->
-        <minVersion>3.5</minVersion>
-        <maxVersion>7.0a1</maxVersion>
-      </RDF:Description>
-    </targetApplication>
-    <targetApplication>
-      <RDF:Description>
-        <id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</id> <!-- SeaMonkey -->
-        <minVersion>2.0</minVersion>
-        <maxVersion>2.4a1</maxVersion>
-      </RDF:Description>
-    </targetApplication>
-    <targetApplication>
-      <RDF:Description>
-        <id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</id> <!-- Thunderbird -->
-        <minVersion>3.0</minVersion>
-        <maxVersion>7.0a1</maxVersion>
-      </RDF:Description>
-    </targetApplication>
-    <targetApplication>
-      <RDF:Description>
-        <id>toolkit@mozilla.org</id> <!-- All applications -->
-        <minVersion>1.9.1</minVersion>
-        <maxVersion>7.0.*</maxVersion>
-      </RDF:Description>
-    </targetApplication>
   </RDF:Description>
 </RDF:RDF>

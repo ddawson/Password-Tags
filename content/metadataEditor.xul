@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Password Tags, extension for Firefox 3.6+ and others
+    Copyright (C) 2012  Daniel Dawson <ddawson@icehouse.net>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE overlay SYSTEM "chrome://passwordtags/locale/metadataEditor.dtd">
+
+<?xml-stylesheet type="text/css" href="chrome://global/skin/"?>
+<?xml-stylesheet type="text/css"
+                 href="chrome://passwordtags/skin/metadata-GUI.css"?>
+
+<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        id="passwordtags-metadataeditor-window" width="600" height="500"
+        title="&metadataEditor.title;" buttons="accept,cancel,extra1"
+        buttonlabelextra1="&configDefaultFields.label;"
+        buttonaccesskeyextra1="&configDefaultFields.accesskey;"
+        ondialogextra1="configDefaultFields();"
+        ondialogaccept="writeMetadata();" persist="width height">
+  <stringbundleset>
+    <stringbundle id="shared-strings"
+      src="chrome://passwordtags/locale/sharedStrings.properties"/>
+    <stringbundle id="metadataeditor-strings"
+      src="chrome://passwordtags/locale/metadataEditor.properties"/>
+  </stringbundleset>
+  <grid>
+    <columns>
+      <column/>
+      <column flex="1"/>
+    </columns>
+    <rows>
+      <row>
+        <label class="header" value="&host.label;"/>
+        <label id="current-host"/>
+      </row>
+      <row>
+        <label class="header" value="&submitPrefix.label;"/>
+        <label id="current-submitprefix"/>
+      </row>
+      <row>
+        <label class="header" value="&username.label;"/>
+        <label id="current-username"/>
+      </row>
+    </rows>
+  </grid>
+  <separator class="thin"/>
+  <hbox>
+    <label control="tags-field" value="&tags.label;"
+           accesskey="&tags.accesskey;" tooltiptext="&tags.tooltip;"/>
+    <textbox id="tags-field" tooltiptext="&tags.tooltip;" flex="1"/>
+  </hbox>
+  <separator class="thin"/>
+  <vbox class="gridbox" flex="1">
+    <grid>
+      <columns>
+        <column id="button-column"/>
+        <column id="nametype-column"/>
+        <column id="value-column" flex="1"/>
+      </columns>
+      <rows id="metadataeditor-gridrows">
+        <row class="header">
+          <spacer/>
+          <label value="&nametype.label;"/>
+          <label value="&value.label;"/>
+        </row>
+      </rows>
+    </grid>
+  </vbox>
+  <hbox>
+    <button id="add-button" label="&addbutton.label;" icon="add"
+            accesskey="&addbutton.accesskey;" tooltiptext="&addbutton.tooltip;"
+            oncommand="addField();"/>
+    <spacer flex="1"/>
+    <button id="clear-button" label="&clearbutton.label;" icon="clear"
+            accesskey="&clearbutton.accesskey;"
+            tooltiptext="&clearbutton.tooltip;" oncommand="clear();"/>
+  </hbox>
+  <script type="application/javascript" src="metadataEditor.js"/>
+</dialog>

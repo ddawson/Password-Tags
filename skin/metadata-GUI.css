@@ -1,0 +1,29 @@
+.gridbox {
+  overflow-y: auto;
+}
+
+.up-button, .down-button, .remove-button {
+  margin-left: 0;
+  margin-right: 0;
+  min-width: 0;
+  list-style-image: url("chrome://passwordtags/skin/button-symbols.png");
+}
+
+.up-button {
+  -moz-image-region: rect(0px, 16px, 16px, 0px);
+}
+.up-button[disabled="true"] {
+  -moz-image-region: rect(16px, 16px, 32px, 0px);
+}
+.down-button {
+  -moz-image-region: rect(0px, 32px, 16px, 16px);
+}
+.down-button[disabled="true"] {
+  -moz-image-region: rect(16px, 32px, 32px, 16px);
+}
+.remove-button {
+  -moz-image-region: rect(0px, 48px, 16px, 32px);
+}
+.remove-button[disabled="true"] {
+  -moz-image-region: rect(16px, 48px, 32px, 32px);
+}

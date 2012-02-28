@@ -1,0 +1,17 @@
+<!ENTITY metadataEditor.title "Password Tags metadata editor">
+<!ENTITY host.label "Host:">
+<!ENTITY submitPrefix.label "Submit prefix:">
+<!ENTITY username.label "Username:">
+<!ENTITY tags.label "Tags:">
+<!ENTITY tags.accesskey "T">
+<!ENTITY tags.tooltip "The tags associated with the current login, separated by commas">
+<!ENTITY nametype.label "Name/Type">
+<!ENTITY value.label "Value">
+<!ENTITY addbutton.label "Add">
+<!ENTITY addbutton.accesskey "A">
+<!ENTITY addbutton.tooltip "Add a new metadata field.">
+<!ENTITY clearbutton.label "Clear">
+<!ENTITY clearbutton.accesskey "C">
+<!ENTITY clearbutton.tooltip "Clear this metadata, including tags.">
+<!ENTITY configDefaultFields.label "Configure default fields">
+<!ENTITY configDefaultFields.accesskey "d">

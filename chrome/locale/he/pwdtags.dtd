@@ -1,8 +1,0 @@
-<!-- Please visit the support topic on the BabelZilla forums to find the
-     add-on descriptions to translate:
-     http://www.babelzilla.org/forum/index.php?showtopic=6447 
--->
-<!ENTITY column_tags.label "תוויות">
-<!ENTITY edittags.label "עריכת תוויות">
-<!-- Needs to match edittagsAccesskey in pwdtags.properties -->
-<!ENTITY edittags.accesskey "ע">

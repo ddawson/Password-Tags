@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Password Tags, extension for Firefox 3.6+ and others
+    Copyright (C) 2012  Daniel Dawson <ddawson@icehouse.net>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE overlay SYSTEM "chrome://passwordtags/locale/pwdmgrOverlay.dtd">
+
+<overlay id="pwdtagsOverlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <stringbundleset>
+    <stringbundle id="pwdtagsStrbundle"
+                  src="chrome://passwordtags/locale/pwdmgrOverlay.properties"/>
+  </stringbundleset>
+  <script type="text/javascript"
+          src="chrome://passwordtags/content/pwdmgrOverlay.js"/>
+
+  <window id="SignonViewerDialog">
+    <popupset id="signonsTreeContextSet">
+      <menupopup id="signonsTreeContextMenu">
+        <menuitem id="menu_editTags" label="&edittags.label;"
+                  accesskey="&edittags.accesskey;"
+                  oncommand="passwordTags.editTags();"/>
+        <menuitem id="menu_editMetadata" label="&editmetadata.label;"
+                  accesskey="&editmetadata.accesskey;"
+                  oncommand="passwordTags.editMetadata();"/>
+        <menuitem id="menu_deleteMetadata" label="&deletemetadata.label;"
+                  accesskey="&deletemetadata.accesskey;"
+                  oncommand="passwordTags.deleteMetadata();"/>
+      </menupopup>
+    </popupset>
+  </window>
+
+  <tree id="signonsTree" context="signonsTreeContextMenu" editable="true">
+    <!-- This is not the correct place to put these. Unfortunately, the
+         correct place has no id, so it can't be properly overlayed. Thus,
+         I must put them somewhere, then move them in a script. -->
+    <splitter id="tagsColSplitter" class="tree-splitter"/>
+    <treecol id="tagsCol" label="&column_tags.label;" editable="true"
+             flex="2" onclick="SignonColumnSort('tags');" persist="width"/>
+  </tree>
+</overlay>

@@ -1,0 +1,2 @@
+<!ENTITY allowPwdFillByTags.label "Allow password fill by tags">
+<!ENTITY allowPwdFillByTags.tooltip "Include a context submenu for login forms that lists usernames and associated tags (if any), allowing you to fill the form by selecting one.">
