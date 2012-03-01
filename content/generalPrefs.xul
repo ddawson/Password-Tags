@@ -27,10 +27,16 @@
       <preference id="pref-allowpwdfillbytags"
                   name="extensions.passwordtags.allowPwdFillByTags"
                   type="bool"/>
+      <preference id="pref-keepmetadatafordeletedlogins"
+                  name="extensions.passwordtags.keepMetadataForDeletedLogins"
+                  type="bool"/>
     </preferences>
 
     <checkbox label="&allowPwdFillByTags.label;"
               tooltiptext="&allowPwdFillByTags.tooltip;"
               preference="pref-allowpwdfillbytags"/>
+    <checkbox label="&keepMetadataForDeletedLogins.label;"
+              tooltiptext="&keepMetadataForDeletedLogins.tooltip;"
+              preference="pref-keepmetadatafordeletedlogins"/>
   </prefpane>
 </overlay>

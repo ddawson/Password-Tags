@@ -123,7 +123,7 @@ var signonMetadataStorage = {
   _observerRegistered: false,
 
   getMetadata: function (aSignon) {
-    var mdspec = this._getMetadataJS(aSignon);
+    var mdspec = this._getMetadataRaw(aSignon);
     var obj = new SignonMetadata();
     var metadataStr = null;
     if (mdspec) {
@@ -144,7 +144,7 @@ var signonMetadataStorage = {
   },
 
   getTags: function (aSignon) {
-    var mdspec = this._getMetadataJS(aSignon);
+    var mdspec = this._getMetadataRaw(aSignon);
     if (!mdspec)
       return "";
     else
@@ -152,12 +152,17 @@ var signonMetadataStorage = {
   },
 
   setMetadata: function (aSignon, aSignonMeta) {
-    var tags = aSignonMeta.tags;
+    var tags = this._normalizeTags(aSignonMeta.tags);
     var metaStr = aSignonMeta.serializeMetadata();
-    this._setMetadataJS(aSignon, tags, metaStr);
+    this._setMetadataRaw(aSignon, tags, metaStr);
   },
 
   setTags: function (aSignon, aTags) {
+    aTags = this._normalizeTags(aTags);
+    this._setMetadataRaw(aSignon, aTags);
+  },
+
+  _normalizeTags: function (aTags) {
     let tagsAry = [str.trim() for each (str in aTags.split(","))];
     tagsAry.sort();
     let prevString = null;
@@ -171,13 +176,16 @@ var signonMetadataStorage = {
         i++;
       }
     }
-    aTags = tagsAry.join(",");
-
-    this._setMetadataJS(aSignon, aTags);
+    return tagsAry.join(",");
   },
 
   removeMetadata: function (aSignon) {
-    this._setMetadataJS(aSignon, "", null);
+    this._setMetadataRaw(aSignon, "", null);
+  },
+
+  removeAllMetadata: function () {
+    this._metadata = [];
+    this._writeMetadataFile();
   },
 
   getNumberOfDefaultFields: function () {
@@ -257,22 +265,40 @@ var signonMetadataStorage = {
   },
 
   observe: function (aSubject, aTopic, aData) {
-    // For now, only the one pref change is being observed.
-    this._readDefaultFields();
-    for (let i = 0; i < this._defaultChangeListeners.length; i++)
-      try {
-        this._defaultChangeListeners[i].handleDefaultChange();
-      } catch (e) {}
+    if (aTopic == "nsPref:changed") {
+      // For now, only the one pref change is being observed.
+      this._readDefaultFields();
+      for (let i = 0; i < this._defaultChangeListeners.length; i++)
+        try {
+          this._defaultChangeListeners[i].handleDefaultChange();
+        } catch (e) {}
+    } else if (aTopic == "passwordmgr-storage-changed") {
+      if (aData == "modifyLogin") {
+        let oldLogin = aSubject.QueryInterface(Ci.nsIArray).
+                       queryElementAt(0, Ci.nsILoginInfo),
+            newLogin = aSubject.QueryInterface(Ci.nsIArray).
+                       queryElementAt(1, Ci.nsILoginInfo);
+        if (oldLogin.hostname == newLogin.hostname
+            && oldLogin.httpRealm == newLogin.httpRealm
+            && oldLogin.formSubmitURL == newLogin.formSubmitURL)
+          return;
+
+        this._rekeyMetadata(oldLogin, newLogin);
+      } else if (aData == "removeLogin"
+                 && !prefs.getBoolPref("keepMetadataForDeletedLogins"))
+        this.removeMetadata(aSubject.QueryInterface(Ci.nsILoginInfo));
+      else if (aData == "removeAllLogins"
+                 && !prefs.getBoolPref("keepMetadataForDeletedLogins"))
+        this.removeAllMetadata();
+    }
   },
 
-  _getMetadataJS: function (aSignon) {
+  _getMetadataRaw: function (aSignon) {
     if (!this._metadata) this._readMetadataFile();
 
     var hostname = aSignon.hostname || "",
         httpRealm = aSignon.httpRealm || "",
         formSubmitURL = aSignon.formSubmitURL || "",
-        usernameField = aSignon.usernameField || "",
-        passwordField = aSignon.passwordField || "",
         username = aSignon.username || "";
     uc.charset = "UTF-8";
     var usernameBytes = uc.convertToByteArray(username,
@@ -282,20 +308,17 @@ var signonMetadataStorage = {
     var usernameHash = ch.finish(true);
     var mdspec =
       this._metadata[this._index_concat(
-                     hostname, httpRealm, formSubmitURL, usernameField,
-                     passwordField, usernameHash)];
-    return mdspec ? mdspec : null;
+                     hostname, httpRealm, formSubmitURL, usernameHash)];
+    return mdspec || null;
   },
 
-  _setMetadataJS: function (aSignon, aTags, aMetadata) {
+  _setMetadataRaw: function (aSignon, aTags, aMetadata) {
     if (!this._metadata) this._readMetadataFile();
 
     uc.charset = "UTF-8";
     var hostname = aSignon.hostname || "",
         httpRealm = aSignon.httpRealm || "",
         formSubmitURL = aSignon.formSubmitURL || "",
-        usernameField = aSignon.usernameField || "",
-        passwordField = aSignon.passwordField || "",
         username = aSignon.username || "",
         usernameBytes = uc.convertToByteArray(username,
                                               new Array(username.length));
@@ -304,7 +327,7 @@ var signonMetadataStorage = {
     var usernameHash = ch.finish(true);
 
     let idx = this._index_concat(hostname, httpRealm, formSubmitURL,
-                                 usernameField, passwordField, usernameHash);
+                                 usernameHash);
     if (!aTags && !aMetadata && aMetadata !== undefined)
       delete this._metadata[idx];
     else {
@@ -315,16 +338,23 @@ var signonMetadataStorage = {
       } else {
         mdObj = {
           hostname: hostname, httpRealm: httpRealm,
-          formSubmitURL: formSubmitURL, usernameField: usernameField,
-          passwordField: passwordField, usernameHash: usernameHash,
+          formSubmitURL: formSubmitURL, usernameHash: usernameHash,
           tags: aTags, metadata: aMetadata || "" };
-        this._metadata[this._index_concat(
-          hostname, httpRealm, formSubmitURL, usernameField, passwordField,
-          usernameHash)] = mdObj;
+        this._metadata[idx] = mdObj;
       }
     }
 
     this._writeMetadataFile();
+  },
+
+  _rekeyMetadata: function (aOldSignon, aNewSignon) {
+    if (!this._metadata) this._readMetadataFile();
+
+    var mdspec = this._getMetadataRaw(aOldSignon);
+    if (mdspec) {
+      this.removeMetadata(aOldSignon);
+      this._setMetadataRaw(aNewSignon, mdspec.tags, mdspec.metadata);
+    }
   },
 
   _index_concat: function () {
@@ -375,8 +405,6 @@ var signonMetadataStorage = {
       let hostname = elem.getAttribute("hostname"),
           httpRealm = elem.getAttribute("httpRealm"),
           formSubmitURL = elem.getAttribute("formSubmitURL"),
-          usernameField = elem.getAttribute("usernameField"),
-          passwordField = elem.getAttribute("passwordField"),
           usernameHash = elem.getAttribute("usernameHash"),
           tags = elem.getAttribute(version == "1" ? "category" : "tags"),
           metadata = "";
@@ -384,10 +412,8 @@ var signonMetadataStorage = {
         metadata = elem.getAttribute("metadata");
 
       this._metadata[this._index_concat(
-                       hostname, httpRealm, formSubmitURL, usernameField,
-                       passwordField, usernameHash)] = {
+                       hostname, httpRealm, formSubmitURL, usernameHash)] = {
         hostname: hostname, httpRealm: httpRealm, formSubmitURL: formSubmitURL,
-        usernameField: usernameField, passwordField: passwordField,
         usernameHash: usernameHash, tags: tags, metadata: metadata };
     }
   },
@@ -398,8 +424,6 @@ var signonMetadataStorage = {
     for each (let val in this._metadata) {
       let signon = <signon hostname={val.hostname} httpRealm={val.httpRealm}
                            formSubmitURL={val.formSubmitURL}
-                           usernameField={val.usernameField}
-                           passwordField={val.passwordField}
                            usernameHash={val.usernameHash}
                            tags={val.tags} metadata={val.metadata}/>;
       doc.appendChild(signon);
@@ -469,3 +493,5 @@ XPCOMUtils.defineLazyGetter(
     mf.append(MD_FILENAME);
     return mf;
   });
+
+os.addObserver(signonMetadataStorage, "passwordmgr-storage-changed", true);

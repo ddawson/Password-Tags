@@ -149,7 +149,7 @@ function addField () {
   }, 1);
 }
 
-function clear () {
+function deleteAll () {
   rows = [];
   var cur = gridRows.children[1];
   while (cur) {

@@ -10,8 +10,8 @@
 <!ENTITY addbutton.label "Add">
 <!ENTITY addbutton.accesskey "A">
 <!ENTITY addbutton.tooltip "Add a new metadata field.">
-<!ENTITY clearbutton.label "Clear">
-<!ENTITY clearbutton.accesskey "C">
-<!ENTITY clearbutton.tooltip "Clear this metadata, including tags.">
+<!ENTITY deleteallbutton.label "Delete all">
+<!ENTITY deleteallbutton.accesskey "D">
+<!ENTITY deleteallbutton.tooltip "Delete all of this metadata, including tags.">
 <!ENTITY configDefaultFields.label "Configure default fields">
-<!ENTITY configDefaultFields.accesskey "d">
+<!ENTITY configDefaultFields.accesskey "C">

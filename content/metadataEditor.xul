@@ -84,9 +84,9 @@
             accesskey="&addbutton.accesskey;" tooltiptext="&addbutton.tooltip;"
             oncommand="addField();"/>
     <spacer flex="1"/>
-    <button id="clear-button" label="&clearbutton.label;" icon="clear"
-            accesskey="&clearbutton.accesskey;"
-            tooltiptext="&clearbutton.tooltip;" oncommand="clear();"/>
+    <button id="deleteall-button" label="&deleteallbutton.label;" icon="clear"
+            accesskey="&deleteallbutton.accesskey;"
+            tooltiptext="&deleteallbutton.tooltip;" oncommand="deleteAll();"/>
   </hbox>
   <script type="application/javascript" src="metadataEditor.js"/>
 </dialog>
