@@ -21,6 +21,7 @@ var EXPORTED_SYMBOLS = ["SignonMetadata", "signonMetadataStorage"];
 const Cc = Components.classes,
       Ci = Components.interfaces,
       Cu = Components.utils,
+      MD_DBFILENAME = "signons.sqlite",
       MD_FILENAME = "signoncats.xml";
 
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
@@ -47,6 +48,21 @@ XPCOMUtils.defineLazyGetter(
               getService(Ci.nsIStringBundleService).
               createBundle(
                 "chrome://passwordtags/locale/defaultFieldConfig.properties"));
+XPCOMUtils.defineLazyServiceGetter(
+  this, "loginMgr",
+  "@mozilla.org/login-manager;1", "nsILoginManager");
+XPCOMUtils.defineLazyServiceGetter(
+  this, "storageSvc",
+  "@mozilla.org/storage/service;1", "mozIStorageService");
+XPCOMUtils.defineLazyServiceGetter(
+  this, "uuidGen",
+  "@mozilla.org/uuid-generator;1", "nsIUUIDGenerator");
+XPCOMUtils.defineLazyServiceGetter(
+  this, "consoleSvc",
+  "@mozilla.org/consoleservice;1", "nsIConsoleService");
+function log (aMsg) {
+  consoleSvc.logStringMessage(aMsg);
+}
 
 
 function escape (aRawStr)
@@ -183,9 +199,23 @@ var signonMetadataStorage = {
     this._setMetadataRaw(aSignon, "", null);
   },
 
-  removeAllMetadata: function () {
-    this._metadata = [];
-    this._writeMetadataFile();
+  removeOrphanedMetadata: function () {
+    var allMetadata = this._getAllMetadata();
+
+    outer_loop:
+    for (let i = 0; i < allMetadata.length; i++) {
+      let mdObj = allMetadata[i];
+      let res = loginMgr.findLogins({}, mdObj.hostname, mdObj.formSubmitURL,
+                                    mdObj.httpRealm);
+      let signon = null;
+      for (let j = 0; j < res.length; j++) {
+        signon = res[j];
+        if (mdObj.usernameHash == this._hash(signon.username))
+          continue outer_loop;
+      }
+
+      if (!signon) this.removeMetadata({ guid: mdObj.guid });
+    }
   },
 
   getNumberOfDefaultFields: function () {
@@ -266,7 +296,7 @@ var signonMetadataStorage = {
 
   observe: function (aSubject, aTopic, aData) {
     if (aTopic == "nsPref:changed") {
-      // For now, only the one pref change is being observed.
+      // For now, only the one pref is being observed.
       this._readDefaultFields();
       for (let i = 0; i < this._defaultChangeListeners.length; i++)
         try {
@@ -280,7 +310,8 @@ var signonMetadataStorage = {
                        queryElementAt(1, Ci.nsILoginInfo);
         if (oldLogin.hostname == newLogin.hostname
             && oldLogin.httpRealm == newLogin.httpRealm
-            && oldLogin.formSubmitURL == newLogin.formSubmitURL)
+            && oldLogin.formSubmitURL == newLogin.formSubmitURL
+            && oldLogin.username == newLogin.username)
           return;
 
         this._rekeyMetadata(oldLogin, newLogin);
@@ -289,89 +320,332 @@ var signonMetadataStorage = {
         this.removeMetadata(aSubject.QueryInterface(Ci.nsILoginInfo));
       else if (aData == "removeAllLogins"
                  && !prefs.getBoolPref("keepMetadataForDeletedLogins"))
-        this.removeAllMetadata();
+        this._deleteAllRows();
     }
   },
 
   _getMetadataRaw: function (aSignon) {
-    if (!this._metadata) this._readMetadataFile();
+    if (!this._dbConnection) this._init();
+    if (aSignon instanceof Ci.nsILoginInfo)
+      aSignon.QueryInterface(Ci.nsILoginMetaInfo);
 
-    var hostname = aSignon.hostname || "",
-        httpRealm = aSignon.httpRealm || "",
-        formSubmitURL = aSignon.formSubmitURL || "",
-        username = aSignon.username || "";
-    uc.charset = "UTF-8";
-    var usernameBytes = uc.convertToByteArray(username,
-                                              new Array(username.length));
-    ch.init(ch.MD5);
-    ch.update(usernameBytes, usernameBytes.length);
-    var usernameHash = ch.finish(true);
-    var mdspec =
-      this._metadata[this._index_concat(
-                     hostname, httpRealm, formSubmitURL, usernameHash)];
-    return mdspec || null;
+    var guid = aSignon.guid;
+    var mdspec = this._findMetadata(guid);
+    if (mdspec) return mdspec;
+
+    mdspec = this._findMetadataByData(aSignon);
+    if (!mdspec) return null;
+
+    this._changeGUID(mdspec.guid, aSignon.guid);
+    mdspec = aSignon.guid;
+    return mdspec;
   },
 
   _setMetadataRaw: function (aSignon, aTags, aMetadata) {
-    if (!this._metadata) this._readMetadataFile();
+    if (!this._dbConnection) this._init();
+    if (aSignon instanceof Ci.nsILoginInfo)
+      aSignon.QueryInterface(Ci.nsILoginMetaInfo);
 
-    uc.charset = "UTF-8";
-    var hostname = aSignon.hostname || "",
-        httpRealm = aSignon.httpRealm || "",
-        formSubmitURL = aSignon.formSubmitURL || "",
-        username = aSignon.username || "",
-        usernameBytes = uc.convertToByteArray(username,
-                                              new Array(username.length));
-    ch.init(ch.MD5);
-    ch.update(usernameBytes, usernameBytes.length);
-    var usernameHash = ch.finish(true);
+    var guid = aSignon.guid;
 
-    let idx = this._index_concat(hostname, httpRealm, formSubmitURL,
-                                 usernameHash);
     if (!aTags && !aMetadata && aMetadata !== undefined)
-      delete this._metadata[idx];
+      this._deleteRow(guid);
     else {
-      let mdObj = this._metadata[idx];
+      let mdObj = this._findMetadata(guid);
       if (mdObj) {
         mdObj.tags = aTags;
         if (aMetadata !== undefined) mdObj.metadata = aMetadata;
+        this._updateRow(mdObj);
       } else {
+        let hostname = aSignon.hostname,
+            httpRealm = aSignon.httpRealm,
+            formSubmitURL = aSignon.formSubmitURL,
+            username = aSignon.username,
+            usernameHash = this._hash(aSignon.username);
         mdObj = {
           hostname: hostname, httpRealm: httpRealm,
           formSubmitURL: formSubmitURL, usernameHash: usernameHash,
-          tags: aTags, metadata: aMetadata || "" };
-        this._metadata[idx] = mdObj;
+          tags: aTags, metadata: aMetadata || null, guid: guid };
+        this._addRow(mdObj);
       }
     }
-
-    this._writeMetadataFile();
   },
 
   _rekeyMetadata: function (aOldSignon, aNewSignon) {
-    if (!this._metadata) this._readMetadataFile();
+    if (!this._dbConnection) this._init();
 
     var mdspec = this._getMetadataRaw(aOldSignon);
     if (mdspec) {
-      this.removeMetadata(aOldSignon);
-      this._setMetadataRaw(aNewSignon, mdspec.tags, mdspec.metadata);
+      mdspec.hostname = aNewSignon.hostname;
+      mdspec.httpRealm = aNewSignon.httpRealm;
+      mdspec.formSubmitURL = aNewSignon.formSubmitURL;
+      mdspec.usernameHash = this._hash(aNewSignon.username);
+      this._updateRow(mdspec);
     }
   },
 
-  _index_concat: function () {
-    const pat1 = /\\/g, rep1 = "\\\\",
-          pat2 = /,/g, rep2 = "\\,";
-    var ret = "";
-    for (let i = 0; i < arguments.length; i++) {
-      let str = arguments[i];
-      ret += str.replace(pat1, rep1).replace(pat2, rep2) + ",";
+  _findMetadata: function (aGUID) {
+    var stmt;
+    try {
+      stmt = this._createStatement(
+        "SELECT * FROM dd_passwordtags_metadata WHERE guid = :guid");
+      stmt.params.guid = aGUID;
+      if (stmt.executeStep())
+        return {
+          id: stmt.row.id,
+          hostname: stmt.row.hostname,
+          httpRealm: stmt.row.httpRealm,
+          formSubmitURL: stmt.row.formSubmitURL,
+          usernameHash: stmt.row.usernameHash,
+          tags: stmt.row.tags,
+          metadata: stmt.row.metadata,
+          guid: stmt.row.guid };
+      else
+        return null;
+    } catch (e) {
+      log("_findMetadata failed with exception: " + e);
+    } finally {
+      if (stmt) stmt.reset();
     }
+  },
 
-    return ret;
+  _findMetadataByData: function (aSignon) {
+    var stmt;
+    try {
+      let stmtStr = "SELECT * FROM dd_passwordtags_metadata WHERE "
+        + "hostname = :hostname AND usernameHash = :usernameHash";
+      if (aSignon.httpRealm) stmtStr += " AND httpRealm = :httpRealm";
+      if (aSignon.formSubmitURL)
+        stmtStr += " AND formSubmitURL = :formSubmitURL";
+      stmt = this._createStatement(stmtStr);
+      stmt.params.hostname = aSignon.hostname;
+      if (aSignon.httpRealm) stmt.params.httpRealm = aSignon.httpRealm;
+      if (aSignon.formSubmitURL)
+        stmt.params.formSubmitURL = aSignon.formSubmitURL;
+      stmt.params.usernameHash = this._hash(aSignon.username);
+
+      if (stmt.executeStep()) {
+        return {
+          id: stmt.row.id,
+          hostname: stmt.row.hostname,
+          httpRealm: stmt.row.httpRealm,
+          formSubmitURL: stmt.row.formSubmitURL,
+          usernameHash: stmt.row.usernameHash,
+          tags: stmt.row.tags,
+          metadata: stmt.row.metadata,
+          guid: stmt.row.guid };
+      } else
+        return null;
+    } catch (e) {
+      log("_findMetadataByData failed with exception: " + e);
+    } finally {
+      if (stmt) stmt.reset();
+    }
+  },
+
+  _getAllMetadata: function () {
+    if (!this._dbConnection) this._init();
+
+    var stmt;
+    try {
+      let allMetadata = [];
+      stmt = this._dbConnection.createStatement(
+        "SELECT * FROM dd_passwordtags_metadata");
+      while (stmt.executeStep()) {
+        let mdObj = {
+          hostname: stmt.row.hostname,
+          httpRealm: stmt.row.httpRealm,
+          formSubmitURL: stmt.row.formSubmitURL,
+          usernameHash: stmt.row.usernameHash,
+          tags: stmt.row.tags,
+          metadata: stmt.row.metadata,
+          guid: stmt.row.guid };
+        allMetadata.push(mdObj);
+      }
+
+      return allMetadata;
+    } catch (e) {
+      log("_getAllMetadata failed with exception: " + e);
+    } finally {
+      if (stmt) stmt.reset();
+    }
+  },
+
+  _addRow: function (aMDObj) {
+    var stmt;
+    try {
+      stmt = this._createStatement(
+        "INSERT INTO dd_passwordtags_metadata "
+        + "(hostname, httpRealm, formSubmitURL, usernameHash, "
+        + "tags, metadata, guid) VALUES "
+        + "(:hostname, :httpRealm, :formSubmitURL, :usernameHash, "
+        + ":tags, :metadata, :guid)");
+      for (let name in aMDObj)
+        stmt.params[name] = aMDObj[name];
+      stmt.execute();
+    } catch (e) {
+      log("_addRow failed with exception: " + e);
+    } finally {
+      if (stmt) stmt.reset();
+    }
+  },
+
+  _updateRow: function (aMDObj) {
+    var stmt;
+    try {
+      stmt = this._createStatement(
+        "UPDATE dd_passwordtags_metadata SET "
+        + "hostname = :hostname, "
+        + "httpRealm = :httpRealm, "
+        + "formSubmitURL = :formSubmitURL, "
+        + "usernameHash = :usernameHash, "
+        + "tags = :tags, "
+        + "metadata = :metadata "
+        + "WHERE guid = :guid");
+      for each (let name in ["hostname", "httpRealm", "formSubmitURL",
+                             "usernameHash", "tags", "metadata", "guid"])
+        stmt.params[name] = aMDObj[name];
+      stmt.execute();
+    } catch (e) {
+      log("_updateRow failed with exception: " + e);
+    } finally {
+      if (stmt) stmt.reset();
+    }
+  },
+
+  _changeGUID: function (aOldGUID, aNewGUID) {
+    var stmt;
+    try {
+      stmt = this._createStatement(
+        "UPDATE dd_passwordtags_metadata "
+        + "SET guid = :newGUID WHERE guid = :oldGUID");
+      stmt.params.oldGUID = aOldGUID;
+      stmt.params.newGUID = aNewGUID;
+      stmt.execute();
+    } catch (e) {
+      log("_changeGUID failed with exception: " + e);
+    } finally {
+      if (stmt) stmt.reset();
+    }
+  },
+
+  _deleteRow: function (aGUID) {
+    var stmt;
+    try {
+      stmt = this._createStatement(
+        "DELETE FROM dd_passwordtags_metadata WHERE guid = :guid");
+      stmt.params.guid = aGUID;
+      stmt.execute();
+    } catch (e) {
+      log("_deleteRow failed with exception: " + e);
+    } finally {
+      if (stmt) stmt.reset();
+    }
+  },
+
+  _deleteAllRows: function () {
+    try {
+      this._dbConnection.executeSimpleSQL(
+        "DELETE FROM dd_passwordtags_metadata");
+    } catch (e) {
+      log("_deleteAllRows failed with exception: " + e);
+    }
+  },
+
+  _createStatement: function (aStmtStr) {
+    var stmt = this._dbStmts[aStmtStr];
+    if (stmt) return stmt;
+    stmt = this._dbConnection.createStatement(aStmtStr);
+    this._dbStmts[aStmtStr] = stmt;
+    return stmt;
+  },
+
+  _init: function () {
+    this._dbStmts = [];
+
+    if (!this._initDBConnection()) {
+      let metadataAry = this._readMetadataFile();
+      if (metadataAry) {
+        for (let i = 0; i < metadataAry.length; i++) {
+          let metadata = metadataAry[i];
+          let res = loginMgr.findLogins(
+            {}, metadata.hostname, metadata.formSubmitURL || null,
+            metadata.httpRealm || null);
+
+          let j;
+          for (j = 0; j < res.length; j++) {
+            let cand = res[j];
+            let hash = this._hash(cand.username);
+            if (hash == metadata.usernameHash) {
+              metadata.guid = cand.QueryInterface(Ci.nsILoginMetaInfo).guid;
+              break;
+            }
+          }
+          if (j == res.length)
+            metadata.guid = uuidGen.generateUUID().toString();
+
+          this._addRow(metadata);
+        }
+      }
+
+      if (this._metadataFile.exists())
+        this._metadataFile.remove(false);
+    }
+  },
+
+  _initDBConnection: function () {
+    this._dbConnection = storageSvc.openDatabase(this._dbFile);
+    if (this._dbConnection.tableExists(this._tableSchema.tableName))
+      return true;
+
+    this._dbConnection.createTable(this._tableSchema.tableName,
+                                   this._tableSchema.table);
+    for (let name in this._tableSchema.indices)
+      this._dbConnection.executeSimpleSQL(
+        "CREATE INDEX IF NOT EXISTS " + name
+        + " ON " + this._tableSchema.tableName
+        + "(" + this._tableSchema.indices[name] + ")");
+
+    return false;
+  },
+
+  _tableSchema: {
+    tableName: "dd_passwordtags_metadata",
+
+    table: "id            INTEGER PRIMARY KEY," +
+           "hostname      TEXT NOT NULL," +
+           "httpRealm     TEXT," +
+           "formSubmitURL TEXT," +
+           "usernameHash  TEXT NOT NULL," +
+           "tags          TEXT NOT NULL," +
+           "metadata      TEXT," +
+           "guid          TEXT",
+
+    indices: {
+      dd_passwordtags_metadata_hostname_formSubmitURL_index:
+        "hostname, formSubmitURL",
+      dd_passwordtags_metadata_hostname_formSubmitURL_usernameHash_index:
+        "hostname, formSubmitURL, usernameHash",
+      dd_passwordtags_metadata_hostname_httpRealm_usernameHash_index:
+        "hostname, httpRealm, usernameHash",
+      dd_passwordtags_metadata_hostname_usernameHash_index:
+        "hostname, usernameHash",
+      dd_passwordtags_metadata_guid_index:
+        "guid",
+    },
+  },
+
+  _hash: function (aPlain) {
+    uc.charset = "UTF-8";
+    var bytes = uc.convertToByteArray(aPlain, new Array(aPlain.length));
+    ch.init(ch.MD5);
+    ch.update(bytes, bytes.length);
+    return ch.finish(true);
   },
 
   _readMetadataFile: function () {
-    this._metadata = new Object();
-    if (!this._metadataFile.exists()) return;
+    if (!this._metadataFile.exists()) return null;
+    var metadataAry = new Array();
 
     var fstream = Cc["@mozilla.org/network/file-input-stream;1"].
                   createInstance(Ci.nsIFileInputStream);
@@ -411,34 +685,12 @@ var signonMetadataStorage = {
       if (version == "3")
         metadata = elem.getAttribute("metadata");
 
-      this._metadata[this._index_concat(
-                       hostname, httpRealm, formSubmitURL, usernameHash)] = {
+      metadataAry.push({
         hostname: hostname, httpRealm: httpRealm, formSubmitURL: formSubmitURL,
-        usernameHash: usernameHash, tags: tags, metadata: metadata };
-    }
-  },
-
-  _writeMetadataFile: function () {
-    var doc = <metadata version="3"/>;
-
-    for each (let val in this._metadata) {
-      let signon = <signon hostname={val.hostname} httpRealm={val.httpRealm}
-                           formSubmitURL={val.formSubmitURL}
-                           usernameHash={val.usernameHash}
-                           tags={val.tags} metadata={val.metadata}/>;
-      doc.appendChild(signon);
+        usernameHash: usernameHash, tags: tags, metadata: metadata });
     }
 
-    uc.charset = "UTF-8";
-    var docString = uc.ConvertFromUnicode(
-                      '<?xml version="1.0" encoding="UTF-8"?>\n' +
-                      '<!-- Metadata storage for Password Tags add-on -->\n' +
-                      doc.toXMLString()) + uc.Finish();
-    var stream = Cc["@mozilla.org/network/file-output-stream;1"].
-                 createInstance(Ci.nsIFileOutputStream);
-    stream.init(this._metadataFile, -1, -1, -1);
-    stream.write(docString, docString.length);
-    stream.close();
+    return metadataAry;
   },
 
   _readDefaultFields: function () {
@@ -485,6 +737,14 @@ var signonMetadataStorage = {
   },
 };
 
+XPCOMUtils.defineLazyGetter(
+  signonMetadataStorage, "_dbFile",
+  function () {
+    let dbFile = Cc["@mozilla.org/file/directory_service;1"].
+                 getService(Ci.nsIProperties).get("ProfD", Ci.nsILocalFile);
+    dbFile.append(MD_DBFILENAME);
+    return dbFile;
+  });
 XPCOMUtils.defineLazyGetter(
   signonMetadataStorage, "_metadataFile",
   function () {

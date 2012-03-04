@@ -24,7 +24,6 @@ var defaultFieldConfig = {
   _ignoreSelect: false,
 
   init: function () {
-    Cu.import("resource://passwordtags/signonMetadataStorage.jsm", this);
     if (!this._registered) {
       el("defaultfieldconfig-addbtn").addEventListener("command", this, false);
       el("defaultfieldconfig-resetbtn").
@@ -32,13 +31,13 @@ var defaultFieldConfig = {
       this._instantApply =
         this.brPrefs.getBoolPref("browser.preferences.instantApply");
       if (this._instantApply)
-        this.signonMetadataStorage.addDefaultChangeListener(this);
+        signonMetadataStorage.addDefaultChangeListener(this);
       this._registered = true;
     }
 
     this._clearRows();
 
-    var defaults = this.signonMetadataStorage.getDefaults();
+    var defaults = signonMetadataStorage.getDefaults();
     if (!defaults)
       this._resetRows();
     else
@@ -52,7 +51,7 @@ var defaultFieldConfig = {
 
   close: function () {
     if (this._registered)
-      this.signonMetadataStorage.removeDefaultChangeListener(this);
+      signonMetadataStorage.removeDefaultChangeListener(this);
   },
 
   handleEvent: function (aEvt) {
@@ -192,7 +191,7 @@ var defaultFieldConfig = {
   _updateDB_add: function (aRow) {
     if (this._instantApply) {
       this._ownDefaultChange = true;
-      this.signonMetadataStorage.insertDefaultField(
+      signonMetadataStorage.insertDefaultField(
         -1, aRow.children[1].value, aRow.children[2].value);
     } else
       this._dirty = true;
@@ -201,7 +200,7 @@ var defaultFieldConfig = {
   _updateDB_move: function (aOldIdx, aNewIdx) {
     if (this._instantApply) {
       this._ownDefaultChange = true;
-      this.signonMetadataStorage.moveDefaultField(aOldIdx, aNewIdx);
+      signonMetadataStorage.moveDefaultField(aOldIdx, aNewIdx);
     } else
       this._dirty = true;
   },
@@ -209,7 +208,7 @@ var defaultFieldConfig = {
   _updateDB_remove: function (aIdx) {
     if (this._instantApply) {
       this._ownDefaultChange = true;
-      this.signonMetadataStorage.removeDefaultField(aIdx);
+      signonMetadataStorage.removeDefaultField(aIdx);
     } else
       this._dirty = true;
   },
@@ -217,7 +216,7 @@ var defaultFieldConfig = {
   _updateDB_edit: function (aIdx, aRow) {
     if (this_instantApply) {
       this._ownDefaultChange = true;
-      this.signonMetadataStorage.replaceDefaultField(
+      signonMetadataStorage.replaceDefaultField(
         aIdx, aRow.children[1].value, aRow.children[2].value);
     } else
       this._dirty = true;
@@ -317,7 +316,7 @@ var defaultFieldConfig = {
         curRow = curRow.nextElementSibling;
       }
 
-      this.signonMetadataStorage.setDefaults(defaults);
+      signonMetadataStorage.setDefaults(defaults);
     }
 
     return true;

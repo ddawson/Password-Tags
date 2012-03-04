@@ -83,16 +83,19 @@ document.addEventListener(
                              origGetColumnByName(column);
     getColumnByName = ptagsGetColumnByName;
 
-    function cloneLoginInfo (loginInfo) ({
-      cloned: true,
-      hostname: loginInfo.hostname,
-      httpRealm: loginInfo.httpRealm,
-      formSubmitURL: loginInfo.formSubmitURL,
-      username: loginInfo.username,
-      password: loginInfo.password,
-      usernameField: loginInfo.usernameField,
-      passwordField: loginInfo.passwordField
-    });
+    function cloneLoginInfo (loginInfo) {
+      loginInfo.QueryInterface(Components.interfaces.nsILoginMetaInfo);
+      return {
+        cloned: true,
+        hostname: loginInfo.hostname,
+        httpRealm: loginInfo.httpRealm,
+        formSubmitURL: loginInfo.formSubmitURL,
+        username: loginInfo.username,
+        password: loginInfo.password,
+        usernameField: loginInfo.usernameField,
+        passwordField: loginInfo.passwordField,
+        guid: loginInfo.guid };
+    }
 
     var origSignonColumnSort = window.SignonColumnSort;
     if (!origSignonColumnSort) origSignonColumnSort = function () {};

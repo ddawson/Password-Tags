@@ -22,6 +22,13 @@
 
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
          id="passwordtags-generalprefs-overlay">
+  <stringbundleset id="prefwindow-stringbundles">
+    <stringbundle id="generalprefs-strings"
+                  src="chrome://passwordtags/locale/generalPrefs.properties"/>
+  </stringbundleset>
+
+  <script type="application/javascript" src="generalPrefs.js"/>
+
   <prefpane id="generalprefs-pane">
     <preferences>
       <preference id="pref-allowpwdfillbytags"
@@ -35,8 +42,13 @@
     <checkbox label="&allowPwdFillByTags.label;"
               tooltiptext="&allowPwdFillByTags.tooltip;"
               preference="pref-allowpwdfillbytags"/>
-    <checkbox label="&keepMetadataForDeletedLogins.label;"
-              tooltiptext="&keepMetadataForDeletedLogins.tooltip;"
-              preference="pref-keepmetadatafordeletedlogins"/>
+    <hbox>
+      <checkbox label="&keepMetadataForDeletedLogins.label;"
+                tooltiptext="&keepMetadataForDeletedLogins.tooltip;"
+                preference="pref-keepmetadatafordeletedlogins"/>
+      <button label="&cleanupOrphanedMetadata.label;"
+              tooltiptext="&cleanupOrphanedMetadata.tooltip;"
+              oncommand="cleanup();"/>
+    </hbox>
   </prefpane>
 </overlay>

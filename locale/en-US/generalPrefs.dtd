@@ -2,3 +2,5 @@
 <!ENTITY allowPwdFillByTags.tooltip "Include a context submenu for login forms that lists usernames and associated tags (if any), allowing you to fill the form by selecting one.">
 <!ENTITY keepMetadataForDeletedLogins.label "Keep metadata for deleted logins">
 <!ENTITY keepMetadataForDeletedLogins.tooltip "If unchecked, tags and metadata associated with a login will be deleted if the login itself is deleted.">
+<!ENTITY cleanupOrphanedMetadata.label "Clean up orphaned metadata">
+<!ENTITY cleanupOrphanedMetadata.tooltip "Remove metadata for which no corresponding login can be found">

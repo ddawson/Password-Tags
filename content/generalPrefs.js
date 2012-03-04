@@ -16,27 +16,14 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-const Cc = Components.classes,
-      Ci = Components.interfaces,
-      Cu = Components.utils;
-Cu.import("resource://gre/modules/XPCOMUtils.jsm");
-Cu.import("resource://passwordtags/signonMetadataStorage.jsm");
+XPCOMUtils.defineLazyServiceGetter(
+  this, "promptSvc",
+  "@mozilla.org/embedcomp/prompt-service;1", "nsIPromptService");
 
-function el (aEl) document.getElementById(aEl);
-
-function initWindow () {
-  if (!window.arguments) return;
-  let startPane = window.arguments[0];
-  if (startPane == "general")
-    document.documentElement.showPane(el("generalprefs-pane"));
-  else if (startPane == "defaultfieldconfig")
-    document.documentElement.showPane(el("defaultfieldconfig-pane"));
-}
-
-function dialogAccepted () {
-  return defaultFieldConfig.applyChanges();
-}
-
-function onClose () {
-  return defaultFieldConfig.close();
+function cleanup () {
+  signonMetadataStorage.removeOrphanedMetadata();
+  promptSvc.alert(
+    window,
+    el("generalprefs-strings").getString("metadataCleanedup.title"),
+    el("generalprefs-strings").getString("metadataCleanedup.msg"));
 }

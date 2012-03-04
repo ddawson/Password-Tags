@@ -121,16 +121,19 @@ document.addEventListener(
     }
     gPasswords.handleKeyPress = ptagsHandleKeyPress;
 
-    function cloneLoginInfo (aLoginInfo) ({
-      cloned: true,
-      hostname: aLoginInfo.hostname,
-      httpRealm: aLoginInfo.httpRealm,
-      formSubmitURL: aLoginInfo.formSubmitURL,
-      username: aLoginInfo.username,
-      password: aLoginInfo.password,
-      usernameField: aLoginInfo.usernameField,
-      passwordField: aLoginInfo.passwordField
-    });
+    function cloneLoginInfo (aLoginInfo) {
+      aLoginInfo.QueryInterface(Components.interfaces.nsILoginMetaInfo);
+      return {
+        cloned: true,
+        hostname: aLoginInfo.hostname,
+        httpRealm: aLoginInfo.httpRealm,
+        formSubmitURL: aLoginInfo.formSubmitURL,
+        username: aLoginInfo.username,
+        password: aLoginInfo.password,
+        usernameField: aLoginInfo.usernameField,
+        passwordField: aLoginInfo.passwordField,
+        guid: aLoginInfo.guid };
+    }
 
     var origSort = gPasswords.sort;
     function ptagsSort (aColumn, aUpdateSelection, aInvertDirection) {
