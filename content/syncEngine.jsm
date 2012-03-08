@@ -114,7 +114,7 @@ PasswordTagsStore.prototype = {
 
   wipe: function () {
     log("wipe");
-    signonMetadataStorage.removeAllMetadata();
+    signonMetadataStorage.removeAllMetadata(true);
   },
 
   update: function (aRecord) {

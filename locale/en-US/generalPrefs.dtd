@@ -15,3 +15,6 @@
 <!ENTITY readPrivacyPolicy.label "Read the Password Tags privacy policy.">
 <!ENTITY useSyncService.label "Use Sync service to synchronize your metadata">
 <!ENTITY useSyncService.accesskey "U">
+<!ENTITY deleteAllMetadata.label "Delete all metadata">
+<!ENTITY deleteAllMetadata.accesskey "D">
+<!ENTITY deleteAllMetadata.tooltip "Permanently delete all of your tags and metadata.">

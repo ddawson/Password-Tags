@@ -19,6 +19,8 @@
 const PRIVACYPOLICY_URL =
         "https://addons.mozilla.org/addon/password-categories/privacy/";
 
+Cu.import("resource://passwordtags/signonMetadataStorage.jsm");
+
 XPCOMUtils.defineLazyServiceGetter(
   this, "promptSvc",
   "@mozilla.org/embedcomp/prompt-service;1", "nsIPromptService");
@@ -39,12 +41,30 @@ function showPrivacyPolicy () {
   openURL(PRIVACYPOLICY_URL);
 }
 
+function deleteAllMetadata () {
+  var res = promptSvc.confirmEx(
+    window,
+    el("generalprefs-strings").getString("confirmDeleteAllMetadata.title"),
+    el("generalprefs-strings").getString("confirmDeleteAllMetadata.msg"),
+    promptSvc.STD_YES_NO_BUTTONS + promptSvc.BUTTON_DELAY_ENABLE,
+    null, null, null, null, {});
+  if (res != 0) return;
+
+  signonMetadataStorage.removeAllMetadata(false);
+  promptSvc.alert(
+    window,
+    el("generalprefs-strings").getString("allMetadataDeleted.title"),
+    el("generalprefs-strings").getString("allMetadataDeleted.msg"));
+}
+
 document.addEventListener(
   "DOMContentLoaded",
   function () {
     if (!((Application.name == "Firefox"
            && vc.compare(Application.version, "4.0") >= 0)
-          || (Application.name == "SeaMonkey")))
-      document.getElementById("syncintegration-group").hidden = true;
+          || (Application.name == "SeaMonkey"))) {
+      el("syncintegration-group").hidden = true;
+      el("deleteallmetadata-btn").hidden = true;
+    }
   },
   false);

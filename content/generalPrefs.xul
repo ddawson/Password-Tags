@@ -73,5 +73,12 @@
                 accesskey="&useSyncService.accesskey;"
                 preference="pref-usesyncservice"/>
     </groupbox>
+    <spacer flex="1"/>
+    <hbox>
+      <button id="deleteallmetadata-btn" label="&deleteAllMetadata.label;"
+              accesskey="&deleteAllMetadata.accesskey;"
+              tooltiptext="&deleteAllMetadata.tooltip;"
+              oncommand="deleteAllMetadata();"/>
+    </hbox>
   </prefpane>
 </overlay>

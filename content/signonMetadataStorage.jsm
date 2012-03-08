@@ -251,8 +251,8 @@ var signonMetadataStorage = {
     this._removeMetadataByGUID(aGUID, true);
   },
 
-  removeAllMetadata: function () {
-    this._removeAllMetadata();
+  removeAllMetadata: function (aFromSync) {
+    this._removeAllMetadata(aFromSync);
   },
 
   addMetadataChangeListener: function (aListener) {
@@ -460,9 +460,9 @@ var signonMetadataStorage = {
     this._deleteRow(aGUID, aFromSync);
   },
 
-  _removeAllMetadata: function () {
+  _removeAllMetadata: function (aFromSync) {
     if (!this._dbConnection) this._init();
-    this._deleteAllRows(true);
+    this._deleteAllRows(aFromSync);
   },
 
   _findMetadata: function (aGUID) {
