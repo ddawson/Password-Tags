@@ -93,6 +93,29 @@ document.addEventListener(
     gPasswords.ptags_editmetadata = ptagsEditmetadata;
 
     function ptagsDeletemetadata (evt) {
+      const Cc = Components.classes, Ci = Components.interfaces;
+      var prefBranch = Cc["@mozilla.org/preferences-service;1"].
+                       getService(Ci.nsIPrefService).
+                       getBranch("extensions.passwordtags.");
+      if (prefBranch.getBoolPref("promptForDeleteMetadata")) {
+        let strings = document.getElementById("pwdtagsStrbundle");
+        let promptSvc =
+          Cc["@mozilla.org/embedcomp/prompt-service;1"].
+          getService(Ci.nsIPromptService);
+        let res = promptSvc.confirmEx(
+          window,
+          strings.getString("confirmDeleteMetadata.title"),
+          strings.getString("confirmDeleteMetadata.msg"),
+          promptSvc.STD_YES_NO_BUTTONS
+            + promptSvc.BUTTON_POS_2*promptSvc.BUTTON_TITLE_IS_STRING,
+          null, null, strings.getString("confirmDeleteMetadata_always.label"),
+          null, {});
+        if (res == 1)
+          return;
+        else if (res == 2)
+          prefBranch.setBoolPref("promptForDeleteMetadata", false);
+      }
+
       var selections = gDataman.getTreeSelections(gPasswords.tree);
       var idx = this.tree.currentIndex;
       var signon = this.displayedSignons[idx];
@@ -122,17 +145,25 @@ document.addEventListener(
     gPasswords.handleKeyPress = ptagsHandleKeyPress;
 
     function cloneLoginInfo (aLoginInfo) {
+      var obj = {
+        QueryInterface: function (aIID) {
+          if (aIID.equals(Components.interfaces.nsISupports)
+              || aIID.equals(Components.interfaces.nsILoginInfo)
+              || aIID.equals(Components.interfaces.nsILoginMetaInfo))
+            return this;
+
+          throw Components.results.NS_ERROR_NO_INTERFACE;
+        },
+        cloned: true
+      };
       aLoginInfo.QueryInterface(Components.interfaces.nsILoginMetaInfo);
-      return {
-        cloned: true,
-        hostname: aLoginInfo.hostname,
-        httpRealm: aLoginInfo.httpRealm,
-        formSubmitURL: aLoginInfo.formSubmitURL,
-        username: aLoginInfo.username,
-        password: aLoginInfo.password,
-        usernameField: aLoginInfo.usernameField,
-        passwordField: aLoginInfo.passwordField,
-        guid: aLoginInfo.guid };
+      for each (let name in ["hostname", "httpRealm", "formSubmitURL",
+                             "username", "password", "usernameField",
+                             "passwordField", "guid", "timeCreated",
+                             "timeLastUsed", "timePasswordChanged",
+                             "timesUsed"])
+        obj[name] = aLoginInfo[name];
+      return obj;
     }
 
     var origSort = gPasswords.sort;

@@ -135,8 +135,8 @@ var signonMetadataStorage = {
   QueryInterface: XPCOMUtils.generateQI([Ci.nsIObserver,
                                          Ci.nsISupportsWeakReference]),
 
+  _metadataChangeListeners: [],
   _defaultChangeListeners: [],
-  _observerRegistered: false,
 
   getMetadata: function (aSignon) {
     var mdspec = this._getMetadataRaw(aSignon);
@@ -157,6 +157,24 @@ var signonMetadataStorage = {
     }
 
     return obj;
+    return _wrapMetadataInObject(mdspec);
+  },
+
+  getMetadataByGUID: function (aGUID) {
+    var mdspec = this._getMetadataRawByGUID(aGUID);
+    return mdspec;
+  },
+
+  getAllMetadata: function () {
+    var allMetadataArray = this._getAllMetadata();
+
+    var allMetadataObj = {};
+    for (let i = 0; i < allMetadataArray.length; i++) {
+      let item = allMetadataArray[i];
+      allMetadataObj[item.guid] = item;
+    }
+
+    return allMetadataObj;
   },
 
   getTags: function (aSignon) {
@@ -171,6 +189,14 @@ var signonMetadataStorage = {
     var tags = this._normalizeTags(aSignonMeta.tags);
     var metaStr = aSignonMeta.serializeMetadata();
     this._setMetadataRaw(aSignon, tags, metaStr);
+  },
+
+  setMetadataFromRecord: function (aMDSpec) {
+    this._setMetadataRawFromRecord(aMDSpec);
+  },
+
+  changeMetadataGUID: function (aOldGUID, aNewGUID) {
+    this._changeGUID(aOldGUID, aNewGUID, true);
   },
 
   setTags: function (aSignon, aTags) {
@@ -196,7 +222,7 @@ var signonMetadataStorage = {
   },
 
   removeMetadata: function (aSignon) {
-    this._setMetadataRaw(aSignon, "", null);
+    this._removeMetadataByGUID(aSignon.guid, false);
   },
 
   removeOrphanedMetadata: function () {
@@ -204,18 +230,55 @@ var signonMetadataStorage = {
 
     outer_loop:
     for (let i = 0; i < allMetadata.length; i++) {
-      let mdObj = allMetadata[i];
-      let res = loginMgr.findLogins({}, mdObj.hostname, mdObj.formSubmitURL,
-                                    mdObj.httpRealm);
-      let signon = null;
-      for (let j = 0; j < res.length; j++) {
-        signon = res[j];
-        if (mdObj.usernameHash == this._hash(signon.username))
-          continue outer_loop;
-      }
-
-      if (!signon) this.removeMetadata({ guid: mdObj.guid });
+      let mdSpec = allMetadata[i];
+      if (this.isOrphaned(mdSpec)) this._removeMetadataByGUID(guid, false);
     }
+  },
+
+  isOrphaned: function (aMDSpec) {
+    var res = loginMgr.findLogins({}, aMDSpec.hostname, aMDSpec.formSubmitURL,
+                                  aMDSpec.httpRealm);
+    for (let i = 0; i < res.length; i++) {
+      let signon = res[i];
+      if (aMDSpec.usernameHash == this._hash(signon.username))
+        return false;
+    }
+
+    return true;
+  },
+
+  removeMetadataByGUID: function (aGUID) {
+    this._removeMetadataByGUID(aGUID, true);
+  },
+
+  removeAllMetadata: function () {
+    this._removeAllMetadata();
+  },
+
+  addMetadataChangeListener: function (aListener) {
+    this._metadataChangeListeners.push(aListener);
+  },
+
+  removeMetadataChangeListener: function (aListener) {
+    for (var i = 0; i < this._metadataChangeListeners.length; i++)
+      if (aListener == this._metadataChangeListeners[i]) {
+        this._metadataChangeListeners.splice(i, 1);
+        return;
+      }
+  },
+
+  notifyMetadataChangeListeners: function (aGUID) {
+    for (var i = 0; i < this._metadataChangeListeners.length; i++)
+      try {
+        this._metadataChangeListeners[i].handleMetadataChange(aGUID);
+      } catch (e) {}
+  },
+
+  notifyMetadataChangeListenersAllGUIDs: function () {
+    for (var i = 0; i < this._metadataChangeListeners.length; i++)
+      try {
+        this._metadataChangeListeners[i].handleMetadataChangeAllGUIDs();
+      } catch (e) {}
   },
 
   getNumberOfDefaultFields: function () {
@@ -317,17 +380,16 @@ var signonMetadataStorage = {
         this._rekeyMetadata(oldLogin, newLogin);
       } else if (aData == "removeLogin"
                  && !prefs.getBoolPref("keepMetadataForDeletedLogins"))
-        this.removeMetadata(aSubject.QueryInterface(Ci.nsILoginInfo));
+        this.removeMetadata(aSubject.QueryInterface(Ci.nsILoginMetaInfo));
       else if (aData == "removeAllLogins"
                  && !prefs.getBoolPref("keepMetadataForDeletedLogins"))
-        this._deleteAllRows();
+        this._deleteAllRows(false);
     }
   },
 
   _getMetadataRaw: function (aSignon) {
     if (!this._dbConnection) this._init();
-    if (aSignon instanceof Ci.nsILoginInfo)
-      aSignon.QueryInterface(Ci.nsILoginMetaInfo);
+    aSignon.QueryInterface(Ci.nsILoginMetaInfo);
 
     var guid = aSignon.guid;
     var mdspec = this._findMetadata(guid);
@@ -336,39 +398,48 @@ var signonMetadataStorage = {
     mdspec = this._findMetadataByData(aSignon);
     if (!mdspec) return null;
 
-    this._changeGUID(mdspec.guid, aSignon.guid);
-    mdspec = aSignon.guid;
+    this._changeGUID(mdspec.guid, guid, false);
+    mdspec.guid = guid;
     return mdspec;
+  },
+
+  _getMetadataRawByGUID: function (aGUID) {
+    if (!this._dbConnection) this._init();
+    return this._findMetadata(aGUID);
   },
 
   _setMetadataRaw: function (aSignon, aTags, aMetadata) {
     if (!this._dbConnection) this._init();
-    if (aSignon instanceof Ci.nsILoginInfo)
-      aSignon.QueryInterface(Ci.nsILoginMetaInfo);
+    aSignon.QueryInterface(Ci.nsILoginMetaInfo);
 
     var guid = aSignon.guid;
 
     if (!aTags && !aMetadata && aMetadata !== undefined)
-      this._deleteRow(guid);
+      this._deleteRow(guid, false);
     else {
-      let mdObj = this._findMetadata(guid);
-      if (mdObj) {
-        mdObj.tags = aTags;
-        if (aMetadata !== undefined) mdObj.metadata = aMetadata;
-        this._updateRow(mdObj);
+      let mdSpec = this._findMetadata(guid);
+      if (mdSpec) {
+        mdSpec.tags = aTags;
+        if (aMetadata !== undefined) mdSpec.metadata = aMetadata;
+        this._updateRow(guid, mdSpec, false);
       } else {
-        let hostname = aSignon.hostname,
-            httpRealm = aSignon.httpRealm,
-            formSubmitURL = aSignon.formSubmitURL,
-            username = aSignon.username,
-            usernameHash = this._hash(aSignon.username);
-        mdObj = {
-          hostname: hostname, httpRealm: httpRealm,
-          formSubmitURL: formSubmitURL, usernameHash: usernameHash,
+        mdSpec = {
+          hostname: aSignon.hostname, httpRealm: aSignon.httpRealm,
+          formSubmitURL: aSignon.formSubmitURL,
+          usernameHash: this._hash(aSignon.username),
           tags: aTags, metadata: aMetadata || null, guid: guid };
-        this._addRow(mdObj);
+        this._addRow(mdSpec, false);
       }
     }
+  },
+
+  _setMetadataRawFromRecord: function (aMDSpec) {
+    if (!this._dbConnection) this._init();
+
+    if (this._findMetadata(aMDSpec.guid))
+      this._updateRow(aMDSpec.guid, aMDSpec, true);
+    else
+      this._addRow(aMDSpec, true);
   },
 
   _rekeyMetadata: function (aOldSignon, aNewSignon) {
@@ -380,8 +451,18 @@ var signonMetadataStorage = {
       mdspec.httpRealm = aNewSignon.httpRealm;
       mdspec.formSubmitURL = aNewSignon.formSubmitURL;
       mdspec.usernameHash = this._hash(aNewSignon.username);
-      this._updateRow(mdspec);
+      this._updateRow(mdspec.guid, mdspec, false);
     }
+  },
+
+  _removeMetadataByGUID: function (aGUID, aFromSync) {
+    if (!this._dbConnection) this._init();
+    this._deleteRow(aGUID, aFromSync);
+  },
+
+  _removeAllMetadata: function () {
+    if (!this._dbConnection) this._init();
+    this._deleteAllRows(true);
   },
 
   _findMetadata: function (aGUID) {
@@ -426,7 +507,6 @@ var signonMetadataStorage = {
 
       if (stmt.executeStep()) {
         return {
-          id: stmt.row.id,
           hostname: stmt.row.hostname,
           httpRealm: stmt.row.httpRealm,
           formSubmitURL: stmt.row.formSubmitURL,
@@ -452,7 +532,7 @@ var signonMetadataStorage = {
       stmt = this._dbConnection.createStatement(
         "SELECT * FROM dd_passwordtags_metadata");
       while (stmt.executeStep()) {
-        let mdObj = {
+        let mdSpec = {
           hostname: stmt.row.hostname,
           httpRealm: stmt.row.httpRealm,
           formSubmitURL: stmt.row.formSubmitURL,
@@ -460,7 +540,7 @@ var signonMetadataStorage = {
           tags: stmt.row.tags,
           metadata: stmt.row.metadata,
           guid: stmt.row.guid };
-        allMetadata.push(mdObj);
+        allMetadata.push(mdSpec);
       }
 
       return allMetadata;
@@ -471,7 +551,7 @@ var signonMetadataStorage = {
     }
   },
 
-  _addRow: function (aMDObj) {
+  _addRow: function (aMDSpec, aFromSync) {
     var stmt;
     try {
       stmt = this._createStatement(
@@ -480,9 +560,11 @@ var signonMetadataStorage = {
         + "tags, metadata, guid) VALUES "
         + "(:hostname, :httpRealm, :formSubmitURL, :usernameHash, "
         + ":tags, :metadata, :guid)");
-      for (let name in aMDObj)
-        stmt.params[name] = aMDObj[name];
+      for each (let name in ["hostname", "httpRealm", "formSubmitURL",
+                             "usernameHash", "tags", "metadata", "guid"])
+        stmt.params[name] = aMDSpec[name];
       stmt.execute();
+      if (!aFromSync) this.notifyMetadataChangeListeners(aMDSpec.guid);
     } catch (e) {
       log("_addRow failed with exception: " + e);
     } finally {
@@ -490,7 +572,7 @@ var signonMetadataStorage = {
     }
   },
 
-  _updateRow: function (aMDObj) {
+  _updateRow: function (aGUID, aMDSpec, aFromSync) {
     var stmt;
     try {
       stmt = this._createStatement(
@@ -500,12 +582,15 @@ var signonMetadataStorage = {
         + "formSubmitURL = :formSubmitURL, "
         + "usernameHash = :usernameHash, "
         + "tags = :tags, "
-        + "metadata = :metadata "
-        + "WHERE guid = :guid");
+        + "metadata = :metadata, "
+        + "guid = :guid "
+        + "WHERE guid = :oldguid");
       for each (let name in ["hostname", "httpRealm", "formSubmitURL",
                              "usernameHash", "tags", "metadata", "guid"])
-        stmt.params[name] = aMDObj[name];
+        stmt.params[name] = aMDSpec[name];
+      stmt.params.oldguid = aGUID;
       stmt.execute();
+      if (!aFromSync) this.notifyMetadataChangeListeners(aMDSpec.guid);
     } catch (e) {
       log("_updateRow failed with exception: " + e);
     } finally {
@@ -513,7 +598,7 @@ var signonMetadataStorage = {
     }
   },
 
-  _changeGUID: function (aOldGUID, aNewGUID) {
+  _changeGUID: function (aOldGUID, aNewGUID, aFromSync) {
     var stmt;
     try {
       stmt = this._createStatement(
@@ -522,6 +607,10 @@ var signonMetadataStorage = {
       stmt.params.oldGUID = aOldGUID;
       stmt.params.newGUID = aNewGUID;
       stmt.execute();
+      if (!aFromSync) {
+        this.notifyMetadataChangeListeners(aOldGUID);
+        this.notifyMetadataChangeListeners(aNewGUID);
+      }
     } catch (e) {
       log("_changeGUID failed with exception: " + e);
     } finally {
@@ -529,13 +618,14 @@ var signonMetadataStorage = {
     }
   },
 
-  _deleteRow: function (aGUID) {
+  _deleteRow: function (aGUID, aFromSync) {
     var stmt;
     try {
       stmt = this._createStatement(
         "DELETE FROM dd_passwordtags_metadata WHERE guid = :guid");
       stmt.params.guid = aGUID;
       stmt.execute();
+      if (!aFromSync) this.notifyMetadataChangeListeners(aGUID);
     } catch (e) {
       log("_deleteRow failed with exception: " + e);
     } finally {
@@ -543,10 +633,11 @@ var signonMetadataStorage = {
     }
   },
 
-  _deleteAllRows: function () {
+  _deleteAllRows: function (aFromSync) {
     try {
       this._dbConnection.executeSimpleSQL(
         "DELETE FROM dd_passwordtags_metadata");
+      if (!aFromSync) this.notifyMetadataChangeListenersAllGUIDs();
     } catch (e) {
       log("_deleteAllRows failed with exception: " + e);
     }
@@ -584,7 +675,7 @@ var signonMetadataStorage = {
           if (j == res.length)
             metadata.guid = uuidGen.generateUUID().toString();
 
-          this._addRow(metadata);
+          this._addRow(metadata, false);
         }
       }
 

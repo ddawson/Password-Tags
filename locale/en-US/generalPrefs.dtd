@@ -1,6 +1,17 @@
 <!ENTITY allowPwdFillByTags.label "Allow password fill by tags">
+<!ENTITY allowPwdFillByTags.accesskey "A">
 <!ENTITY allowPwdFillByTags.tooltip "Include a context submenu for login forms that lists usernames and associated tags (if any), allowing you to fill the form by selecting one.">
 <!ENTITY keepMetadataForDeletedLogins.label "Keep metadata for deleted logins">
+<!ENTITY keepMetadataForDeletedLogins.accesskey "K">
 <!ENTITY keepMetadataForDeletedLogins.tooltip "If unchecked, tags and metadata associated with a login will be deleted if the login itself is deleted.">
 <!ENTITY cleanupOrphanedMetadata.label "Clean up orphaned metadata">
+<!ENTITY cleanupOrphanedMetadata.accesskey "C">
 <!ENTITY cleanupOrphanedMetadata.tooltip "Remove metadata for which no corresponding login can be found">
+<!ENTITY promptForDeleteMetadata.label "Prompt for deleting metadata">
+<!ENTITY promptForDeleteMetadata.accesskey "P">
+<!ENTITY promptForDeleteMetadata.tooltip "Ask whether you are sure you want to delete metadata from a login.">
+<!ENTITY syncIntegration.label "Sync integration">
+<!ENTITY syncIntegration.description "With your consent, this add-on can use Mozilla's Sync service to synchronize your password metadata. In order for this to work, in addition to checking the box below, you must also set up Sync itself, if you have not already, by going to Tools &gt; Set Up Sync… and following the instructions there.">
+<!ENTITY readPrivacyPolicy.label "Read the Password Tags privacy policy.">
+<!ENTITY useSyncService.label "Use Sync service to synchronize your metadata">
+<!ENTITY useSyncService.accesskey "U">

@@ -5,7 +5,7 @@
     <id>passwordcategories@daniel.dawson</id>
     <type>2</type>
     <name>Password Tags</name>
-    <version>2.0pre2</version>
+    <version>2.0pre3</version>
     <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
     <translator>bg-BG: arris (BabelZilla)</translator>
     <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
@@ -21,7 +21,7 @@
     <translator>uk-UA: Volodymyr Savchuk "Sappa" (BabelZilla)</translator>
     <translator>zh-CN: mozillazg "BruceH" (BabelZilla), yfdyh000 &lt;yfdyh000@gmail.com&gt; (BabelZilla)</translator>
     <translator>zh-TW: Velociraptor (BabelZilla)</translator>
-    <description>Adds sortable user-specified tags to the password manager.</description>
+    <description>Adds metadata and sortable tags to the password manager.</description>
 
     <optionsURL>chrome://passwordtags/content/prefwindow.xul</optionsURL>
 
@@ -115,7 +115,7 @@
         <translator>uk-UA: Volodymyr Savchuk "Sappa" (BabelZilla)</translator>
         <translator>zh-CN: mozillazg "BruceH" (BabelZilla)</translator>
         <translator>zh-TW: Velociraptor (BabelZilla)</translator>
-        <description>Adds sortable user-specified tags to the password manager.</description>
+        <description>Adds metadata and sortable tags to the password manager.</description>
       </RDF:Description>
 
       <RDF:Description>
@@ -136,7 +136,7 @@
         <translator>uk-UA: Volodymyr Savchuk "Sappa" (BabelZilla)</translator>
         <translator>zh-CN: mozillazg "BruceH" (BabelZilla)</translator>
         <translator>zh-TW: Velociraptor (BabelZilla)</translator>
-        <description>Adds sortable user-specified tags to the password manager.</description>
+        <description>Adds metadata and sortable tags to the password manager.</description>
       </RDF:Description>
 
       <RDF:Description>
@@ -157,7 +157,7 @@
         <translator>uk-UA: Volodymyr Savchuk "Sappa" (BabelZilla)</translator>
         <translator>zh-CN: mozillazg "BruceH" (BabelZilla)</translator>
         <translator>zh-TW: Velociraptor (BabelZilla)</translator>
-        <description>Adds sortable user-specified tags to the password manager.</description>
+        <description>Adds metadata and sortable tags to the password manager.</description>
       </RDF:Description>
 
       <RDF:Description>
@@ -241,7 +241,7 @@
         <translator>uk-UA: Володимир Савчук "Sappa" (BabelZilla)</translator>
         <translator>zh-CN: mozillazg "BruceH" (BabelZilla)</translator>
         <translator>zh-TW: Velociraptor (BabelZilla)</translator>
-        <description>Adds sortable user-specified tags to the password manager.</description>
+        <description>Adds metadata and sortable tags to the password manager.</description>
       </RDF:Description>
 
       <RDF:Description>
@@ -282,7 +282,7 @@
         <translator>uk-UA: Володимир Савчук "Sappa" (BabelZilla)</translator>
         <translator>zh-CN: mozillazg "BruceH" (BabelZilla)</translator>
         <translator>zh-TW: Velociraptor (BabelZilla)</translator>
-        <description>Adds sortable user-specified tags to the password manager.</description>
+        <description>Adds metadata and sortable tags to the password manager.</description>
       </RDF:Description>
 
       <RDF:Description>

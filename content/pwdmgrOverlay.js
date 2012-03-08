@@ -85,16 +85,19 @@ document.addEventListener(
 
     function cloneLoginInfo (loginInfo) {
       loginInfo.QueryInterface(Components.interfaces.nsILoginMetaInfo);
-      return {
+      var obj = {
+        QueryInterface: passwordTags.XPCOMUtils.generateQI(
+          [Components.interfaces.nsILoginInfo,
+           Components.interfaces.nsILoginMetaInfo]),
         cloned: true,
-        hostname: loginInfo.hostname,
-        httpRealm: loginInfo.httpRealm,
-        formSubmitURL: loginInfo.formSubmitURL,
-        username: loginInfo.username,
-        password: loginInfo.password,
-        usernameField: loginInfo.usernameField,
-        passwordField: loginInfo.passwordField,
-        guid: loginInfo.guid };
+      };
+      for each (let name in ["hostname", "httpRealm", "formSubmitURL",
+                             "username", "password", "usernameField",
+                             "passwordField", "guid", "timeCreated",
+                             "timeLastUsed", "timePasswordChanged",
+                             "timesUsed"])
+        obj[name] = loginInfo[name];
+      return obj;
     }
 
     var origSignonColumnSort = window.SignonColumnSort;
@@ -186,6 +189,29 @@ var passwordTags = {
   },
 
   deleteMetadata: function () {
+    const Cc = Components.classes, Ci = Components.interfaces;
+    var prefBranch = Cc["@mozilla.org/preferences-service;1"].
+                     getService(Ci.nsIPrefService).
+                     getBranch("extensions.passwordtags.");
+    if (prefBranch.getBoolPref("promptForDeleteMetadata")) {
+      let strings = document.getElementById("pwdtagsStrbundle");
+      let promptSvc =
+        Cc["@mozilla.org/embedcomp/prompt-service;1"].
+        getService(Ci.nsIPromptService);
+      let res = promptSvc.confirmEx(
+        window,
+        strings.getString("confirmDeleteMetadata.title"),
+        strings.getString("confirmDeleteMetadata.msg"),
+        promptSvc.STD_YES_NO_BUTTONS
+          + promptSvc.BUTTON_POS_2*promptSvc.BUTTON_TITLE_IS_STRING,
+        null, null, strings.getString("confirmDeleteMetadata_always.label"),
+        null, {});
+      if (res == 1)
+        return;
+      else if (res == 2)
+        prefBranch.setBoolPref("promptForDeleteMetadata", false);
+    }
+
     var tree = document.getElementById("signonsTree");
     var idx = tree.currentIndex;
     var signon = signonsTreeView._filterSet.length ?
@@ -195,4 +221,4 @@ var passwordTags = {
   },
 };
 
-
+Components.utils.import("resource://gre/modules/XPCOMUtils.jsm", passwordTags);

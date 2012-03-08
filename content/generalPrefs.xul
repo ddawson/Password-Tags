@@ -27,6 +27,8 @@
                   src="chrome://passwordtags/locale/generalPrefs.properties"/>
   </stringbundleset>
 
+  <script type="application/javascript"
+          src="chrome://global/content/contentAreaUtils.js"/>
   <script type="application/javascript" src="generalPrefs.js"/>
 
   <prefpane id="generalprefs-pane">
@@ -37,18 +39,39 @@
       <preference id="pref-keepmetadatafordeletedlogins"
                   name="extensions.passwordtags.keepMetadataForDeletedLogins"
                   type="bool"/>
+      <preference id="pref-promptfordeletemetadata"
+                  name="extensions.passwordtags.promptForDeleteMetadata"
+                  type="bool"/>
+      <preference id="pref-usesyncservice"
+                  name="extensions.passwordtags.useSyncService" type="bool"/>
     </preferences>
 
     <checkbox label="&allowPwdFillByTags.label;"
+              accesskey="&allowPwdFillByTags.accesskey;"
               tooltiptext="&allowPwdFillByTags.tooltip;"
               preference="pref-allowpwdfillbytags"/>
     <hbox>
       <checkbox label="&keepMetadataForDeletedLogins.label;"
+                accesskey="&keepMetadataForDeletedLogins.accesskey;"
                 tooltiptext="&keepMetadataForDeletedLogins.tooltip;"
                 preference="pref-keepmetadatafordeletedlogins"/>
       <button label="&cleanupOrphanedMetadata.label;"
+              accesskey="&cleanupOrphanedMetadata.accesskey;"
               tooltiptext="&cleanupOrphanedMetadata.tooltip;"
               oncommand="cleanup();"/>
     </hbox>
+    <checkbox label="&promptForDeleteMetadata.label;"
+              accesskey="&promptForDeleteMetadata.accesskey;"
+              tooltiptext="&promptForDeleteMetadata.tooltip;"
+              preference="pref-promptfordeletemetadata"/>
+    <groupbox id="syncintegration-group">
+      <caption label="&syncIntegration.label;"/>
+      <description>&syncIntegration.description;</description>
+      <label value="&readPrivacyPolicy.label;" class="text-link"
+             onclick="if (event.button == 0) showPrivacyPolicy();"/>
+      <checkbox label="&useSyncService.label;"
+                accesskey="&useSyncService.accesskey;"
+                preference="pref-usesyncservice"/>
+    </groupbox>
   </prefpane>
 </overlay>

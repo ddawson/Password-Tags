@@ -1,5 +1,10 @@
 # Functional content
-## Module
+## Component
+component	{0edcc8da-9cd3-4d02-b463-20c69bbe62b9}	components/PasswordTagsSyncEngineRegister.js
+contract	@daniel.dawson/passwordtags/syncengine-register;1	{0edcc8da-9cd3-4d02-b463-20c69bbe62b9}
+category	profile-after-change	PasswordTagsSyncEngineRegister	@daniel.dawson/passwordtags/syncengine-register;1
+
+## Modules
 resource	passwordtags	content/
 
 ## Chrome
@@ -15,5 +20,7 @@ overlay chrome://passwordmgr/content/passwordManager.xul chrome://passwordtags/c
 overlay chrome://communicator/content/passwordManager.xul chrome://passwordtags/content/pwdmgrOverlay.xul
 overlay chrome://communicator/content/dataman/dataman.xul chrome://passwordtags/content/datamanOverlay.xul
 overlay about:data chrome://passwordtags/content/datamanOverlay.xul
+
+## Browser/Navigator
 overlay chrome://browser/content/browser.xul chrome://passwordtags/content/contextmenuOverlay.xul
 overlay chrome://navigator/content/navigator.xul chrome://passwordtags/content/contextmenuOverlay.xul
