@@ -228,7 +228,6 @@ var signonMetadataStorage = {
   removeOrphanedMetadata: function () {
     var allMetadata = this._getAllMetadata();
 
-    outer_loop:
     for (let i = 0; i < allMetadata.length; i++) {
       let mdSpec = allMetadata[i];
       if (this.isOrphaned(mdSpec)) this._removeMetadataByGUID(guid, false);

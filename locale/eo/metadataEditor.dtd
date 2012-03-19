@@ -1,0 +1,17 @@
+<!ENTITY metadataEditor.title "Redaktilo de metadatumoj de Password Tags">
+<!ENTITY host.label "Gastiga komputilo:">
+<!ENTITY submitPrefix.label "Sendoprefikso:">
+<!ENTITY username.label "Salutnomo:">
+<!ENTITY tags.label "Markoj:">
+<!ENTITY tags.accesskey "M">
+<!ENTITY tags.tooltip "La markoj, kiuj apartenas al la aktuala ensaluto, separitaj per komoj">
+<!ENTITY nametype.label "Nomo/Tipo">
+<!ENTITY value.label "Valoro">
+<!ENTITY addbutton.label "Aldoni">
+<!ENTITY addbutton.accesskey "A">
+<!ENTITY addbutton.tooltip "Aldoni novan kampon de metadatumoj.">
+<!ENTITY deleteallbutton.label "Forviŝi ĉion">
+<!ENTITY deleteallbutton.accesskey "F">
+<!ENTITY deleteallbutton.tooltip "Forviŝi ĉiujn tiujn metadatumojn, inkluzive markojn.">
+<!ENTITY configDefaultFields.label "Agordi defaŭltajn kampojn">
+<!ENTITY configDefaultFields.accesskey "o">

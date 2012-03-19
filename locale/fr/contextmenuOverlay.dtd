@@ -1,0 +1,3 @@
+<!ENTITY fillbypwdtags.label "Remplir avec Password Tags">
+<!ENTITY fillbypwdtags.accesskey "T">
+<!ENTITY fillbypwdtags.tooltip "Afficher les noms d'utilisateur et les étiquettes associées pour ce formulaire.">

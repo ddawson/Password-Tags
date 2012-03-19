@@ -1,0 +1,9 @@
+<!ENTITY defaultFieldExplanation.label "Za wašo wulažcenje toś te póla budu na zachopjeńku lisćiny, gaž wócynjaśo editor metadatow za gronidło, kótarež hyšći njama metdadaty.">
+<!ENTITY nameColumn.label "Mě">
+<!ENTITY typeColumn.label "Typ">
+<!ENTITY addDefaultField.label "Pśidaś">
+<!ENTITY addDefaultField.accesskey "P">
+<!ENTITY addDefaultField.tooltip "Nowe standardne pólo pśidaś.">
+<!ENTITY resetToOriginal.label "Na original slědk stajiś">
+<!ENTITY resetToOriginal.accesskey "N">
+<!ENTITY resetToOriginal.tooltip "Lisćinu standardnych pólow na spócetnu lisćinu pśez Password Tags slědk stajiś.">

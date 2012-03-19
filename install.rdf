@@ -5,22 +5,25 @@
     <id>passwordcategories@daniel.dawson</id>
     <type>2</type>
     <name>Password Tags</name>
-    <version>2.0pre4</version>
+    <version>2.0pre5</version>
     <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
-    <translator>bg-BG: arris (BabelZilla)</translator>
-    <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
-    <translator>fr: Goofy (BabelZilla)</translator>
-    <translator>he: SiiiE (BabelZilla)</translator>
-    <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
-    <translator>nl: markh (BabelZilla)</translator>
-    <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
-    <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
-    <translator>ru: Pyriatynskyi Vytalyi "PiVV" (BabelZilla)</translator>
-    <translator>sr: DakSrbija (BabelZilla)</translator>
-    <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
-    <translator>uk-UA: Volodymyr Savchuk "Sappa" (BabelZilla)</translator>
-    <translator>zh-CN: mozillazg "BruceH" (BabelZilla), yfdyh000 &lt;yfdyh000@gmail.com&gt; (BabelZilla)</translator>
-    <translator>zh-TW: Velociraptor (BabelZilla)</translator>
+    <translator>bg-BG: arris</translator>
+    <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+    <translator>dsb: milupo</translator>
+    <translator>eo: milupo</translator>
+    <translator>fr: Goofy</translator>
+    <translator>he: SiiiE</translator>
+    <translator>hsb: milupo</translator>
+    <translator>hu-HU: MIKES KASZMÁN István "Cashman"</translator>
+    <translator>nl: markh</translator>
+    <translator>pl: Marcin Borowczyk "MarcinB"</translator>
+    <translator>pt-BR: Mauro José da Silva "maurojs10"</translator>
+    <translator>ru: Pyriatynskyi Vytalyi "PiVV"</translator>
+    <translator>sr: DakSrbija</translator>
+    <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits"</translator>
+    <translator>uk-UA: Volodymyr Savchuk "Sappa"</translator>
+    <translator>zh-CN: mozillazg "BruceH", yfdyh000 &lt;yfdyh000@gmail.com&gt;</translator>
+    <translator>zh-TW: Velociraptor</translator>
     <description>Adds metadata and sortable tags to the password manager.</description>
 
     <optionsURL>chrome://passwordtags/content/prefwindow.xul</optionsURL>
@@ -59,20 +62,23 @@
         <locale>bg-BG</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
-        <translator>bg-BG: arris (BabelZilla)</translator>
-        <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
-        <translator>fr: Goofy (BabelZilla)</translator>
-        <translator>he: SiiiE (BabelZilla)</translator>
-        <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
-        <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
-        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
-        <translator>ru: Пирятинский Виталий "PiVV" (BabelZilla)</translator>
-        <translator>sr: ДакСРБИЈА (BabelZilla)</translator>
-        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
-        <translator>uk-UA: Володимир Савчук "Sappa" (BabelZilla)</translator>
-        <translator>zh-CN: mozillazg "BruceH" (BabelZilla)</translator>
-        <translator>zh-TW: Velociraptor (BabelZilla)</translator>
+        <translator>bg-BG: arris</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>dsb: milupo</translator>
+        <translator>eo: milupo</translator>
+        <translator>fr: Goofy</translator>
+        <translator>he: SiiiE</translator>
+        <translator>hsb: milupo</translator>
+        <translator>hu-HU: MIKES KASZMÁN István "Cashman"</translator>
+        <translator>nl: markh</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB"</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10"</translator>
+        <translator>ru: Пирятинский Виталий "PiVV"</translator>
+        <translator>sr: ДакСРБИЈА</translator>
+        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits"</translator>
+        <translator>uk-UA: Володимир Савчук "Sappa"</translator>
+        <translator>zh-CN: mozillazg "BruceH"</translator>
+        <translator>zh-TW: Velociraptor</translator>
         <description>Добавя подбрани бележки посочени от потребителя, в пароли мениджъра.</description>
       </RDF:Description>
 
@@ -80,20 +86,23 @@
         <locale>de</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
-        <translator>bg-BG: arris (BabelZilla)</translator>
-        <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
-        <translator>fr: Goofy (BabelZilla)</translator>
-        <translator>he: SiiiE (BabelZilla)</translator>
-        <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
-        <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
-        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
-        <translator>ru: Pyriatynskyi Vytalyi "PiVV" (BabelZilla)</translator>
-        <translator>sr: DakSrbija (BabelZilla)</translator>
-        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
-        <translator>uk-UA: Volodymyr Savchuk "Sappa" (BabelZilla)</translator>
-        <translator>zh-CN: mozillazg "BruceH" (BabelZilla)</translator>
-        <translator>zh-TW: Velociraptor (BabelZilla)</translator>
+        <translator>bg-BG: arris</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>dsb: milupo</translator>
+        <translator>eo: milupo</translator>
+        <translator>fr: Goofy</translator>
+        <translator>he: SiiiE</translator>
+        <translator>hsb: milupo</translator>
+        <translator>hu-HU: MIKES KASZMÁN István "Cashman"</translator>
+        <translator>nl: markh</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB"</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10"</translator>
+        <translator>ru: Pyriatynskyi Vytalyi "PiVV"</translator>
+        <translator>sr: DakSrbija</translator>
+        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits"</translator>
+        <translator>uk-UA: Volodymyr Savchuk "Sappa"</translator>
+        <translator>zh-CN: mozillazg "BruceH"</translator>
+        <translator>zh-TW: Velociraptor</translator>
         <description>Fügt dem Passwort-Manager benutzerspezifische Tags zum Sortieren der Passwörter hinzu.</description>
       </RDF:Description>
 
@@ -101,20 +110,23 @@
         <locale>fr</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
-        <translator>bg-BG: arris (BabelZilla)</translator>
-        <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
-        <translator>fr: Goofy (BabelZilla)</translator>
-        <translator>he: SiiiE (BabelZilla)</translator>
-        <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
-        <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
-        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
-        <translator>ru: Pyriatynskyi Vytalyi "PiVV" (BabelZilla)</translator>
-        <translator>sr: DakSrbija (BabelZilla)</translator>
-        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
-        <translator>uk-UA: Volodymyr Savchuk "Sappa" (BabelZilla)</translator>
-        <translator>zh-CN: mozillazg "BruceH" (BabelZilla)</translator>
-        <translator>zh-TW: Velociraptor (BabelZilla)</translator>
+        <translator>bg-BG: arris</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>dsb: milupo</translator>
+        <translator>eo: milupo</translator>
+        <translator>fr: Goofy</translator>
+        <translator>he: SiiiE</translator>
+        <translator>hsb: milupo</translator>
+        <translator>hu-HU: MIKES KASZMÁN István "Cashman"</translator>
+        <translator>nl: markh</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB"</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10"</translator>
+        <translator>ru: Pyriatynskyi Vytalyi "PiVV"</translator>
+        <translator>sr: DakSrbija</translator>
+        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits"</translator>
+        <translator>uk-UA: Volodymyr Savchuk "Sappa"</translator>
+        <translator>zh-CN: mozillazg "BruceH"</translator>
+        <translator>zh-TW: Velociraptor</translator>
         <description>Adds metadata and sortable tags to the password manager.</description>
       </RDF:Description>
 
@@ -122,20 +134,23 @@
         <locale>he</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
-        <translator>bg-BG: arris (BabelZilla)</translator>
-        <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
-        <translator>fr: Goofy (BabelZilla)</translator>
-        <translator>he: SiiiE (BabelZilla)</translator>
-        <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
-        <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
-        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
-        <translator>ru: Pyriatynskyi Vytalyi "PiVV" (BabelZilla)</translator>
-        <translator>sr: DakSrbija (BabelZilla)</translator>
-        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
-        <translator>uk-UA: Volodymyr Savchuk "Sappa" (BabelZilla)</translator>
-        <translator>zh-CN: mozillazg "BruceH" (BabelZilla)</translator>
-        <translator>zh-TW: Velociraptor (BabelZilla)</translator>
+        <translator>bg-BG: arris</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>dsb: milupo</translator>
+        <translator>eo: milupo</translator>
+        <translator>fr: Goofy</translator>
+        <translator>he: SiiiE</translator>
+        <translator>hsb: milupo</translator>
+        <translator>hu-HU: MIKES KASZMÁN István "Cashman"</translator>
+        <translator>nl: markh</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB"</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10"</translator>
+        <translator>ru: Pyriatynskyi Vytalyi "PiVV"</translator>
+        <translator>sr: DakSrbija</translator>
+        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits"</translator>
+        <translator>uk-UA: Volodymyr Savchuk "Sappa"</translator>
+        <translator>zh-CN: mozillazg "BruceH"</translator>
+        <translator>zh-TW: Velociraptor</translator>
         <description>Adds metadata and sortable tags to the password manager.</description>
       </RDF:Description>
 
@@ -143,20 +158,23 @@
         <locale>hu-HU</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
-        <translator>bg-BG: arris (BabelZilla)</translator>
-        <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
-        <translator>fr: Goofy (BabelZilla)</translator>
-        <translator>he: SiiiE (BabelZilla)</translator>
-        <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
-        <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
-        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
-        <translator>ru: Pyriatynskyi Vytalyi "PiVV" (BabelZilla)</translator>
-        <translator>sr: DakSrbija (BabelZilla)</translator>
-        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
-        <translator>uk-UA: Volodymyr Savchuk "Sappa" (BabelZilla)</translator>
-        <translator>zh-CN: mozillazg "BruceH" (BabelZilla)</translator>
-        <translator>zh-TW: Velociraptor (BabelZilla)</translator>
+        <translator>bg-BG: arris</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>dsb: milupo</translator>
+        <translator>eo: milupo</translator>
+        <translator>fr: Goofy</translator>
+        <translator>he: SiiiE</translator>
+        <translator>hsb: milupo</translator>
+        <translator>hu-HU: MIKES KASZMÁN István "Cashman"</translator>
+        <translator>nl: markh</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB"</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10"</translator>
+        <translator>ru: Pyriatynskyi Vytalyi "PiVV"</translator>
+        <translator>sr: DakSrbija</translator>
+        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits"</translator>
+        <translator>uk-UA: Volodymyr Savchuk "Sappa"</translator>
+        <translator>zh-CN: mozillazg "BruceH"</translator>
+        <translator>zh-TW: Velociraptor</translator>
         <description>Adds metadata and sortable tags to the password manager.</description>
       </RDF:Description>
 
@@ -164,20 +182,23 @@
         <locale>nl</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
-        <translator>bg-BG: arris (BabelZilla)</translator>
-        <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
-        <translator>fr: Goofy (BabelZilla)</translator>
-        <translator>he: SiiiE (BabelZilla)</translator>
-        <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
-        <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
-        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
-        <translator>ru: Pyriatynskyi Vytalyi "PiVV" (BabelZilla)</translator>
-        <translator>sr: DakSrbija (BabelZilla)</translator>
-        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
-        <translator>uk-UA: Volodymyr Savchuk "Sappa" (BabelZilla)</translator>
-        <translator>zh-CN: mozillazg "BruceH" (BabelZilla)</translator>
-        <translator>zh-TW: Velociraptor (BabelZilla)</translator>
+        <translator>bg-BG: arris</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>dsb: milupo</translator>
+        <translator>eo: milupo</translator>
+        <translator>fr: Goofy</translator>
+        <translator>he: SiiiE</translator>
+        <translator>hsb: milupo</translator>
+        <translator>hu-HU: MIKES KASZMÁN István "Cashman"</translator>
+        <translator>nl: markh</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB"</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10"</translator>
+        <translator>ru: Pyriatynskyi Vytalyi "PiVV"</translator>
+        <translator>sr: DakSrbija</translator>
+        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits"</translator>
+        <translator>uk-UA: Volodymyr Savchuk "Sappa"</translator>
+        <translator>zh-CN: mozillazg "BruceH"</translator>
+        <translator>zh-TW: Velociraptor</translator>
         <description>Voegt sorteerbare door de gebruiker opgegeven labels toe aan de wachtwoordbeheerder.</description>
       </RDF:Description>
 
@@ -185,20 +206,23 @@
         <locale>pl</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
-        <translator>bg-BG: arris (BabelZilla)</translator>
-        <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
-        <translator>fr: Goofy (BabelZilla)</translator>
-        <translator>he: SiiiE (BabelZilla)</translator>
-        <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
-        <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
-        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
-        <translator>ru: Pyriatynskyi Vytalyi "PiVV" (BabelZilla)</translator>
-        <translator>sr: DakSrbija (BabelZilla)</translator>
-        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
-        <translator>uk-UA: Volodymyr Savchuk "Sappa" (BabelZilla)</translator>
-        <translator>zh-CN: mozillazg "BruceH" (BabelZilla)</translator>
-        <translator>zh-TW: Velociraptor (BabelZilla)</translator>
+        <translator>bg-BG: arris</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>dsb: milupo</translator>
+        <translator>eo: milupo</translator>
+        <translator>fr: Goofy</translator>
+        <translator>he: SiiiE</translator>
+        <translator>hsb: milupo</translator>
+        <translator>hu-HU: MIKES KASZMÁN István "Cashman"</translator>
+        <translator>nl: markh</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB"</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10"</translator>
+        <translator>ru: Pyriatynskyi Vytalyi "PiVV"</translator>
+        <translator>sr: DakSrbija</translator>
+        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits"</translator>
+        <translator>uk-UA: Volodymyr Savchuk "Sappa"</translator>
+        <translator>zh-CN: mozillazg "BruceH"</translator>
+        <translator>zh-TW: Velociraptor</translator>
         <description>Dodaje sortowane przez użytkownika znaczniki do menedżera haseł.</description>
       </RDF:Description>
 
@@ -206,20 +230,23 @@
         <locale>ru</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
-        <translator>bg-BG: arris (BabelZilla)</translator>
-        <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
-        <translator>fr: Goofy (BabelZilla)</translator>
-        <translator>he: SiiiE (BabelZilla)</translator>
-        <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
-        <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
-        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
-        <translator>ru: Пирятинский Виталий "PiVV" (BabelZilla)</translator>
-        <translator>sr: ДакСРБИЈА (BabelZilla)</translator>
-        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
-        <translator>uk-UA: Володимир Савчук "Sappa" (BabelZilla)</translator>
-        <translator>zh-CN: mozillazg "BruceH" (BabelZilla)</translator>
-        <translator>zh-TW: Velociraptor (BabelZilla)</translator>
+        <translator>bg-BG: arris</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>dsb: milupo</translator>
+        <translator>eo: milupo</translator>
+        <translator>fr: Goofy</translator>
+        <translator>he: SiiiE</translator>
+        <translator>hsb: milupo</translator>
+        <translator>hu-HU: MIKES KASZMÁN István "Cashman"</translator>
+        <translator>nl: markh</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB"</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10"</translator>
+        <translator>ru: Пирятинский Виталий "PiVV"</translator>
+        <translator>sr: ДакСРБИЈА</translator>
+        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits"</translator>
+        <translator>uk-UA: Володимир Савчук "Sappa"</translator>
+        <translator>zh-CN: mozillazg "BruceH"</translator>
+        <translator>zh-TW: Velociraptor</translator>
         <description>Добавляет в менеджер паролей возможность сортировки по определяемым пользователем меткам.</description>
       </RDF:Description>
 
@@ -227,40 +254,46 @@
         <locale>sr</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
-        <translator>bg-BG: arris (BabelZilla)</translator>
-        <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
-        <translator>fr: Goofy (BabelZilla)</translator>
-        <translator>he: SiiiE (BabelZilla)</translator>
-        <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
-        <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
-        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
-        <translator>ru: Пирятинский Виталий "PiVV" (BabelZilla)</translator>
-        <translator>sr: ДакСРБИЈА (BabelZilla)</translator>
-        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
-        <translator>uk-UA: Володимир Савчук "Sappa" (BabelZilla)</translator>
-        <translator>zh-CN: mozillazg "BruceH" (BabelZilla)</translator>
-        <translator>zh-TW: Velociraptor (BabelZilla)</translator>
+        <translator>bg-BG: arris</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>dsb: milupo</translator>
+        <translator>eo: milupo</translator>
+        <translator>fr: Goofy</translator>
+        <translator>he: SiiiE</translator>
+        <translator>hsb: milupo</translator>
+        <translator>hu-HU: MIKES KASZMÁN István "Cashman"</translator>
+        <translator>nl: markh</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB"</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10"</translator>
+        <translator>ru: Пирятинский Виталий "PiVV"</translator>
+        <translator>sr: ДакСРБИЈА</translator>
+        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits"</translator>
+        <translator>uk-UA: Володимир Савчук "Sappa"</translator>
+        <translator>zh-CN: mozillazg "BruceH"</translator>
+        <translator>zh-TW: Velociraptor</translator>
         <description>Adds metadata and sortable tags to the password manager.</description>
       </RDF:Description>
 
       <RDF:Description>
         <locale>sv-SE</locale>
         <name>Password Tags</name>
-        <translator>bg-BG: arris (BabelZilla)</translator>
-        <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
-        <translator>fr: Goofy (BabelZilla)</translator>
-        <translator>he: SiiiE (BabelZilla)</translator>
-        <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
-        <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
-        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
-        <translator>ru: Pyriatynskyi Vytalyi "PiVV" (BabelZilla)</translator>
-        <translator>sr: DakSrbija (BabelZilla)</translator>
-        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
-        <translator>uk-UA: Volodymyr Savchuk "Sappa" (BabelZilla)</translator>
-        <translator>zh-CN: mozillazg "BruceH" (BabelZilla)</translator>
-        <translator>zh-TW: Velociraptor (BabelZilla)</translator>
+        <translator>bg-BG: arris</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>dsb: milupo</translator>
+        <translator>eo: milupo</translator>
+        <translator>fr: Goofy</translator>
+        <translator>he: SiiiE</translator>
+        <translator>hsb: milupo</translator>
+        <translator>hu-HU: MIKES KASZMÁN István "Cashman"</translator>
+        <translator>nl: markh</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB"</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10"</translator>
+        <translator>ru: Pyriatynskyi Vytalyi "PiVV"</translator>
+        <translator>sr: DakSrbija</translator>
+        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits"</translator>
+        <translator>uk-UA: Volodymyr Savchuk "Sappa"</translator>
+        <translator>zh-CN: mozillazg "BruceH"</translator>
+        <translator>zh-TW: Velociraptor</translator>
         <description>Lägger till sorteringsbara användarspecifika taggar i lösenordshanteraren.</description>
       </RDF:Description>
 
@@ -268,60 +301,69 @@
         <locale>uk-UA</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
-        <translator>bg-BG: arris (BabelZilla)</translator>
-        <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
-        <translator>fr: Goofy (BabelZilla)</translator>
-        <translator>he: SiiiE (BabelZilla)</translator>
-        <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
-        <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
-        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
-        <translator>ru: Пирятинский Виталий "PiVV" (BabelZilla)</translator>
-        <translator>sr: ДакСРБИЈА (BabelZilla)</translator>
-        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
-        <translator>uk-UA: Володимир Савчук "Sappa" (BabelZilla)</translator>
-        <translator>zh-CN: mozillazg "BruceH" (BabelZilla)</translator>
-        <translator>zh-TW: Velociraptor (BabelZilla)</translator>
+        <translator>bg-BG: arris</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>dsb: milupo</translator>
+        <translator>eo: milupo</translator>
+        <translator>fr: Goofy</translator>
+        <translator>he: SiiiE</translator>
+        <translator>hsb: milupo</translator>
+        <translator>hu-HU: MIKES KASZMÁN István "Cashman"</translator>
+        <translator>nl: markh</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB"</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10"</translator>
+        <translator>ru: Пирятинский Виталий "PiVV"</translator>
+        <translator>sr: ДакСРБИЈА</translator>
+        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits"</translator>
+        <translator>uk-UA: Володимир Савчук "Sappa"</translator>
+        <translator>zh-CN: mozillazg "BruceH"</translator>
+        <translator>zh-TW: Velociraptor</translator>
         <description>Adds metadata and sortable tags to the password manager.</description>
       </RDF:Description>
 
       <RDF:Description>
         <locale>zh-CN</locale>
         <name>Password Tags</name>
-        <translator>bg-BG: arris (BabelZilla)</translator>
-        <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
-        <translator>fr: Goofy (BabelZilla)</translator>
-        <translator>he: SiiiE (BabelZilla)</translator>
-        <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
-        <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
-        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
-        <translator>ru: Pyriatynskyi Vytalyi "PiVV" (BabelZilla)</translator>
-        <translator>sr: DakSrbija (BabelZilla)</translator>
-        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
-        <translator>uk-UA: Volodymyr Savchuk "Sappa" (BabelZilla)</translator>
-        <translator>zh-CN: mozillazg "BruceH" (BabelZilla)</translator>
-        <translator>zh-TW: Velociraptor (BabelZilla)</translator>
+        <translator>bg-BG: arris</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>dsb: milupo</translator>
+        <translator>eo: milupo</translator>
+        <translator>fr: Goofy</translator>
+        <translator>he: SiiiE</translator>
+        <translator>hsb: milupo</translator>
+        <translator>hu-HU: MIKES KASZMÁN István "Cashman"</translator>
+        <translator>nl: markh</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB"</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10"</translator>
+        <translator>ru: Pyriatynskyi Vytalyi "PiVV"</translator>
+        <translator>sr: DakSrbija</translator>
+        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits"</translator>
+        <translator>uk-UA: Volodymyr Savchuk "Sappa"</translator>
+        <translator>zh-CN: mozillazg "BruceH"</translator>
+        <translator>zh-TW: Velociraptor</translator>
         <description>添加可排序的用户指定的标签到密码管理器。</description>
       </RDF:Description>
 
       <RDF:Description>
         <locale>zh-TW</locale>
         <name>Password Tags</name>
-        <translator>bg-BG: arris (BabelZilla)</translator>
-        <translator>de: ucn (BabelZilla) (http://unrealstuff.bplaced.de/)</translator>
-        <translator>fr: Goofy (BabelZilla)</translator>
-        <translator>he: SiiiE (BabelZilla)</translator>
-        <translator>hu-HU: MIKES KASZMÁN István "Cashman" (BabelZilla)</translator>
-        <translator>nl: markh (BabelZilla)</translator>
-        <translator>pl: Marcin Borowczyk "MarcinB" (BabelZilla)</translator>
-        <translator>pt-BR: Mauro José da Silva "maurojs10" (BabelZilla)</translator>
-        <translator>ru: Pyriatynskyi Vytalyi "PiVV" (BabelZilla)</translator>
-        <translator>sr: DakSrbija (BabelZilla)</translator>
-        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits" (BabelZilla)</translator>
-        <translator>uk-UA: Volodymyr Savchuk "Sappa" (BabelZilla)</translator>
-        <translator>zh-CN: mozillazg "BruceH" (BabelZilla)</translator>
-        <translator>zh-TW: Velociraptor (BabelZilla)</translator>
+        <translator>bg-BG: arris</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>dsb: milupo</translator>
+        <translator>eo: milupo</translator>
+        <translator>fr: Goofy</translator>
+        <translator>he: SiiiE</translator>
+        <translator>hsb: milupo</translator>
+        <translator>hu-HU: MIKES KASZMÁN István "Cashman"</translator>
+        <translator>nl: markh</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB"</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10"</translator>
+        <translator>ru: Pyriatynskyi Vytalyi "PiVV"</translator>
+        <translator>sr: DakSrbija</translator>
+        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits"</translator>
+        <translator>uk-UA: Volodymyr Savchuk "Sappa"</translator>
+        <translator>zh-CN: mozillazg "BruceH"</translator>
+        <translator>zh-TW: Velociraptor</translator>
         <description>在密碼管理員中加入可排序的使用者自訂標籤。</description>
       </RDF:Description>
     </localized>

@@ -1,0 +1,7 @@
+<!ENTITY column_tags.label "Labels">
+<!ENTITY edittags.label "Labels bewerken">
+<!ENTITY edittags.accesskey "w">
+<!ENTITY editmetadata.label "Metagegevens bewerken">
+<!ENTITY editmetadata.accesskey "M">
+<!ENTITY deletemetadata.label "Metagegevens verwijderen">
+<!ENTITY deletemetadata.accesskey "v">

@@ -1,0 +1,17 @@
+<!ENTITY metadataEditor.title "Password Tags 後設資料編輯器">
+<!ENTITY host.label "主機：">
+<!ENTITY submitPrefix.label "提交前置詞（prefix）：">
+<!ENTITY username.label "使用者名稱：">
+<!ENTITY tags.label "標籤：">
+<!ENTITY tags.accesskey "T">
+<!ENTITY tags.tooltip "目前所開啟登入資料的相關標籤，以逗號分隔">
+<!ENTITY nametype.label "名稱/類型">
+<!ENTITY value.label "值">
+<!ENTITY addbutton.label "新增">
+<!ENTITY addbutton.accesskey "A">
+<!ENTITY addbutton.tooltip "新增一個後設資料欄位">
+<!ENTITY deleteallbutton.label "全部刪除">
+<!ENTITY deleteallbutton.accesskey "D">
+<!ENTITY deleteallbutton.tooltip "刪除所有後設資料。">
+<!ENTITY configDefaultFields.label "編輯預設欄位">
+<!ENTITY configDefaultFields.accesskey "C">

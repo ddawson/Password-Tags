@@ -1,0 +1,17 @@
+<!ENTITY metadataEditor.title "Password Tags metagegevens bewerken">
+<!ENTITY host.label "Host:">
+<!ENTITY submitPrefix.label "Indieningsprefix:">
+<!ENTITY username.label "Gebruikersnaam:">
+<!ENTITY tags.label "Labels:">
+<!ENTITY tags.accesskey "L">
+<!ENTITY tags.tooltip "De labels behorend bij de huisige aanmeldgegevens, gescheiden door komma’s">
+<!ENTITY nametype.label "Naam/type">
+<!ENTITY value.label "Waarde">
+<!ENTITY addbutton.label "Toevoegen">
+<!ENTITY addbutton.accesskey "T">
+<!ENTITY addbutton.tooltip "Nieuw metagegevensveld toevoegen.">
+<!ENTITY deleteallbutton.label "Alle verwijderen">
+<!ENTITY deleteallbutton.accesskey "w">
+<!ENTITY deleteallbutton.tooltip "Alle metagegevens verwijderen, inclusief labels.">
+<!ENTITY configDefaultFields.label "Standaardvelden configureren">
+<!ENTITY configDefaultFields.accesskey "C">

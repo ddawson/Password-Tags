@@ -1,0 +1,9 @@
+<!ENTITY defaultFieldExplanation.label "為便於使用，若您在後設資料編輯器中開啟的密碼尚未加上後設資料，下列欄位會自動列入清單。">
+<!ENTITY nameColumn.label "名稱">
+<!ENTITY typeColumn.label "類型">
+<!ENTITY addDefaultField.label "新增">
+<!ENTITY addDefaultField.accesskey "A">
+<!ENTITY addDefaultField.tooltip "新增預設欄位">
+<!ENTITY resetToOriginal.label "重設為初始清單">
+<!ENTITY resetToOriginal.accesskey "R">
+<!ENTITY resetToOriginal.tooltip "將預設欄位清單重設為 Password Tags 提供的初始狀態。">

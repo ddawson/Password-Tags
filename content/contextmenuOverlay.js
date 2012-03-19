@@ -90,7 +90,9 @@ addEventListener(
       return true;
     }
 
-    document.getElementById("contentAreaContextMenu").addEventListener(
+    var ctxMenuPopup = document.getElementById("contentAreaContextMenu");
+
+    ctxMenuPopup.addEventListener(
       "popupshowing",
       function () {
         document.getElementById("passwordtags-fillbytags").hidden =
@@ -100,6 +102,17 @@ addEventListener(
       false);
 
     var popup = document.getElementById("passwordtags-fillbytags-popup");
+
+    ctxMenuPopup.addEventListener(
+      "popuphidden",
+      function handleCtxmenuHidden (aEvt) {
+        if (aEvt.target != popup) return;
+        matches = curInfo = null;
+        while (popup.hasChildNodes())
+          popup.removeChild(popup.lastChild);
+      },
+      false);
+
     popup.addEventListener(
       "popupshowing",
       function () {
@@ -134,7 +147,6 @@ addEventListener(
         var idx = target.value;
         curInfo.usernameField.value = matches[idx].username;
         curInfo.passwordField.value = matches[idx].password;
-        matches = null;
       },
       false);
   },

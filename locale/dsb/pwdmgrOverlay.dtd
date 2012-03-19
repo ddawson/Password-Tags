@@ -1,0 +1,7 @@
+<!ENTITY column_tags.label "Marka">
+<!ENTITY edittags.label "Marki wobźěłaś">
+<!ENTITY edittags.accesskey "m">
+<!ENTITY editmetadata.label "Metadaty wobźěłaś">
+<!ENTITY editmetadata.accesskey "m">
+<!ENTITY deletemetadata.label "Metadaty wulašowaś">
+<!ENTITY deletemetadata.accesskey "d">

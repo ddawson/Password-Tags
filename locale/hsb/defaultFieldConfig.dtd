@@ -1,0 +1,9 @@
+<!ENTITY defaultFieldExplanation.label "Za waše wosnadnjenje so tute pola budu na spočatku lisćiny, hdyž editor metadatow za hesło wočinjeće, kotrež metadaty nima.">
+<!ENTITY nameColumn.label "Mjeno">
+<!ENTITY typeColumn.label "Typ">
+<!ENTITY addDefaultField.label "Přidać">
+<!ENTITY addDefaultField.accesskey "P">
+<!ENTITY addDefaultField.tooltip "Nowe standardne polo přidać">
+<!ENTITY resetToOriginal.label "Na original wróćo stajić">
+<!ENTITY resetToOriginal.accesskey "N">
+<!ENTITY resetToOriginal.tooltip "Lisćinu standardnych polow na prěnjotnu lisćinu wot Password Tags wróćo stajić.">

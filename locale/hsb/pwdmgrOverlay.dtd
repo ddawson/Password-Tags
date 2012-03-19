@@ -1,0 +1,7 @@
+<!ENTITY column_tags.label "Znački">
+<!ENTITY edittags.label "Znački wobdźěłać">
+<!ENTITY edittags.accesskey "w">
+<!ENTITY editmetadata.label "Metadaty wobdźěłać">
+<!ENTITY editmetadata.accesskey "m">
+<!ENTITY deletemetadata.label "Metadaty zhašeć">
+<!ENTITY deletemetadata.accesskey "d">

@@ -1,0 +1,17 @@
+<!ENTITY metadataEditor.title "Éditeur de métadonnées de l'extension Password Tags">
+<!ENTITY host.label "Hôte :">
+<!ENTITY submitPrefix.label "Soumettre un préfixe :">
+<!ENTITY username.label "Nom d'utilisateur :">
+<!ENTITY tags.label "Étiquettes :">
+<!ENTITY tags.accesskey "t">
+<!ENTITY tags.tooltip "Les étiquettes associées aux identifiants en cours, séparées par des virgules">
+<!ENTITY nametype.label "Nom/type">
+<!ENTITY value.label "Valeur">
+<!ENTITY addbutton.label "Ajouter">
+<!ENTITY addbutton.accesskey "A">
+<!ENTITY addbutton.tooltip "Ajouter un nouveau champ de métadonnées.">
+<!ENTITY deleteallbutton.label "Tout supprimer">
+<!ENTITY deleteallbutton.accesskey "s">
+<!ENTITY deleteallbutton.tooltip "Supprime toutes les métadonnées, y compris les étiquettes.">
+<!ENTITY configDefaultFields.label "Configurer les champs par défaut.">
+<!ENTITY configDefaultFields.accesskey "C">

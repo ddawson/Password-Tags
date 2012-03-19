@@ -1,0 +1,20 @@
+<!ENTITY allowPwdFillByTags.label "Gronidła pśez wobznamjenja zapódaś">
+<!ENTITY allowPwdFillByTags.accesskey "G">
+<!ENTITY allowPwdFillByTags.tooltip "Konteksowy pódmeni za pśizjawjeńske formulary zapśimjeś, kótarež nalicyju wužywarske mjenja a jich wobznamjenja (jolic take su), kótarež wam dowóluju, formular wupołniś, z tym až wuběraśo take.">
+<!ENTITY keepMetadataForDeletedLogins.label "Metadaty za wulašowane pśizjawjenja wobchowaś">
+<!ENTITY keepMetadataForDeletedLogins.accesskey "M">
+<!ENTITY keepMetadataForDeletedLogins.tooltip "Jolic toś ta opcija jo znjemóžnjona, wobznamjenja a metadaty, kótarež su z pśizjawjenim zwězane, budu se lašowaś, jolic pśizjawjenj jo wulašowane.">
+<!ENTITY cleanupOrphanedMetadata.label "Wósyrośone metadaty zrumowaś">
+<!ENTITY cleanupOrphanedMetadata.accesskey "W">
+<!ENTITY cleanupOrphanedMetadata.tooltip "Metadaty wótpóraś, za kótarež wótpowědny pśizjawjenje njedajo se namakaś">
+<!ENTITY promptForDeleteMetadata.label "Za lašowanim metadatow se pšašaś">
+<!ENTITY promptForDeleteMetadata.accesskey "Z">
+<!ENTITY promptForDeleteMetadata.tooltip "Pšašaś se, lěc cośo napšawdu metadaty z pśizjawjenja lašowaś.">
+<!ENTITY syncIntegration.label "Synchronizaciska integracija">
+<!ENTITY syncIntegration.description "Z wašym pśiwdaśim móžo toś ten dodank synchronizacisku słužbu Mozilla wužywaś, aby waše gronidłowe metadaty synchronizował. Aby to funkcioněrowało, musyśo slědujucy kašćik znjemóžniś a synchronizaciju konfigurěrowaś, jolic hyšći njejsćo to cynił. Źiśo za to do Rědy -&gt; Synchronizaciju zarědowaś... a mějśo se pó slědujucych instrukcijach tam.">
+<!ENTITY readPrivacyPolicy.label "Pśecytajśo pšawidła priwatnosći Password Tags.">
+<!ENTITY useSyncService.label "Synchronizacisku słužbu wužywaś, aby swóje metadaty synchronizował">
+<!ENTITY useSyncService.accesskey "S">
+<!ENTITY deleteAllMetadata.label "Wšykne metadaty wulašowaś">
+<!ENTITY deleteAllMetadata.accesskey "W">
+<!ENTITY deleteAllMetadata.tooltip "Wšykne waše wobznamjenja a metadaty na pśecej wulašowaś.">

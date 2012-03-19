@@ -1,0 +1,17 @@
+<!ENTITY metadataEditor.title "Editor metadatow Password Tags">
+<!ENTITY host.label "Host">
+<!ENTITY submitPrefix.label "Słański prefiks:">
+<!ENTITY username.label "Wužywarske mě:">
+<!ENTITY tags.label "Wobznamjenja:">
+<!ENTITY tags.accesskey "W">
+<!ENTITY tags.tooltip "Wobznamjenja, kótarež słušaju k aktualnemu pśizjawjenjeju, zělone pśez komy">
+<!ENTITY nametype.label "Mě/Typ">
+<!ENTITY value.label "Gódnota">
+<!ENTITY addbutton.label "Pśidaś">
+<!ENTITY addbutton.accesskey "P">
+<!ENTITY addbutton.tooltip "Nowe metadatowe pólo pśidaś.">
+<!ENTITY deleteallbutton.label "Wšykne wulašowaś">
+<!ENTITY deleteallbutton.accesskey "l">
+<!ENTITY deleteallbutton.tooltip "Wšykne toś te metadaty wulašowaś, inluziwnje wobznamjenja.">
+<!ENTITY configDefaultFields.label "Standardne póla konfigurěrowaś">
+<!ENTITY configDefaultFields.accesskey "S">

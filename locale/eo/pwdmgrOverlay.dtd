@@ -1,0 +1,7 @@
+<!ENTITY column_tags.label "Markoj">
+<!ENTITY edittags.label "Redakti markojn">
+<!ENTITY edittags.accesskey "r">
+<!ENTITY editmetadata.label "Redakti metadatumojn">
+<!ENTITY editmetadata.accesskey "m">
+<!ENTITY deletemetadata.label "Forviŝi metadatumojn">
+<!ENTITY deletemetadata.accesskey "F">

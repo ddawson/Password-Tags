@@ -1,0 +1,20 @@
+<!ENTITY allowPwdFillByTags.label "Ebligi enmetadon de pasvortoj per markoj">
+<!ENTITY allowPwdFillByTags.accesskey "E">
+<!ENTITY allowPwdFillByTags.tooltip "Inkludi kuntekstan submenuon por ensalutaj formularoj, kiu listigas salutnomojn kaj la respektivajn markojn (se tiaj ekzistas), kiuj ebligas al vi plenigi la formularon, se vi elektas tian.">
+<!ENTITY keepMetadataForDeletedLogins.label "Konservi metadatumojn por forviŝitaj ensalutoj">
+<!ENTITY keepMetadataForDeletedLogins.accesskey "K">
+<!ENTITY keepMetadataForDeletedLogins.tooltip "Se ili estas malŝaltitaj, markoj kaj metadatumoj, kiuj apartenas al ensaluto, estos forviŝataj, se la ensaluto mem estas forviŝita.">
+<!ENTITY cleanupOrphanedMetadata.label "Purigi orfajn metadatumojn">
+<!ENTITY cleanupOrphanedMetadata.accesskey "P">
+<!ENTITY cleanupOrphanedMetadata.tooltip "Forigi metadatumojn, por kiuj rspektiva ensaluto ne estas trovata">
+<!ENTITY promptForDeleteMetadata.label "Inviti por forviŝi metadatumojn">
+<!ENTITY promptForDeleteMetadata.accesskey "I">
+<!ENTITY promptForDeleteMetadata.tooltip "Demandi, ĉu vi vere volas forviŝi metadatumojn el ensaluto.">
+<!ENTITY syncIntegration.label "Sinkroniga integrado">
+<!ENTITY syncIntegration.description "Kun via konsento ĉi tiu aldonaĵo povas uzi la sinkronigan servon de Mozilla por sinkronigi viajn pasvortajn metadatumojn. Por ke tio funkciu, vi ankaŭ devas, krom ŝalti la kesteton sube, agordi Sync mem, se vi ankoraŭ ne faris tion, irante al Iloj &gt; Agordi Speguli... kaj observante la instrukciojn tie.">
+<!ENTITY readPrivacyPolicy.label "Legu la privatecan politikon de Password Tags.">
+<!ENTITY useSyncService.label "Uzi la Sync-servon por sinkronigi viajn metadatumojn">
+<!ENTITY useSyncService.accesskey "U">
+<!ENTITY deleteAllMetadata.label "Forviŝi ĉiujn metadatumojn">
+<!ENTITY deleteAllMetadata.accesskey "F">
+<!ENTITY deleteAllMetadata.tooltip "Forviŝi ĉiun viajn markojn kaj metadatumojn por ĉiam.">

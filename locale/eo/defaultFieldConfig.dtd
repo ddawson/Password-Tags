@@ -1,0 +1,9 @@
+<!ENTITY defaultFieldExplanation.label "Por via faciligo ĉi tiuj kampoj estas metataj al la komenco de la listo, kiam vi malfermas la redaktilon de metadatumoj por pasvorto, kiu ankoraŭ ne havas metadatumojn.">
+<!ENTITY nameColumn.label "Nomo">
+<!ENTITY typeColumn.label "Tipo">
+<!ENTITY addDefaultField.label "Aldoni">
+<!ENTITY addDefaultField.accesskey "A">
+<!ENTITY addDefaultField.tooltip "Aldoni novan defaŭltan kampon.">
+<!ENTITY resetToOriginal.label "Restaŭri originalon">
+<!ENTITY resetToOriginal.accesskey "R">
+<!ENTITY resetToOriginal.tooltip "Restaŭri la liston de defaŭltaj kampoj al la origina listo de Password Tags.">

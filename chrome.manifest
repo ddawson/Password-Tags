@@ -12,7 +12,13 @@ content	passwordtags		content/
 skin	passwordtags	default	skin/
 
 # Language-specific content
+locale	passwordtags	dsb	locale/dsb/
 locale	passwordtags	en-US	locale/en-US/
+locale	passwordtags	eo	locale/eo/
+locale	passwordtags	fr	locale/fr/
+locale	passwordtags	hsb	locale/hsb/
+locale	passwordtags	nl	locale/nl/
+locale	passwordtags	zh-TW	locale/zh-TW/
 
 # What goes where
 ## Password Manager

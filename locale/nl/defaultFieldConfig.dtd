@@ -1,0 +1,9 @@
+<!ENTITY defaultFieldExplanation.label "Voor uw gemak worden deze velden initieel in de lijst opgenomen wanneer u metagegevens bewerkt voor een wachtwoord dat nog geen metagegevens heeft.">
+<!ENTITY nameColumn.label "Naam">
+<!ENTITY typeColumn.label "Type">
+<!ENTITY addDefaultField.label "Toevoegen">
+<!ENTITY addDefaultField.accesskey "T">
+<!ENTITY addDefaultField.tooltip "Nieuw standaardveld toevoegen.">
+<!ENTITY resetToOriginal.label "Oorspronkelijke waarden terugzetten">
+<!ENTITY resetToOriginal.accesskey "z">
+<!ENTITY resetToOriginal.tooltip "De lijst met standaardvelden terugzetten naar de oorspronkelijke lijst van Password Tags.">

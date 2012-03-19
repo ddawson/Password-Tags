@@ -1,0 +1,20 @@
+<!ENTITY allowPwdFillByTags.label "Hesła přez znački zapodać">
+<!ENTITY allowPwdFillByTags.accesskey "H">
+<!ENTITY allowPwdFillByTags.tooltip "Kontekstowy podmeni za přizjewjenske formulary zapřijeć, kotryž wužiwarske mjena a z nimi zwjazane znački (jeli tajke su) nalistuje, kotryž wam zmóžnja formular wupjelnić, z tym, zo zapisk wuběraće.">
+<!ENTITY keepMetadataForDeletedLogins.label "Metadaty za zhašane pžizjewjenja wobchować">
+<!ENTITY keepMetadataForDeletedLogins.accesskey "M">
+<!ENTITY keepMetadataForDeletedLogins.tooltip "Jeli su znjemóžnjene, zhašeja so znački a metadaty zwjazane z přizjewjenje, jeli přizjewjenje same je zhašane.">
+<!ENTITY cleanupOrphanedMetadata.label "Wosyroćene metadaty zrumować">
+<!ENTITY cleanupOrphanedMetadata.accesskey "W">
+<!ENTITY cleanupOrphanedMetadata.tooltip "Metadaty wotstronić, za kotrež so wotpowědne přizjewjenje njenamaka.">
+<!ENTITY promptForDeleteMetadata.label "Za zhašenje metadatow so prašeć">
+<!ENTITY promptForDeleteMetadata.accesskey "Z">
+<!ENTITY promptForDeleteMetadata.tooltip "Prašeć so, hač chceće woprawdźe metadaty z přizjewjenja zhašeć.">
+<!ENTITY syncIntegration.label "Synchronizaciska integracija">
+<!ENTITY syncIntegration.description "Z wašej přezjednosću móže tutón přidatk synchronizacisku słužbu Mozilla wužiwać, zo by waše hesłowe metadaty synchronizował. Zo by to fungowało, dyrbiće kašćik zmóžnić a tež synchronizaciju konfigurować, z tym zo dźeće do Nastroje &gt; Synchronizaciju připrawić... a slědowace instrukcije sćěhujeće.">
+<!ENTITY readPrivacyPolicy.label "Prawidła priwatnosće za Password Tags čitać">
+<!ENTITY useSyncService.label "Sycnhronizacisku słužbu za waše metadaty wužiwać">
+<!ENTITY useSyncService.accesskey "S">
+<!ENTITY deleteAllMetadata.label "Wšě metadaty zhašeć">
+<!ENTITY deleteAllMetadata.accesskey "m">
+<!ENTITY deleteAllMetadata.tooltip "Wšě waše znački a metadaty na přeco zhašeć.">

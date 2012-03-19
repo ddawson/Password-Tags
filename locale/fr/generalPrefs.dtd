@@ -1,0 +1,20 @@
+<!ENTITY allowPwdFillByTags.label "Autoriser le remplissage des mots de passe par des étiquettes">
+<!ENTITY allowPwdFillByTags.accesskey "A">
+<!ENTITY allowPwdFillByTags.tooltip "Inclure un sous-menu contextuel (clic droit) pour les formulaires d'identification qui liste les noms d'utilisateurs et leurs étiquettes associées (si elles existent), ce qui vous permet de remplir les champs en cliquant sur eux.">
+<!ENTITY keepMetadataForDeletedLogins.label "Conserver les métadonnées pour les identifiants supprimés">
+<!ENTITY keepMetadataForDeletedLogins.accesskey "C">
+<!ENTITY keepMetadataForDeletedLogins.tooltip "Si cette cas est décochée, les étiquettes et métadonnées associées à un identifiant seront supprimées si l'identifiant lui-même est supprimé.">
+<!ENTITY cleanupOrphanedMetadata.label "Effacer les métadonnées orphelines">
+<!ENTITY cleanupOrphanedMetadata.accesskey "E">
+<!ENTITY cleanupOrphanedMetadata.tooltip "Supprimer les métadonnées qui ne sont associées à aucun identifiant">
+<!ENTITY promptForDeleteMetadata.label "Proposer de supprimer les métadonnées">
+<!ENTITY promptForDeleteMetadata.accesskey "P">
+<!ENTITY promptForDeleteMetadata.tooltip "Demande de confirmer la suppression des métadonnées d'un identifiant.">
+<!ENTITY syncIntegration.label "Intégration de Sync">
+<!ENTITY syncIntegration.description "Avec votre accord, cette extension peut utiliser les service de Sync (Mozilla) pour synchroniser vos métadonnées de mots de passe. Pour que cela fonctionne, cochez la case ci-dessous, mais il faut aussi paramétrer Sync, si vous ne l'avez pas encore fait : allez à Outils &gt; Installer Sync… et suivez les instructions.">
+<!ENTITY readPrivacyPolicy.label "Lisez la politique de confidentialité de l'extension Password Tags.">
+<!ENTITY useSyncService.label "Utiliser les services de Sync pour synchroniser vos métadonnées">
+<!ENTITY useSyncService.accesskey "U">
+<!ENTITY deleteAllMetadata.label "Supprimer toutes les métadonnées">
+<!ENTITY deleteAllMetadata.accesskey "S">
+<!ENTITY deleteAllMetadata.tooltip "Supprime de façon définitive toutes les étiquettes et métadonnées.">

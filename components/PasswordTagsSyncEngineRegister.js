@@ -26,8 +26,7 @@ PasswordTagsSyncEngineRegister.prototype = {
   classDescription:  "Password Tags Sync engine register",
   classID:           Components.ID("{0edcc8da-9cd3-4d02-b463-20c69bbe62b9}"),
   contractID:        "@daniel.dawson/passwordtags/syncengine-register;1",
-  QueryInterface:    XPCOMUtils.generateQI([Ci.nsIObserver,
-                                            Ci.nsISupportsWeakReference]),
+  QueryInterface:    XPCOMUtils.generateQI([Ci.nsIObserver]),
 
   observe: function (aSubject, aTopic, aData) {
     if (aTopic == "profile-after-change") {

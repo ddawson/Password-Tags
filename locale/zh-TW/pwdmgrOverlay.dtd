@@ -1,0 +1,7 @@
+<!ENTITY column_tags.label "標籤">
+<!ENTITY edittags.label "編輯標籤">
+<!ENTITY edittags.accesskey "T">
+<!ENTITY editmetadata.label "編輯後設資料">
+<!ENTITY editmetadata.accesskey "M">
+<!ENTITY deletemetadata.label "刪除後設資料">
+<!ENTITY deletemetadata.accesskey "D">

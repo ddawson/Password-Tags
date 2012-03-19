@@ -1,0 +1,9 @@
+<!ENTITY defaultFieldExplanation.label "Pour vous faciliter la tâche, lorsque vous ouvrez l'éditeur de métadonnées pour un mot de passe qui n'en a pas encore, ces champs seront dans la liste initiale par défaut.">
+<!ENTITY nameColumn.label "Nom">
+<!ENTITY typeColumn.label "Type">
+<!ENTITY addDefaultField.label "Ajouter">
+<!ENTITY addDefaultField.accesskey "A">
+<!ENTITY addDefaultField.tooltip "Ajouter un nouveau champ par défaut.">
+<!ENTITY resetToOriginal.label "Restaurer aux choix par défaut">
+<!ENTITY resetToOriginal.accesskey "R">
+<!ENTITY resetToOriginal.tooltip "Rétablir la liste des champs par défaut telle que fournie par l'extension Password Tags.">

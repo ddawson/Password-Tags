@@ -1,0 +1,20 @@
+<!ENTITY allowPwdFillByTags.label "允許根據標籤填寫密碼">
+<!ENTITY allowPwdFillByTags.accesskey "A">
+<!ENTITY allowPwdFillByTags.tooltip "在登入表單的右鍵功能表加入選單，列出帳號與相關標籤的清單；讓您點選就能填寫表單。">
+<!ENTITY keepMetadataForDeletedLogins.label "刪除登入資料時保留後設資料">
+<!ENTITY keepMetadataForDeletedLogins.accesskey "K">
+<!ENTITY keepMetadataForDeletedLogins.tooltip "若取消勾選，當登入資料被刪除時，相關的標籤和後設資料會一併被刪除。">
+<!ENTITY cleanupOrphanedMetadata.label "清除孤立的後設資料">
+<!ENTITY cleanupOrphanedMetadata.accesskey "C">
+<!ENTITY cleanupOrphanedMetadata.tooltip "移除沒有對應登入資料的後設資料">
+<!ENTITY promptForDeleteMetadata.label "刪除後設資料前先提示">
+<!ENTITY promptForDeleteMetadata.accesskey "P">
+<!ENTITY promptForDeleteMetadata.tooltip "確認您是否確定要刪除登入資料下的後設資料。">
+<!ENTITY syncIntegration.label "整合內建同步">
+<!ENTITY syncIntegration.description "在您的同意下，本套件能夠以 Mozilla 的 Sync 同步服務來同步您密碼的後設資料。若要使用此功能，除了勾選下方的選項之外，您還必須完成同步功能的設置。若您尚未設置同步，請至偏好設定 &gt; 同步，依照指示進行設定。">
+<!ENTITY readPrivacyPolicy.label "閱讀 Password Tags 隱私權保護政策。">
+<!ENTITY useSyncService.label "以內建同步服務來同步後設資料">
+<!ENTITY useSyncService.accesskey "U">
+<!ENTITY deleteAllMetadata.label "刪除所有後設資料">
+<!ENTITY deleteAllMetadata.accesskey "D">
+<!ENTITY deleteAllMetadata.tooltip "永久移除所有的標籤及後設資料。">

@@ -1,0 +1,20 @@
+<!ENTITY allowPwdFillByTags.label "Wachtwoorden vullen op label toestaan">
+<!ENTITY allowPwdFillByTags.accesskey "s">
+<!ENTITY allowPwdFillByTags.tooltip "Laat een contextsubmenu zien voor aanmeldformulieren met gebruikersnamen en verwante labels (indien aanwezig), zodat u het formulier kunt vullen door er één te selecteren.">
+<!ENTITY keepMetadataForDeletedLogins.label "Metagegevens voor verwijderde aanmeldgegevens bewaren">
+<!ENTITY keepMetadataForDeletedLogins.accesskey "b">
+<!ENTITY keepMetadataForDeletedLogins.tooltip "Indien niet aangevinkt worden labels en metagegevens behorend bij een aanmelding verwijderd als de aanmeldgegevens zelf worden verwijderd.">
+<!ENTITY cleanupOrphanedMetadata.label "Verweesde metagegevens opschonen">
+<!ENTITY cleanupOrphanedMetadata.accesskey "w">
+<!ENTITY cleanupOrphanedMetadata.tooltip "Metagegevens waarvoor geen corresponderende aanmeldgegevens worden gevonden verwijderen">
+<!ENTITY promptForDeleteMetadata.label "Vragen bij verwijderen metagegevens">
+<!ENTITY promptForDeleteMetadata.accesskey "V">
+<!ENTITY promptForDeleteMetadata.tooltip "Vragen of u zeker weet dat u metagegevens van een aanmelding wilt verwijderen.">
+<!ENTITY syncIntegration.label "Sync-integratie">
+<!ENTITY syncIntegration.description "Met uw instemming kan deze add-on de Mozilla Sync-dienst gebruiken om uw wachtwoordmetagegevens te synchroniseren. U dient om dit te laten werken naast het aanvinken van onderstaand veld tevens Sync zelf in te stellen, voor zover nog niet gedaan, door naar Extra &gt; Sync instellen… te gaan en de instructies te volgen.">
+<!ENTITY readPrivacyPolicy.label "Het privacybeleid van Password Tags lezen.">
+<!ENTITY useSyncService.label "Sync-dienst gebruiken om uw metagegevens te synchroniseren">
+<!ENTITY useSyncService.accesskey "G">
+<!ENTITY deleteAllMetadata.label "Alle metagegevens verwijderen">
+<!ENTITY deleteAllMetadata.accesskey "i">
+<!ENTITY deleteAllMetadata.tooltip "Verwijder al uw labels en metagegevens permanent.">
