@@ -1,4 +1,4 @@
-<!ENTITY defaultFieldExplanation.label "לשם נוחיות, כאשר פותחים את עורך ה-metadata על סיסמה שאין לה עדיין metadata, שדות אלו יהיו תחילה ברשימה.">
+<!ENTITY defaultFieldExplanation.label "לשם נוחיות, כאשר פותחים את עורך המטא-נתונים על סיסמה שאין לה עדיין metadata, שדות אלו יהיו תחילה ברשימה.">
 <!ENTITY nameColumn.label "שם">
 <!ENTITY typeColumn.label "סוג">
 <!ENTITY addDefaultField.label "הוספה">

@@ -1,4 +1,4 @@
-<!ENTITY metadataEditor.title "עורך metadata ל-Password Tags">
+<!ENTITY metadataEditor.title "עורך מטא-נתונים ל-Password Tags">
 <!ENTITY host.label "מארח:">
 <!ENTITY submitPrefix.label "הזנת תחילית:">
 <!ENTITY username.label "שם משתמש:">
@@ -9,9 +9,9 @@
 <!ENTITY value.label "ערך">
 <!ENTITY addbutton.label "הוספה">
 <!ENTITY addbutton.accesskey "ה">
-<!ENTITY addbutton.tooltip "הוספת שדה metadata חדש.">
+<!ENTITY addbutton.tooltip "הוספת שדה מטא-נתונים חדש.">
 <!ENTITY deleteallbutton.label "מחיקת הכל">
 <!ENTITY deleteallbutton.accesskey "מ">
-<!ENTITY deleteallbutton.tooltip "מחיקת כל ה-metadata הזה, כולל תגיות.">
+<!ENTITY deleteallbutton.tooltip "מחיקת כל המטא-נתונים הללו, כולל תגיות.">
 <!ENTITY configDefaultFields.label "הגדרת שדות ברירת המחדל">
 <!ENTITY configDefaultFields.accesskey "ג">
