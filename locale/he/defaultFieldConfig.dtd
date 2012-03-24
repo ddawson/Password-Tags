@@ -1,0 +1,9 @@
+<!ENTITY defaultFieldExplanation.label "לשם נוחיות, כאשר פותחים את עורך ה-metadata על סיסמה שאין לה עדיין metadata, שדות אלו יהיו תחילה ברשימה.">
+<!ENTITY nameColumn.label "שם">
+<!ENTITY typeColumn.label "סוג">
+<!ENTITY addDefaultField.label "הוספה">
+<!ENTITY addDefaultField.accesskey "ה">
+<!ENTITY addDefaultField.tooltip "הוספת שדה ברירת מחדל חדש.">
+<!ENTITY resetToOriginal.label "איפוס למקור">
+<!ENTITY resetToOriginal.accesskey "א">
+<!ENTITY resetToOriginal.tooltip "איפוס רשימת שדות הברירת מחדל לרשימה המקורית שסופקה על-ידי Password Tags.">

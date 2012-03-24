@@ -1,0 +1,20 @@
+<!ENTITY allowPwdFillByTags.label "Passworteingabe durch Tags ermöglichen">
+<!ENTITY allowPwdFillByTags.accesskey "P">
+<!ENTITY allowPwdFillByTags.tooltip "Ein Kontextuntermenü für Anmeldeformulare einschließen, das Benutzernamen und die entsprechenden Tags (sofern vorhanden) auflistet und es Ihnen ermöglicht, das Formular durch Auswahl eines Eintrages auszufüllen.">
+<!ENTITY keepMetadataForDeletedLogins.label "Metadaten für gelöschte Anmeldungen aufbewahren">
+<!ENTITY keepMetadataForDeletedLogins.accesskey "M">
+<!ENTITY keepMetadataForDeletedLogins.tooltip "Falls deaktiviert, werden Tags und Metadaten, die mit einer Anmeldung verbunden sind, gelöscht, wenn die Anmeldung selbst gelöscht wird.">
+<!ENTITY cleanupOrphanedMetadata.label "Verwaiste Metadaten aufräumen">
+<!ENTITY cleanupOrphanedMetadata.accesskey "V">
+<!ENTITY cleanupOrphanedMetadata.tooltip "Metadaten entfernen, für die keine entsprechende Anmeldung gefunden werden kann">
+<!ENTITY promptForDeleteMetadata.label "Zur Löschung von Metadaten auffordern">
+<!ENTITY promptForDeleteMetadata.accesskey "L">
+<!ENTITY promptForDeleteMetadata.tooltip "Fragen, ob Sie wirklich die Metadaten einer Anmeldung löschen wollen.">
+<!ENTITY syncIntegration.label "Sync-Integration">
+<!ENTITY syncIntegration.description "Mit Ihrem Einverständnis kann dieses Add-on den Sync-Dienst von Mozilla nutzen, um Ihre Passwort-Metadaten zu synchronisieren. Damit das funktioniert, müssen Sie, zusätzlich zum Aktivieren des Kontrollkästchens unten, auch Sync selbst einrichten, sofern Sie es nicht bereits getan haben. Gehen Sie dazu nach Extras &gt; Sync einrichten... und folgen Sie den dortigen Anweisungen.">
+<!ENTITY readPrivacyPolicy.label "Datenschutzbestimmungen von Password Tags lesen">
+<!ENTITY useSyncService.label "Sync-Dienst nutzen, um Ihre Metadaten zu synchronisieren">
+<!ENTITY useSyncService.accesskey "S">
+<!ENTITY deleteAllMetadata.label "Alle Metadaten löschen">
+<!ENTITY deleteAllMetadata.accesskey "A">
+<!ENTITY deleteAllMetadata.tooltip "Alle Ihre Tags und Metadaten für immer löschen.">

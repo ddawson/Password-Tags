@@ -1,0 +1,13 @@
+<!-- Please visit the support topic on the BabelZilla forums to find the
+     add-on descriptions to translate:
+     http://www.babelzilla.org/forum/index.php?showtopic=6447 
+-->
+<!ENTITY column_tags.label "标签">
+<!ENTITY edittags.label "编辑标签">
+<!-- Needs to match edittagsAccesskey in pwdtags.properties -->
+<!ENTITY edittags.accesskey "t">
+<!ENTITY editmetadata.label "编辑元数据">
+<!-- Needs to match editmetadataAccesskey in pwdtags.properties -->
+<!ENTITY editmetadata.accesskey "m">
+<!ENTITY deletemetadata.label "删除元数据">
+<!ENTITY deletemetadata.accesskey "D">

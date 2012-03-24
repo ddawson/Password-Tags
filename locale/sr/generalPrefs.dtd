@@ -1,0 +1,20 @@
+<!ENTITY allowPwdFillByTags.label "Дозволи попуњавање лозинке ознакама">
+<!ENTITY allowPwdFillByTags.accesskey "п">
+<!ENTITY allowPwdFillByTags.tooltip "Укључи приручни мени за пријављивање у обрасцима који садрже корисничка имена и повезане ознаке, ако их има">
+<!ENTITY keepMetadataForDeletedLogins.label "Задржи метаподатке о избрисаној пријави">
+<!ENTITY keepMetadataForDeletedLogins.accesskey "З">
+<!ENTITY keepMetadataForDeletedLogins.tooltip "Ако је означите, ознаке и метаподаци повезани са пријавом ће бити избрисани заједно са пријавом, ако је избришете">
+<!ENTITY cleanupOrphanedMetadata.label "Очисти заостале метаподатке">
+<!ENTITY cleanupOrphanedMetadata.accesskey "О">
+<!ENTITY cleanupOrphanedMetadata.tooltip "Уклони метаподатке за које нису пронађене одговарајуће пријаве">
+<!ENTITY promptForDeleteMetadata.label "Питај ме за брисање метаподатака">
+<!ENTITY promptForDeleteMetadata.accesskey "П">
+<!ENTITY promptForDeleteMetadata.tooltip "Питај ме желим ли избрисати метаподатке о пријави">
+<!ENTITY syncIntegration.label "Интеграција са уклађивањем">
+<!ENTITY syncIntegration.description "Уз вашу сагласност, овај додатак може користити Мозилину услугу за усклађивање метаподатака о лозинкама. Да би то радило, осим што требате означити поље испод, потребно је да ручно подесите усклађивање, ако већ нисте. Отворите Алатке &gt; Подеси усклађивање, па пратите упутства.">
+<!ENTITY readPrivacyPolicy.label "Прочитај смернице за приватност додатка Password Tags">
+<!ENTITY useSyncService.label "Користите услугу за усклађивање својих метаподатке">
+<!ENTITY useSyncService.accesskey "У">
+<!ENTITY deleteAllMetadata.label "Избриши све метаподатке">
+<!ENTITY deleteAllMetadata.accesskey "И">
+<!ENTITY deleteAllMetadata.tooltip "Трајно избриши све моје ознаке и метаподатке.">

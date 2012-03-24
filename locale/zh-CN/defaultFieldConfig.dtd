@@ -1,0 +1,9 @@
+<!ENTITY defaultFieldExplanation.label "For convenience, when you open the metadata editor on a password that does not yet have metadata, these fields will be in the list initially.">
+<!ENTITY nameColumn.label "名称">
+<!ENTITY typeColumn.label "类型">
+<!ENTITY addDefaultField.label "添加">
+<!ENTITY addDefaultField.accesskey "A">
+<!ENTITY addDefaultField.tooltip "添加一个新的默认字段。">
+<!ENTITY resetToOriginal.label "恢复原始值">
+<!ENTITY resetToOriginal.accesskey "R">
+<!ENTITY resetToOriginal.tooltip "Reset the list of default fields to the original list provided by Password Tags.">

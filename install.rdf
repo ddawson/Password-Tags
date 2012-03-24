@@ -5,10 +5,10 @@
     <id>passwordcategories@daniel.dawson</id>
     <type>2</type>
     <name>Password Tags</name>
-    <version>2.0pre5</version>
+    <version>2.0</version>
     <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
     <translator>bg-BG: arris</translator>
-    <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+    <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
     <translator>dsb: milupo</translator>
     <translator>eo: milupo</translator>
     <translator>fr: Goofy</translator>
@@ -63,7 +63,7 @@
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
         <translator>bg-BG: arris</translator>
-        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
         <translator>eo: milupo</translator>
         <translator>fr: Goofy</translator>
@@ -87,7 +87,7 @@
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
         <translator>bg-BG: arris</translator>
-        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
         <translator>eo: milupo</translator>
         <translator>fr: Goofy</translator>
@@ -103,7 +103,55 @@
         <translator>uk-UA: Volodymyr Savchuk "Sappa"</translator>
         <translator>zh-CN: mozillazg "BruceH"</translator>
         <translator>zh-TW: Velociraptor</translator>
-        <description>Fügt dem Passwort-Manager benutzerspezifische Tags zum Sortieren der Passwörter hinzu.</description>
+        <description>Fügt dem Passwortmanager Metadaten und sortierbare Tags hinzu.</description>
+      </RDF:Description>
+
+      <RDF:Description>
+        <locale>dsb</locale>
+        <name>Password Tags</name>
+        <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <translator>bg-BG: arris</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
+        <translator>dsb: milupo</translator>
+        <translator>eo: milupo</translator>
+        <translator>fr: Goofy</translator>
+        <translator>he: SiiiE</translator>
+        <translator>hsb: milupo</translator>
+        <translator>hu-HU: MIKES KASZMÁN István "Cashman"</translator>
+        <translator>nl: markh</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB"</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10"</translator>
+        <translator>ru: Pyriatynskyi Vytalyi "PiVV"</translator>
+        <translator>sr: DakSrbija</translator>
+        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits"</translator>
+        <translator>uk-UA: Volodymyr Savchuk "Sappa"</translator>
+        <translator>zh-CN: mozillazg "BruceH"</translator>
+        <translator>zh-TW: Velociraptor</translator>
+        <description>Pśidawa zastojnikoju gronidłow metadaty a sortěrujobne wobznamjenja.</description>
+      </RDF:Description>
+
+      <RDF:Description>
+        <locale>eo</locale>
+        <name>Password Tags</name>
+        <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <translator>bg-BG: arris</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
+        <translator>dsb: milupo</translator>
+        <translator>eo: milupo</translator>
+        <translator>fr: Goofy</translator>
+        <translator>he: SiiiE</translator>
+        <translator>hsb: milupo</translator>
+        <translator>hu-HU: MIKES KASZMÁN István "Cashman"</translator>
+        <translator>nl: markh</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB"</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10"</translator>
+        <translator>ru: Pyriatynskyi Vytalyi "PiVV"</translator>
+        <translator>sr: DakSrbija</translator>
+        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits"</translator>
+        <translator>uk-UA: Volodymyr Savchuk "Sappa"</translator>
+        <translator>zh-CN: mozillazg "BruceH"</translator>
+        <translator>zh-TW: Velociraptor</translator>
+        <description>Aldonas metadatumojn kaj ordigeblajn markojn al la pasvorta administrilo.</description>
       </RDF:Description>
 
       <RDF:Description>
@@ -111,7 +159,7 @@
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
         <translator>bg-BG: arris</translator>
-        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
         <translator>eo: milupo</translator>
         <translator>fr: Goofy</translator>
@@ -135,7 +183,7 @@
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
         <translator>bg-BG: arris</translator>
-        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
         <translator>eo: milupo</translator>
         <translator>fr: Goofy</translator>
@@ -155,11 +203,35 @@
       </RDF:Description>
 
       <RDF:Description>
+        <locale>hsb</locale>
+        <name>Password Tags</name>
+        <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <translator>bg-BG: arris</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
+        <translator>dsb: milupo</translator>
+        <translator>eo: milupo</translator>
+        <translator>fr: Goofy</translator>
+        <translator>he: SiiiE</translator>
+        <translator>hsb: milupo</translator>
+        <translator>hu-HU: MIKES KASZMÁN István "Cashman"</translator>
+        <translator>nl: markh</translator>
+        <translator>pl: Marcin Borowczyk "MarcinB"</translator>
+        <translator>pt-BR: Mauro José da Silva "maurojs10"</translator>
+        <translator>ru: Pyriatynskyi Vytalyi "PiVV"</translator>
+        <translator>sr: DakSrbija</translator>
+        <translator>sv-SE: Mikael Hiort af Ornäs "Lakrits"</translator>
+        <translator>uk-UA: Volodymyr Savchuk "Sappa"</translator>
+        <translator>zh-CN: mozillazg "BruceH"</translator>
+        <translator>zh-TW: Velociraptor</translator>
+        <description>Přidawa zrjadowakej hesłow metadaty a sortěrujomne znački.</description>
+      </RDF:Description>
+
+      <RDF:Description>
         <locale>hu-HU</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
         <translator>bg-BG: arris</translator>
-        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
         <translator>eo: milupo</translator>
         <translator>fr: Goofy</translator>
@@ -183,7 +255,7 @@
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
         <translator>bg-BG: arris</translator>
-        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
         <translator>eo: milupo</translator>
         <translator>fr: Goofy</translator>
@@ -207,7 +279,7 @@
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
         <translator>bg-BG: arris</translator>
-        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
         <translator>eo: milupo</translator>
         <translator>fr: Goofy</translator>
@@ -231,7 +303,7 @@
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
         <translator>bg-BG: arris</translator>
-        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
         <translator>eo: milupo</translator>
         <translator>fr: Goofy</translator>
@@ -255,7 +327,7 @@
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
         <translator>bg-BG: arris</translator>
-        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
         <translator>eo: milupo</translator>
         <translator>fr: Goofy</translator>
@@ -278,7 +350,7 @@
         <locale>sv-SE</locale>
         <name>Password Tags</name>
         <translator>bg-BG: arris</translator>
-        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
         <translator>eo: milupo</translator>
         <translator>fr: Goofy</translator>
@@ -302,7 +374,7 @@
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
         <translator>bg-BG: arris</translator>
-        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
         <translator>eo: milupo</translator>
         <translator>fr: Goofy</translator>
@@ -325,7 +397,7 @@
         <locale>zh-CN</locale>
         <name>Password Tags</name>
         <translator>bg-BG: arris</translator>
-        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
         <translator>eo: milupo</translator>
         <translator>fr: Goofy</translator>
@@ -348,7 +420,7 @@
         <locale>zh-TW</locale>
         <name>Password Tags</name>
         <translator>bg-BG: arris</translator>
-        <translator>de: ucn (http://unrealstuff.bplaced.de/)</translator>
+        <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
         <translator>eo: milupo</translator>
         <translator>fr: Goofy</translator>

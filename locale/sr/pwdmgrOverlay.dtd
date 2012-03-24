@@ -1,0 +1,7 @@
+<!ENTITY column_tags.label "Ознаке">
+<!ENTITY edittags.label "Уреди ознаке">
+<!ENTITY edittags.accesskey "у">
+<!ENTITY editmetadata.label "Уреди метаподатке">
+<!ENTITY editmetadata.accesskey "м">
+<!ENTITY deletemetadata.label "Онемогући метаподатке">
+<!ENTITY deletemetadata.accesskey "н">

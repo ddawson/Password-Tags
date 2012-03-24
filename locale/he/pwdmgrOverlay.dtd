@@ -1,0 +1,13 @@
+<!-- Please visit the support topic on the BabelZilla forums to find the
+     add-on descriptions to translate:
+     http://www.babelzilla.org/forum/index.php?showtopic=6447 
+-->
+<!ENTITY column_tags.label "תגיות">
+<!ENTITY edittags.label "עריכת תגיות">
+<!-- Needs to match edittagsAccesskey in pwdtags.properties -->
+<!ENTITY edittags.accesskey "ע">
+<!ENTITY editmetadata.label "עריכת metadata">
+<!-- Needs to match editmetadataAccesskey in pwdtags.properties -->
+<!ENTITY editmetadata.accesskey "ר">
+<!ENTITY deletemetadata.label "מחיקת metadata">
+<!ENTITY deletemetadata.accesskey "מ">

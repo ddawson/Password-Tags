@@ -789,7 +789,8 @@ var signonMetadataStorage = {
       return;
     }
 
-    var serialString = prefs.getCharPref("defaultFields");
+    var serialString = prefs.getComplexValue("defaultFields",
+                                             Ci.nsISupportsString).data;
     this._defaults = new Array();
     if (serialString == "") return;
     var fieldStrs = serialString.split("|");
@@ -813,7 +814,10 @@ var signonMetadataStorage = {
       str += eName + ":" + type;
     }
 
-    prefs.setCharPref("defaultFields", str);
+    let sStr = Cc["@mozilla.org/supports-string;1"].
+               createInstance(Ci.nsISupportsString);
+    sStr.data = str;
+    prefs.setComplexValue("defaultFields", Ci.nsISupportsString, sStr);
   },
 
   _resetDefaults: function () {

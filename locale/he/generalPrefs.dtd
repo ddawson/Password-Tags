@@ -1,0 +1,20 @@
+<!ENTITY allowPwdFillByTags.label "אפשור מילוי סיסמה לפי תגיות">
+<!ENTITY allowPwdFillByTags.accesskey "א">
+<!ENTITY allowPwdFillByTags.tooltip "כלילת תת-תפריט בתפריט הלחצן הימני לטפסי התחברות אשר כוללים רשימת שמות משתמש ותגיות שייכות (אם ישנן), מאפשר למלא את הטופס על ידי בחירת אחד מהם.">
+<!ENTITY keepMetadataForDeletedLogins.label "שמירת metadata עבור התחברויות שנמחקו">
+<!ENTITY keepMetadataForDeletedLogins.accesskey "ש">
+<!ENTITY keepMetadataForDeletedLogins.tooltip "אם מסומן, תגיות ו-metadata השייכים להתחברות ימחקו אם ההתחברות עצמה נמחקה.">
+<!ENTITY cleanupOrphanedMetadata.label "ניקוי metadata מיותמים">
+<!ENTITY cleanupOrphanedMetadata.accesskey "נ">
+<!ENTITY cleanupOrphanedMetadata.tooltip "הסרת metadata שלא ניתן למצוא עבורו התחברות מתאימה">
+<!ENTITY promptForDeleteMetadata.label "התרע במחיקת metadata">
+<!ENTITY promptForDeleteMetadata.accesskey "ה">
+<!ENTITY promptForDeleteMetadata.tooltip "שואל האם בטוח שברצונך למחוק metadata מהתחברות.">
+<!ENTITY syncIntegration.label "אינטגרציית סנכרון">
+<!ENTITY syncIntegration.description "יחד עם הסכמתכם, הרחבה זו יכולה לעשות שימוש בשירות סנכרון של מוזילה (Mozilla's Sync) כדי לסנכרן את metadata הססמאות. על-מנת שזה יעבוד, בנוסף לסימון התיבה מטה, הכרחי גם כן להגדיר את הסנכרון עצמו, אם לא הוגדר עד כה, על ידי פנייה אל כלים &gt; התקנת Sync... ומעקב אחר ההוראות שם.">
+<!ENTITY readPrivacyPolicy.label "קריאת מדיניות הפרטיות של Password Tags.">
+<!ENTITY useSyncService.label "שימוש בשירות הסנכרון כדי לסנכרן את ה-metadata שלכם">
+<!ENTITY useSyncService.accesskey "ש">
+<!ENTITY deleteAllMetadata.label "מחיקת כל ה-metadata">
+<!ENTITY deleteAllMetadata.accesskey "מ">
+<!ENTITY deleteAllMetadata.tooltip "מחיקת כל התגיות וה-metadata שלכם לצמיתות.">

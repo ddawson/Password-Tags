@@ -1,0 +1,17 @@
+<!ENTITY metadataEditor.title "Password Tags - уређивач метаподатака">
+<!ENTITY host.label "Домаћин:">
+<!ENTITY submitPrefix.label "Додати префикс:">
+<!ENTITY username.label "Корисничко име">
+<!ENTITY tags.label "Ознаке:">
+<!ENTITY tags.accesskey "О">
+<!ENTITY tags.tooltip "Ознаке повезане са тренутном пријавом, одвојене запетама">
+<!ENTITY nametype.label "Назив/тип">
+<!ENTITY value.label "Вредност">
+<!ENTITY addbutton.label "Додај">
+<!ENTITY addbutton.accesskey "Д">
+<!ENTITY addbutton.tooltip "Додај ново поље метаподатака">
+<!ENTITY deleteallbutton.label "Избриши све">
+<!ENTITY deleteallbutton.accesskey "И">
+<!ENTITY deleteallbutton.tooltip "Избриши све о овим метаподацима, укључујући и ознаке.">
+<!ENTITY configDefaultFields.label "Подеси подразумевана поља">
+<!ENTITY configDefaultFields.accesskey "П">

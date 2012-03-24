@@ -9,15 +9,20 @@ resource	passwordtags	content/
 
 ## Chrome
 content	passwordtags		content/
+
 skin	passwordtags	default	skin/
 
 # Language-specific content
+locale	passwordtags	de	locale/de/
 locale	passwordtags	dsb	locale/dsb/
 locale	passwordtags	en-US	locale/en-US/
 locale	passwordtags	eo	locale/eo/
 locale	passwordtags	fr	locale/fr/
+locale	passwordtags	he	locale/he/
 locale	passwordtags	hsb	locale/hsb/
 locale	passwordtags	nl	locale/nl/
+locale	passwordtags	sr	locale/sr/
+locale	passwordtags	zh-CN	locale/zh-CN/
 locale	passwordtags	zh-TW	locale/zh-TW/
 
 # What goes where

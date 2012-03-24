@@ -1,0 +1,17 @@
+<!ENTITY metadataEditor.title "Metadaten-Editor von Password Tags">
+<!ENTITY host.label "Host:">
+<!ENTITY submitPrefix.label "Sendeprefix:">
+<!ENTITY username.label "Benutzername:">
+<!ENTITY tags.label "Tags:">
+<!ENTITY tags.accesskey "T">
+<!ENTITY tags.tooltip "Die mit der aktuellen Anmeldung verbundenen Tags, getrennt durch Kommas">
+<!ENTITY nametype.label "Name/Typ">
+<!ENTITY value.label "Wert">
+<!ENTITY addbutton.label "Hinzufügen">
+<!ENTITY addbutton.accesskey "H">
+<!ENTITY addbutton.tooltip "Neues Metadatenfeld hinzufügen.">
+<!ENTITY deleteallbutton.label "Alle löschen">
+<!ENTITY deleteallbutton.accesskey "l">
+<!ENTITY deleteallbutton.tooltip "Alle diese Metadaten löschen, einschließlich der Tags.">
+<!ENTITY configDefaultFields.label "Standardfelder konfigurieren">
+<!ENTITY configDefaultFields.accesskey "S">

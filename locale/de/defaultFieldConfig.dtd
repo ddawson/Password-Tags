@@ -1,0 +1,9 @@
+<!ENTITY defaultFieldExplanation.label "Um Ihnen die Arbeit zu erleichtern, werden diese Felder in der Liste vorausgefüllt, wenn Sie den Metadaten-Editor für ein Passwort öffnen, das noch keine Metadaten hat.">
+<!ENTITY nameColumn.label "Name">
+<!ENTITY typeColumn.label "Typ">
+<!ENTITY addDefaultField.label "Hinzufügen">
+<!ENTITY addDefaultField.accesskey "H">
+<!ENTITY addDefaultField.tooltip "Ein neues Standardfeld hinzufügen.">
+<!ENTITY resetToOriginal.label "Auf das Original zurücksetzen">
+<!ENTITY resetToOriginal.accesskey "A">
+<!ENTITY resetToOriginal.tooltip "Liste von Standardfeldern auf die von Password Tags bereitgestellte Originalliste zurücksetzen.">

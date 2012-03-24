@@ -1,0 +1,9 @@
+<!ENTITY defaultFieldExplanation.label "Ради лакше употребе, када у уређивачу метаподатака отворите лозинку која нема метаподатака , ова поља ће се наћи на почетном списку.">
+<!ENTITY nameColumn.label "Назив">
+<!ENTITY typeColumn.label "Тип">
+<!ENTITY addDefaultField.label "Додај">
+<!ENTITY addDefaultField.accesskey "Д">
+<!ENTITY addDefaultField.tooltip "Додај ново подразумевано поље.">
+<!ENTITY resetToOriginal.label "Врати почетно">
+<!ENTITY resetToOriginal.accesskey "п">
+<!ENTITY resetToOriginal.tooltip "Враћа списак подразумеваних поља на оригиналан списак који пружа Password Tags.">
