@@ -25,7 +25,11 @@ const Cc = Components.classes,
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 
 XPCOMUtils.defineLazyGetter(
-  this, "pref", function ()
+  this, "prefs", function ()
+    Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService).
+    getBranch("extensions.passwordtags."));
+XPCOMUtils.defineLazyGetter(
+  this, "ussPref", function ()
     Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService).
     getBranch("extensions.passwordtags.useSyncService"));
 XPCOMUtils.defineLazyGetter(
@@ -36,6 +40,7 @@ XPCOMUtils.defineLazyServiceGetter(
   this, "consoleSvc",
   "@mozilla.org/consoleservice;1", "nsIConsoleService");
 function log (aMsg) {
+  if (!prefs.getBoolPref("logToConsole")) return;
   consoleSvc.logStringMessage("syncEngine: " + aMsg);
 }
 
@@ -211,12 +216,12 @@ PasswordTagsTracker.prototype = {
 
 function PasswordTagsEngine () {
   SyncEngine.call(this, "PasswordTags");
-  if (pref.getBoolPref(""))
+  if (ussPref.getBoolPref(""))
     this._tracker.enable();
   else
     this._tracker.disable();
 
-  pref.QueryInterface(Ci.nsIPrefBranch2).addObserver("", this, true);
+  ussPref.QueryInterface(Ci.nsIPrefBranch2).addObserver("", this, true);
   syncPref.QueryInterface(Ci.nsIPrefBranch2).addObserver("", this, true);
 }
 
@@ -254,7 +259,7 @@ PasswordTagsEngine.prototype = {
   },
 
   _updateSyncPref: function () {
-    var userChoice = pref.getBoolPref(""),
+    var userChoice = ussPref.getBoolPref(""),
         syncPrefVal = syncPref.getBoolPref("");
     if (syncPrefVal != userChoice) {
       this._ignorePrefChange = true;
@@ -266,6 +271,6 @@ PasswordTagsEngine.prototype = {
 
 PasswordTagsEngine.register = function () {
   log("Registering self");
-  syncPref.setBoolPref("", pref.getBoolPref(""));
+  syncPref.setBoolPref("", ussPref.getBoolPref(""));
   Engines.register(this);
 }

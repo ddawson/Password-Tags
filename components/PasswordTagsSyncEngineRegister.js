@@ -16,7 +16,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-const Ci = Components.interfaces, Cu = Components.utils;
+const Cc= Components.classes, Ci = Components.interfaces,
+      Cu = Components.utils;
+
+const FIREFOX = "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}",
+      SEAMONKEY = "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
 
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 
@@ -30,6 +34,10 @@ PasswordTagsSyncEngineRegister.prototype = {
 
   observe: function (aSubject, aTopic, aData) {
     if (aTopic == "profile-after-change") {
+      var appId = Cc["@mozilla.org/xre/app-info;1"].
+                  getService(Ci.nsIXULAppInfo).ID;
+      if (appId != FIREFOX && appId != SEAMONKEY) return;
+
       Cu.import("resource://passwordtags/syncEngine.jsm");
       PasswordTagsEngine.register();
     }

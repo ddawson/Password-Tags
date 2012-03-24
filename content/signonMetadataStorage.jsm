@@ -61,6 +61,7 @@ XPCOMUtils.defineLazyServiceGetter(
   this, "consoleSvc",
   "@mozilla.org/consoleservice;1", "nsIConsoleService");
 function log (aMsg) {
+  if (!prefs.getBoolPref("logToConsole")) return;
   consoleSvc.logStringMessage(aMsg);
 }
 
@@ -230,7 +231,8 @@ var signonMetadataStorage = {
 
     for (let i = 0; i < allMetadata.length; i++) {
       let mdSpec = allMetadata[i];
-      if (this.isOrphaned(mdSpec)) this._removeMetadataByGUID(guid, false);
+      if (this.isOrphaned(mdSpec))
+        this._removeMetadataByGUID(mdSpec.guid, false);
     }
   },
 

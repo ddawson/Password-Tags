@@ -64,7 +64,6 @@ document.addEventListener(
            && vc.compare(Application.version, "4.0") >= 0)
           || (Application.name == "SeaMonkey"))) {
       el("syncintegration-group").hidden = true;
-      el("deleteallmetadata-btn").hidden = true;
     }
   },
   false);
