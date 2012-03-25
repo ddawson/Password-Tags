@@ -51,7 +51,7 @@ document.addEventListener(
         let signon = signonsTreeView._filterSet.length ?
                      signonsTreeView._filterSet[row] : signons[row];
         passwordTags.signonMetadataStorage.setTags(signon, value);
-        LoadSignons();
+        _filterPasswords();
       }
       origSetCellText.call(this, row, col, value);
     }
