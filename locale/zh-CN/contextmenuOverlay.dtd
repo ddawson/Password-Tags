@@ -1,3 +1,3 @@
-<!ENTITY fillbypwdtags.label "按密码标签填充">
+<!ENTITY fillbypwdtags.label "用 Password Tags 填写">
 <!ENTITY fillbypwdtags.accesskey "T">
 <!ENTITY fillbypwdtags.tooltip "为这个表单显示用户名和有关的标签。">

@@ -1,10 +1,10 @@
-<!ENTITY metadataEditor.title "Password Tags 元数据编辑">
+<!ENTITY metadataEditor.title "Password Tags 元数据编辑器">
 <!ENTITY host.label "主机：">
 <!ENTITY submitPrefix.label "Submit prefix:">
 <!ENTITY username.label "用户名：">
 <!ENTITY tags.label "标签：">
 <!ENTITY tags.accesskey "T">
-<!ENTITY tags.tooltip "The tags associated with the current login, separated by commas">
+<!ENTITY tags.tooltip "与当前登录相关的标签，用逗号分隔">
 <!ENTITY nametype.label "名称/类型">
 <!ENTITY value.label "值">
 <!ENTITY addbutton.label "添加">
