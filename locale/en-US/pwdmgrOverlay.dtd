@@ -1,7 +1,8 @@
-<!-- Please visit the support topic on the BabelZilla forums to find the
-     add-on descriptions to translate:
-     http://www.babelzilla.org/forum/index.php?showtopic=6447 -->
 <!ENTITY column_tags.label "Tags">
+<!-- A very short string that stands for "metadata" -->
+<!ENTITY column_metadata.label "MD">
+<!-- See pwdmgrOverlay.properties for the corresponding "E" and "U" strings. -->
+<!ENTITY column_metadata.tooltip "Metadata present (E = encrypted; U = unencrypted)">
 <!ENTITY edittags.label "Edit tags">
 <!-- Needs to match edittagsAccesskey in pwdtags.properties -->
 <!ENTITY edittags.accesskey "t">

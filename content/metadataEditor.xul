@@ -63,6 +63,11 @@
     <textbox id="tags-field" tooltiptext="&tags.tooltip;" flex="1"/>
   </hbox>
   <separator class="thin"/>
+  <hbox>
+    <checkbox id="encrypt-ck" label="&encryptmetadata.label;"
+              accesskey="&encryptmetadata.accesskey;"
+              tooltiptext="&encryptmetadata.tooltip;"/>
+  </hbox>
   <vbox class="gridbox" flex="1">
     <grid>
       <columns>

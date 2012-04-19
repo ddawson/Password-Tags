@@ -48,8 +48,14 @@
     <!-- This is not the correct place to put these. Unfortunately, the
          correct place has no id, so it can't be properly overlayed. Thus,
          I must put them somewhere, then move them in a script. -->
-    <splitter id="tagsColSplitter" class="tree-splitter"/>
+    <splitter id="tagsColSplitter" class="tree-splitter"
+              resizeafter="farthest"/>
     <treecol id="tagsCol" label="&column_tags.label;" editable="true"
              flex="2" onclick="SignonColumnSort('tags');" persist="width"/>
+    <splitter id="metadataColSplitter" class="tree-splitter"
+              resizeafter="farthest"/>
+    <treecol id="metadataCol" label="&column_metadata.label;"
+             tooltiptext="&column_metadata.tooltip;"
+             onclick="SignonColumnSort('metadataType');" fixed="true"/>
   </tree>
 </overlay>

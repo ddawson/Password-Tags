@@ -5,7 +5,7 @@
     <id>passwordcategories@daniel.dawson</id>
     <type>2</type>
     <name>Password Tags</name>
-    <version>2.0.1</version>
+    <version>2.1b1</version>
     <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
     <translator>bg-BG: arris</translator>
     <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
@@ -199,7 +199,7 @@
         <translator>uk-UA: Volodymyr Savchuk "Sappa"</translator>
         <translator>zh-CN: mozillazg "BruceH"</translator>
         <translator>zh-TW: Velociraptor</translator>
-        <description>Adds metadata and sortable tags to the password manager.</description>
+        <description>הוספת מטא-נתונים ותגיות הניתנות למיון למנהל הססמאות.</description>
       </RDF:Description>
 
       <RDF:Description>

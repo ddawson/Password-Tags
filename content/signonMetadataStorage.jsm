@@ -20,6 +20,7 @@ var EXPORTED_SYMBOLS = ["SignonMetadata", "signonMetadataStorage"];
 
 const Cc = Components.classes,
       Ci = Components.interfaces,
+      Cr = Components.results,
       Cu = Components.utils,
       MD_DBFILENAME = "signons.sqlite",
       MD_FILENAME = "signoncats.xml";
@@ -52,6 +53,9 @@ XPCOMUtils.defineLazyServiceGetter(
   this, "loginMgr",
   "@mozilla.org/login-manager;1", "nsILoginManager");
 XPCOMUtils.defineLazyServiceGetter(
+  this, "loginMgrCrypto",
+  "@mozilla.org/login-manager/crypto/SDR;1", "nsILoginManagerCrypto");
+XPCOMUtils.defineLazyServiceGetter(
   this, "storageSvc",
   "@mozilla.org/storage/service;1", "mozIStorageService");
 XPCOMUtils.defineLazyServiceGetter(
@@ -66,6 +70,9 @@ function log (aMsg) {
 }
 
 
+const COMMA_CHARS =
+  ",\u055d\u060c\u07f8\u1363\u3001\ua60d\ufe50\ufe51\uff0c\uff64";
+
 function escape (aRawStr)
   aRawStr.replace(/=/g, "==")
          .replace(/\|/g, "=/")
@@ -79,6 +86,7 @@ function unescape (aEStr)
 function SignonMetadata () {
   this.tags = "";
   this.metadata = [];
+  this.metadataType = -1;
 }
 
 SignonMetadata.prototype = {
@@ -143,9 +151,13 @@ var signonMetadataStorage = {
     var mdspec = this._getMetadataRaw(aSignon);
     var obj = new SignonMetadata();
     var metadataStr = null;
+    obj.metadataType = -1;
+
     if (mdspec) {
       obj.tags = mdspec.tags;
-      metadataStr = mdspec.metadata || null;
+      if (mdspec.metadata)
+        [metadataStr, obj.metadataType] =
+          this._decryptMetadata(mdspec.metadata);
     }
 
     if (metadataStr)
@@ -158,7 +170,26 @@ var signonMetadataStorage = {
     }
 
     return obj;
-    return _wrapMetadataInObject(mdspec);
+  },
+
+  _decryptMetadata: function (aRaw) {
+    if (!aRaw) return ["", -1];
+    var match = aRaw.match(/^([0-9]+)\|([\s\S]*)$/);
+    if (!match) return [aRaw, 0];
+    var [type, encoded] = [match[1], match[2]];
+
+    if (type == 0)
+      return [encoded, 0];
+    else if (type == 1) try {
+      let decoded = loginMgrCrypto.decrypt(encoded);
+      return [decoded, 1];
+    } catch (e) {
+      return ["", -1];
+    }
+  },
+
+  getMetadataRaw: function (aSignon) {
+    return this._getMetadataRaw(aSignon);
   },
 
   getMetadataByGUID: function (aGUID) {
@@ -189,7 +220,17 @@ var signonMetadataStorage = {
   setMetadata: function (aSignon, aSignonMeta) {
     var tags = this._normalizeTags(aSignonMeta.tags);
     var metaStr = aSignonMeta.serializeMetadata();
+    if (metaStr == "")
+      metaStr = null;
+    else if (aSignonMeta.metadataType == 0)
+      metaStr = "0|" + metaStr;
+    else if (aSignonMeta.metadataType == 1)
+      metaStr = this._encryptMetadata(metaStr);
     this._setMetadataRaw(aSignon, tags, metaStr);
+  },
+
+  _encryptMetadata: function (aPlaintext) {
+    return "1|" + loginMgrCrypto.encrypt(aPlaintext);
   },
 
   setMetadataFromRecord: function (aMDSpec) {
@@ -206,6 +247,8 @@ var signonMetadataStorage = {
   },
 
   _normalizeTags: function (aTags) {
+    for each (let ch in COMMA_CHARS)
+      aTags = aTags.replace(ch, ",", "g");
     let tagsAry = [str.trim() for each (str in aTags.split(","))];
     tagsAry.sort();
     let prevString = null;
@@ -472,7 +515,7 @@ var signonMetadataStorage = {
       stmt = this._createStatement(
         "SELECT * FROM dd_passwordtags_metadata WHERE guid = :guid");
       stmt.params.guid = aGUID;
-      if (stmt.executeStep())
+      if (stmt.executeStep()) {
         return {
           id: stmt.row.id,
           hostname: stmt.row.hostname,
@@ -482,7 +525,7 @@ var signonMetadataStorage = {
           tags: stmt.row.tags,
           metadata: stmt.row.metadata,
           guid: stmt.row.guid };
-      else
+      } else
         return null;
     } catch (e) {
       log("_findMetadata failed with exception: " + e);

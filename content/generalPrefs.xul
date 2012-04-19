@@ -33,6 +33,9 @@
 
   <prefpane id="generalprefs-pane">
     <preferences>
+      <preference id="pref-encryptmetadatbydefault"
+                  name="extensions.passwordtags.encryptMetadataByDefault"
+                  type="bool"/>
       <preference id="pref-allowpwdfillbytags"
                   name="extensions.passwordtags.allowPwdFillByTags"
                   type="bool"/>
@@ -46,6 +49,10 @@
                   name="extensions.passwordtags.useSyncService" type="bool"/>
     </preferences>
 
+    <checkbox label="&encryptMetadataByDefault.label;"
+              accesskey="&encryptMetadataByDefault.accesskey;"
+              tooltiptext="&encryptMetadataByDefault.tooltip;"
+              preference="pref-encryptmetadatabydefault"/>
     <checkbox label="&allowPwdFillByTags.label;"
               accesskey="&allowPwdFillByTags.accesskey;"
               tooltiptext="&allowPwdFillByTags.tooltip;"

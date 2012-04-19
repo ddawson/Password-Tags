@@ -23,8 +23,13 @@ document.addEventListener(
       "resource://passwordtags/signonMetadataStorage.jsm", passwordTags);
 
     var cols = document.getElementById("signonsTree").firstChild;
-    cols.appendChild(document.getElementById("tagsColSplitter"));
-    cols.appendChild(document.getElementById("tagsCol"));
+    var ord = parseInt(cols.lastChild.ordinal) + 1;
+    for each (let id in ["tagsColSplitter", "tagsCol",
+                         "metadataColSplitter", "metadataCol"]) {
+      let el = document.getElementById(id);
+      el.ordinal = ord++;
+      cols.appendChild(el);
+    }
 
     // Replacing functions to "wedge" in our functionality
     // Is there a better way to accomplish this?
@@ -32,9 +37,28 @@ document.addEventListener(
     function ptagsGetCellText (row, column) {
       var signon = this._filterSet.length ?
                    this._filterSet[row] : signons[row];
-      return column.id == "tagsCol" ?
-        passwordTags.signonMetadataStorage.getTags(signon)
-        : origGetCellText.call(this, row, column);
+      switch (column.id) {
+      case "tagsCol":
+        return passwordTags.signonMetadataStorage.getTags(signon);
+        break;
+
+      case "metadataCol":
+        let mdRawObj =
+          passwordTags.signonMetadataStorage.getMetadataRaw(signon);
+        let mdRawStr = mdRawObj ? mdRawObj.metadata : "";
+        let strings = document.getElementById("pwdtagsStrbundle");
+        return (!mdRawStr) ? "" :
+          mdRawStr.substr(0, 2) == "0|" ?
+            strings.getString("unencrypted.celltext")
+          : mdRawStr.substr(0, 2) == "1|" ?
+            strings.getString("encrypted.celltext")
+          : strings.getString("unencrypted.celltext");
+        break;
+
+      default:
+        return origGetCellText.call(this, row, column);
+        break;
+      }
     }
     signonsTreeView.getCellText = ptagsGetCellText;
 
@@ -48,8 +72,8 @@ document.addEventListener(
     if (!origSetCellText) origSetCellText = function () {};
     function ptagsSetCellText (row, col, value) {
       if (col.id == "tagsCol") {
-        let signon = signonsTreeView._filterSet.length ?
-                     signonsTreeView._filterSet[row] : signons[row];
+        let signon = this._filterSet.length ?
+                     this._filterSet[row] : signons[row];
         passwordTags.signonMetadataStorage.setTags(signon, value);
         _filterPasswords();
       }
@@ -80,7 +104,8 @@ document.addEventListener(
     if (!origGetColumnByName) origGetColumnByName = function () null;
     function ptagsGetColumnByName (column)
       column == "tags" ? document.getElementById("tagsCol") :
-                             origGetColumnByName(column);
+      column == "metadataType" ? document.getElementById("metadataCol") :
+                                 origGetColumnByName(column);
     getColumnByName = ptagsGetColumnByName;
 
     function cloneLoginInfo (loginInfo) {
@@ -107,16 +132,24 @@ document.addEventListener(
       if (!l) {
         l = signons.length;
         for (let i = 0; i < l; i++) {
-          var tags = passwordTags.signonMetadataStorage.getTags(signons[i]);
+          let tags =
+            signonsTreeView.getCellText(i, getColumnByName("tags"));
+          let metadataType =
+            signonsTreeView.getCellText(i, getColumnByName("metadataType"));
           if (!signons[i].cloned) signons[i] = cloneLoginInfo(signons[i]);
           signons[i].tags = tags;
+          signons[i].metadataType = metadataType;
         }
       } else {
         let fs = signonsTreeView._filterSet;
         for (let i = 0; i < l; i++) {
-          var tags = passwordTags.signonMetadataStorage.getTags(fs[i]);
+          let tags =
+            signonsTreeView.getCellText(i, getColumnByName("tags"));
+          let metadataType =
+            signonsTreeView.getCellText(i, getColumnByName("metadataType"));
           if (!fs[i].cloned) fs[i] = cloneLoginInfo(fs[i]);
           fs[i].tags = tags;
+          fs[i].metadataType = metadataType;
         }
       }
       origSignonColumnSort(column);
@@ -130,6 +163,9 @@ document.addEventListener(
       if (signon.tags &&
           signon.tags.toLowerCase().indexOf(filterValue) != -1)
         return true;
+      if (signon.metadataType &&
+          signon.metadataType.toLowerCase().indexOf(filterValue) != -1)
+        return true;
       return false;
     }
     SignonMatchesFilter = ptagsSignonMatchesFilter;
@@ -137,8 +173,8 @@ document.addEventListener(
     var origSortTree = window.SortTree;
     function ptagsSortTree (tree, view, table, column, lastSortColumn,
                             lastSortAscending, updateSelection) {
+      var ascending = (column == lastSortColumn) ? !lastSortAscending : true;
       if (column == "tags") {
-        var ascending = (column == lastSortColumn) ? !lastSortAscending : true;
         function compareFunc (first, second) {
           let firstTags = first[column].split(","),
               secondTags = second[column].split(",");
@@ -155,6 +191,19 @@ document.addEventListener(
         }
         table.sort(ascending ? compareFunc :
                    function (first, second) -compareFunc(first, second));
+
+        tree.treeBoxObject.invalidate();
+        return ascending;
+      } else if (column == "metadataType") {
+        let compareFunc;
+
+        if (ascending)
+          compareFunc = function (first, second)
+            CompareLowerCase(first[column], second[column]);
+        else
+          compareFunc = function (first, second)
+            CompareLowerCase(second[column], first[column]);
+        table.sort(compareFunc);
 
         tree.treeBoxObject.invalidate();
         return ascending;

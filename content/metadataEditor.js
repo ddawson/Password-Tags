@@ -166,6 +166,7 @@ function deleteAll () {
 function writeMetadata () {
   var md = new SignonMetadata();
   md.tags = el("tags-field").value;
+  md.metadataType = el("encrypt-ck").checked ? 1 : 0;
   for (let i = 0; i < rows.length; i++)
     md.insertField(-1, rows[i].nameFld.value, rows[i].typeLst.value,
                    rows[i].valueFld.value);
@@ -286,6 +287,12 @@ el("current-submitprefix").setAttribute(
 el("current-username").setAttribute("value", signon.username);
 
 el("tags-field").setAttribute("value", curMetadata.tags);
+el("encrypt-ck").setAttribute(
+  "checked",
+  curMetadata.metadataType > 0
+    || (curMetadata.metadataType == -1
+        && prefs.getBoolPref(
+             "extensions.passwordtags.encryptMetadataByDefault")));
 for (let i = 0; i < curMetadata.metadata.length; i++) {
   let rowEntry = buildRow(curMetadata.getField(i), i,
                           i == curMetadata.metadata.length - 1);

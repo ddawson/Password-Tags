@@ -5,6 +5,9 @@
 <!ENTITY tags.label "Tags:">
 <!ENTITY tags.accesskey "T">
 <!ENTITY tags.tooltip "The tags associated with the current login, separated by commas">
+<!ENTITY encryptmetadata.label "Encrypt metadata">
+<!ENTITY encryptmetadata.accesskey "E">
+<!ENTITY encryptmetadata.tooltip "Use the Secret Decoder Ring (same as password encryption) to encrypt this metadata.">
 <!ENTITY nametype.label "Name/Type">
 <!ENTITY value.label "Value">
 <!ENTITY addbutton.label "Add">

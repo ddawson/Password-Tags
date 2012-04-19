@@ -26,18 +26,43 @@ document.addEventListener(
         "resource://passwordtags/signonMetadataStorage.jsm", scopeObj);
       signonMetadataStorage = scopeObj.signonMetadataStorage;
     }
+
     var cols = document.getElementById("passwordsTree").firstChild;
-    cols.appendChild(document.getElementById("pwdTagsColSplitter"));
-    cols.appendChild(document.getElementById("pwdTagsCol"));
+    var ord = parseInt(cols.lastChild.ordinal) + 1;
+    for each (let id in ["pwdTagsColSplitter", "pwdTagsCol",
+                         "pwdMetadataColSplitter", "pwdMetadataCol"]) {
+      let el = document.getElementById(id);
+      el.ordinal = ord++;
+      cols.appendChild(el);
+    }
 
     // Replacing functions to "wedge" in our functionality
     // Is there a better way to accomplish this?
     var origGetCellText = gPasswords.getCellText;
     function ptagsGetCellText (aRow, aColumn) {
-      var signon = this.displayedSignons[aRow]
-      return aColumn.id == "pwdTagsCol" ?
-        signonMetadataStorage.getTags(signon) :
-        origGetCellText.call(this, aRow, aColumn);
+      var signon = this.displayedSignons[aRow];
+      switch (aColumn.id) {
+      case "pwdTagsCol":
+        return signonMetadataStorage.getTags(signon);
+        break;
+
+      case "pwdMetadataCol":
+        let mdRawObj =
+          signonMetadataStorage.getMetadataRaw(signon);
+        let mdRawStr = mdRawObj ? mdRawObj.metadata : "";
+        let strings = document.getElementById("pwdtagsStrbundle");
+        return (!mdRawStr) ? "" :
+          mdRawStr.substr(0, 2) == "0|" ?
+            strings.getString("unencrypted.celltext")
+          : mdRawStr.substr(0, 2) == "1|" ?
+            strings.getString("encrypted.celltext")
+          : strings.getString("unencrypted.celltext");
+        break;
+
+      default:
+        return origGetCellText.call(this, aRow, aColumn);
+        break;
+      }
     }
     gPasswords.getCellText = ptagsGetCellText;
 
@@ -179,14 +204,19 @@ document.addEventListener(
           column = sortedCol.element;
       }
 
-      if (!column || column.id != "pwdTagsCol")
-        return origSort.call(this, column);
+      if (!column || (column.id != "pwdTagsCol"
+                      && column.id != "pwdMetadataCol"))
+        return origSort.call(this, column, aUpdateSelection, aInvertDirection);
 
       var signons = this.displayedSignons;
+      var tagsCol = document.getElementById("pwdTagsCol"),
+          metadataCol = document.getElementById("pwdMetadataCol");
       for (let i = 0; i < signons.length; i++) {
-        var tags = signonMetadataStorage.getTags(signons[i]);
+        let tags = this.getCellText(i, tagsCol);
+        let metadataType = this.getCellText(i, metadataCol);
         if (!signons[i].cloned) signons[i] = cloneLoginInfo(signons[i]);
         signons[i].tags = tags;
+        signons[i].metadataType = metadataType;
       }
 
       let dirAscending = column.getAttribute("sortDirection") !=
@@ -202,21 +232,30 @@ document.addEventListener(
       }
 
       // compare function for two signons
-      let compfunc = function ptags_compare(aOne, aTwo) {
-        let oneTags = aOne.tags.split(","),
-            twoTags = aTwo.tags.split(",");
-        let i = 0;
-        while (true) {
-          let t1 = oneTags[i], t2 = twoTags[i];
-          if (t2 && !t1) return -dirFactor;
-          if (t1 && !t2) return dirFactor;
-          if (!t1 && !t2) return 0;
-          let t1l = t1.toLowerCase(), t2l = t2.toLowerCase();
-          let comp = t1l < t2l ? -1 : t1l > t2l ? 1 : 0;
-          if (comp != 0) return dirFactor*comp;
-          i++;
-        }
-      };
+      let compfunc;
+      if (column.id == "pwdTagsCol")
+        compfunc = function ptags_compare (aOne, aTwo) {
+          let oneTags = aOne.tags.split(","),
+              twoTags = aTwo.tags.split(",");
+          let i = 0;
+          while (true) {
+            let t1 = oneTags[i], t2 = twoTags[i];
+            if (t2 && !t1) return -dirFactor;
+            if (t1 && !t2) return dirFactor;
+            if (!t1 && !t2) return 0;
+            let t1l = t1.toLowerCase(), t2l = t2.toLowerCase();
+            let comp = t1l < t2l ? -1 : t1l > t2l ? 1 : 0;
+            if (comp != 0) return dirFactor*comp;
+            i++;
+          }
+        };
+      else
+        compfunc = function ptags_compare (aOne, aTwo) {
+          var oneLC = aOne.metadataType.toLowerCase(),
+              twoLC = aTwo.metadataType.toLowerCase();
+          var comp = oneLC < twoLC ? -1 : oneLC > twoLC ? 1 : 0;
+          return comp*dirFactor;
+        };
 
       if (aUpdateSelection) {
         var selectionCache =

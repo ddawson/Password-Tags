@@ -44,8 +44,13 @@
     <!-- This is not the correct place to put these. Unfortunately, the
          correct place has no id, so it can't be properly overlayed. Thus,
          I must put them somewhere, then move them in a script. -->
-    <splitter id="pwdTagsColSplitter" class="tree-splitter"/>
+    <splitter id="pwdTagsColSplitter" class="tree-splitter"
+              resizeafter="farthest"/>
     <treecol id="pwdTagsCol" label="&column_tags.label;" editable="true"
              flex="2" persist="width"/>
+    <splitter id="pwdMetadataColSplitter" class="tree-splitter"
+              resizeafter="farthest"/>
+    <treecol id="pwdMetadataCol" label="&column_metadata.label;"
+             tooltiptext="&column_metadata.tooltip;" fixed="true"/>
   </tree>
 </overlay>

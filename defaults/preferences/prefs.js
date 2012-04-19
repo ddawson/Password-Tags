@@ -1,3 +1,4 @@
+pref("extensions.passwordtags.encryptMetadataByDefault", true);
 pref("extensions.passwordtags.allowPwdFillByTags", false);
 pref("extensions.passwordtags.keepMetadataForDeletedLogins", false);
 pref("extensions.passwordtags.promptForDeleteMetadata", true);
