@@ -33,8 +33,11 @@
 
   <prefpane id="generalprefs-pane">
     <preferences>
-      <preference id="pref-encryptmetadatbydefault"
+      <preference id="pref-encryptmetadatabydefault"
                   name="extensions.passwordtags.encryptMetadataByDefault"
+                  type="bool"/>
+      <preference id="pref-promptmasterpwdforencrmetadata"
+                  name="extensions.passwordtags.promptMasterPwdForEncrMetadata"
                   type="bool"/>
       <preference id="pref-allowpwdfillbytags"
                   name="extensions.passwordtags.allowPwdFillByTags"
@@ -53,6 +56,9 @@
               accesskey="&encryptMetadataByDefault.accesskey;"
               tooltiptext="&encryptMetadataByDefault.tooltip;"
               preference="pref-encryptmetadatabydefault"/>
+    <checkbox label="&promptMasterPwdForEncrMetadata.label;"
+              accesskey="&promptMasterPwdForEncrMetadata.accesskey;"
+              preference="pref-promptmasterpwdforencrmetadata"/>
     <checkbox label="&allowPwdFillByTags.label;"
               accesskey="&allowPwdFillByTags.accesskey;"
               tooltiptext="&allowPwdFillByTags.tooltip;"

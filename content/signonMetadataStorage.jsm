@@ -34,6 +34,10 @@ XPCOMUtils.defineLazyGetter(
   function () Cc["@mozilla.org/intl/scriptableunicodeconverter"].
               createInstance(Ci.nsIScriptableUnicodeConverter));
 XPCOMUtils.defineLazyGetter(
+  this, "rand",
+  function () Cc["@mozilla.org/security/random-generator;1"].
+              createInstance(Ci.nsIRandomGenerator));
+XPCOMUtils.defineLazyGetter(
   this, "ch",
   function () Cc["@mozilla.org/security/hash;1"].
               createInstance(Ci.nsICryptoHash));
@@ -72,6 +76,7 @@ function log (aMsg) {
 
 const COMMA_CHARS =
   ",\u055d\u060c\u07f8\u1363\u3001\ua60d\ufe50\ufe51\uff0c\uff64";
+const SALT_BYTES = 3;
 
 function escape (aRawStr)
   aRawStr.replace(/=/g, "==")
@@ -282,9 +287,10 @@ var signonMetadataStorage = {
   isOrphaned: function (aMDSpec) {
     var res = loginMgr.findLogins({}, aMDSpec.hostname, aMDSpec.formSubmitURL,
                                   aMDSpec.httpRealm);
+    var [ver, salt, hash] = this._parseSaltedHash(aMDSpec.usernameHash);
     for (let i = 0; i < res.length; i++) {
       let signon = res[i];
-      if (aMDSpec.usernameHash == this._hash(signon.username))
+      if (aMDSpec.usernameHash == this._hash(signon.username, ver, salt))
         return false;
     }
 
@@ -437,7 +443,7 @@ var signonMetadataStorage = {
 
     var guid = aSignon.guid;
     var mdspec = this._findMetadata(guid);
-    if (mdspec) return mdspec;
+    if (mdspec && mdspec.hashVersion >= 2) return mdspec;
 
     mdspec = this._findMetadataByData(aSignon);
     if (!mdspec) return null;
@@ -516,7 +522,7 @@ var signonMetadataStorage = {
         "SELECT * FROM dd_passwordtags_metadata WHERE guid = :guid");
       stmt.params.guid = aGUID;
       if (stmt.executeStep()) {
-        return {
+        let mdSpec = {
           id: stmt.row.id,
           hostname: stmt.row.hostname,
           httpRealm: stmt.row.httpRealm,
@@ -525,6 +531,9 @@ var signonMetadataStorage = {
           tags: stmt.row.tags,
           metadata: stmt.row.metadata,
           guid: stmt.row.guid };
+        let [ver, salt, hash] = this._parseSaltedHash(mdSpec.usernameHash);
+        mdSpec.hashVersion = ver;
+        return mdSpec;
       } else
         return null;
     } catch (e) {
@@ -537,8 +546,8 @@ var signonMetadataStorage = {
   _findMetadataByData: function (aSignon) {
     var stmt;
     try {
-      let stmtStr = "SELECT * FROM dd_passwordtags_metadata WHERE "
-        + "hostname = :hostname AND usernameHash = :usernameHash";
+      let stmtStr =
+        "SELECT * FROM dd_passwordtags_metadata WHERE hostname = :hostname";
       if (aSignon.httpRealm) stmtStr += " AND httpRealm = :httpRealm";
       if (aSignon.formSubmitURL)
         stmtStr += " AND formSubmitURL = :formSubmitURL";
@@ -547,19 +556,31 @@ var signonMetadataStorage = {
       if (aSignon.httpRealm) stmt.params.httpRealm = aSignon.httpRealm;
       if (aSignon.formSubmitURL)
         stmt.params.formSubmitURL = aSignon.formSubmitURL;
-      stmt.params.usernameHash = this._hash(aSignon.username);
 
-      if (stmt.executeStep()) {
-        return {
-          hostname: stmt.row.hostname,
-          httpRealm: stmt.row.httpRealm,
-          formSubmitURL: stmt.row.formSubmitURL,
-          usernameHash: stmt.row.usernameHash,
-          tags: stmt.row.tags,
-          metadata: stmt.row.metadata,
-          guid: stmt.row.guid };
-      } else
-        return null;
+      while (stmt.executeStep()) {
+        let saltedHash = stmt.row.usernameHash,
+            [ver, salt, hash] = this._parseSaltedHash(saltedHash);
+        if (saltedHash == this._hash(aSignon.username, ver, salt)) {
+          let mdSpec = {
+            hostname: stmt.row.hostname,
+            httpRealm: stmt.row.httpRealm,
+            formSubmitURL: stmt.row.formSubmitURL,
+            usernameHash: saltedHash,
+            tags: stmt.row.tags,
+            metadata: stmt.row.metadata,
+            guid: stmt.row.guid };
+
+          // Migrate to salted hash if necessary.
+          if (ver < 2) {
+            mdSpec.usernameHash = this._hash(aSignon.username);
+            this._updateRow(stmt.row.guid, mdSpec, false);
+          }
+
+          return mdSpec;
+        }
+      }
+
+      return null;
     } catch (e) {
       log("_findMetadataByData failed with exception: " + e);
     } finally {
@@ -710,8 +731,9 @@ var signonMetadataStorage = {
           let j;
           for (j = 0; j < res.length; j++) {
             let cand = res[j];
-            let hash = this._hash(cand.username);
+            let hash = this._hash(cand.username, 1);
             if (hash == metadata.usernameHash) {
+              metadata.usernameHash = this._hash(cand.username);
               metadata.guid = cand.QueryInterface(Ci.nsILoginMetaInfo).guid;
               break;
             }
@@ -770,12 +792,32 @@ var signonMetadataStorage = {
     },
   },
 
-  _hash: function (aPlain) {
+  _parseSaltedHash: function (aSalted) {
+    if (aSalted.substr(0, 2) != "2|") return [1, "", aSalted];
+    var [ver, salt, hash] = aSalted.split("|");
+    ver = parseInt(ver);
+    return [ver, salt, hash];
+  },
+
+  _hash: function (aPlain, aVer, aSalt) {
+    var ver = aVer || 2;
+    var salt = ver < 2 ? "" : aSalt || this._generateSalt();
+    var composite = salt + aPlain;
     uc.charset = "UTF-8";
-    var bytes = uc.convertToByteArray(aPlain, new Array(aPlain.length));
+    var bytes = uc.convertToByteArray(composite, new Array(composite.length));
     ch.init(ch.MD5);
     ch.update(bytes, bytes.length);
-    return ch.finish(true);
+    var hash = ch.finish(true);
+    if (ver >= 2)
+      return "2" + "|" + salt + "|" + hash;
+    else
+      return hash;
+  },
+
+  _generateSalt: function () {
+    var bytes = rand.generateRandomBytes(SALT_BYTES);
+    uc.charset = "US-ASCII";
+    return btoa(uc.convertFromByteArray(bytes, SALT_BYTES));
   },
 
   _readMetadataFile: function () {

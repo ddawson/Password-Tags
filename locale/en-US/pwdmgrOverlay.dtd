@@ -1,8 +1,5 @@
 <!ENTITY column_tags.label "Tags">
-<!-- A very short string that stands for "metadata" -->
-<!ENTITY column_metadata.label "MD">
-<!-- See pwdmgrOverlay.properties for the corresponding "E" and "U" strings. -->
-<!ENTITY column_metadata.tooltip "Metadata present (E = encrypted; U = unencrypted)">
+<!ENTITY column_metadata.label "Metadata">
 <!ENTITY edittags.label "Edit tags">
 <!-- Needs to match edittagsAccesskey in pwdtags.properties -->
 <!ENTITY edittags.accesskey "t">

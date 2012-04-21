@@ -31,10 +31,26 @@ XPCOMUtils.defineLazyGetter(
 XPCOMUtils.defineLazyServiceGetter(
   this, "prefs",
   "@mozilla.org/preferences-service;1", "nsIPrefService");
+XPCOMUtils.defineLazyServiceGetter(
+  this, "promptSvc",
+  "@mozilla.org/embedcomp/prompt-service;1", "nsIPromptService");
 
 var [signon, callback] = arguments,
     curMetadata = signonMetadataStorage.getMetadata(signon),
     gridRows = el("metadataeditor-gridrows"), rows = [];
+
+function login () {
+  var token = Components.classes["@mozilla.org/security/pk11tokendb;1"].
+                createInstance(Components.interfaces.nsIPK11TokenDB).
+                getInternalKeyToken();
+  if (!token.checkPassword("")) {
+    try {
+      token.login(true);
+    } catch (e) { }
+    return token.isLoggedIn();
+  }
+  return true;
+}
 
 function getRowIndexFromButton (aEl)
   Number(aEl.parentElement.parentElement.parentElement.getAttribute("index"));
@@ -150,6 +166,15 @@ function addField () {
 }
 
 function deleteAll () {
+  var res = promptSvc.confirmEx(
+    window,
+    strings.getString("confirmDeleteAllFields.title"),
+    strings.getString("confirmDeleteAllFields.msg"),
+    promptSvc.STD_YES_NO_BUTTONS + promptSvc.BUTTON_DELAY_ENABLE,
+    null, null, null, null, {});
+
+  if (res != 0) return;
+
   rows = [];
   var cur = gridRows.children[1];
   while (cur) {
@@ -279,23 +304,36 @@ function configDefaultFields () {
              "defaultfieldconfig");
 }
 
-el("current-host").setAttribute(
-  "value",
-  signon.hostname + (signon.httpRealm ? " (" + signon.httpRealm + ")" : ""));
-el("current-submitprefix").setAttribute(
-  "value", signon.formSubmitURL ? signon.formSubmitURL : "");
-el("current-username").setAttribute("value", signon.username);
+function init () {
+  if (curMetadata.metadataType > 0
+      && prefs.getBoolPref(
+           "extensions.passwordtags.promptMasterPwdForEncrMetadata")
+      && !login()) {
+    window.close();
+    return;
+  }
 
-el("tags-field").setAttribute("value", curMetadata.tags);
-el("encrypt-ck").setAttribute(
-  "checked",
-  curMetadata.metadataType > 0
-    || (curMetadata.metadataType == -1
-        && prefs.getBoolPref(
-             "extensions.passwordtags.encryptMetadataByDefault")));
-for (let i = 0; i < curMetadata.metadata.length; i++) {
-  let rowEntry = buildRow(curMetadata.getField(i), i,
-                          i == curMetadata.metadata.length - 1);
-  rows.push(rowEntry);
-  gridRows.appendChild(rowEntry.row);
+  el("current-host").setAttribute(
+    "value",
+    signon.hostname + (signon.httpRealm ? " (" + signon.httpRealm + ")" : ""));
+  el("current-submitprefix").setAttribute(
+    "value", signon.formSubmitURL ? signon.formSubmitURL : "");
+  el("current-username").setAttribute("value", signon.username);
+
+  el("tags-field").setAttribute("value", curMetadata.tags);
+  el("encrypt-ck").setAttribute(
+    "checked",
+    curMetadata.metadataType > 0
+      || (curMetadata.metadataType == -1
+          && prefs.getBoolPref(
+               "extensions.passwordtags.encryptMetadataByDefault")));
+
+  for (let i = 0; i < curMetadata.metadata.length; i++) {
+    let rowEntry = buildRow(curMetadata.getField(i), i,
+                            i == curMetadata.metadata.length - 1);
+    rows.push(rowEntry);
+    gridRows.appendChild(rowEntry.row);
+  }
 }
+
+init();

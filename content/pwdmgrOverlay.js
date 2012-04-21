@@ -252,7 +252,8 @@ var passwordTags = {
         strings.getString("confirmDeleteMetadata.title"),
         strings.getString("confirmDeleteMetadata.msg"),
         promptSvc.STD_YES_NO_BUTTONS
-          + promptSvc.BUTTON_POS_2*promptSvc.BUTTON_TITLE_IS_STRING,
+          + promptSvc.BUTTON_POS_2*promptSvc.BUTTON_TITLE_IS_STRING
+          + promptSvc.BUTTON_DELAY_ENABLE,
         null, null, strings.getString("confirmDeleteMetadata_always.label"),
         null, {});
       if (res == 1)
