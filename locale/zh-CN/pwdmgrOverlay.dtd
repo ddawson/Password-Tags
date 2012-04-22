@@ -1,7 +1,10 @@
 <!ENTITY column_tags.label "标签">
+<!ENTITY column_metadata.label "Metadata">
 <!ENTITY edittags.label "编辑标签">
+<!-- Needs to match edittagsAccesskey in pwdmgrOverlay.properties -->
 <!ENTITY edittags.accesskey "t">
 <!ENTITY editmetadata.label "编辑元数据">
+<!-- Needs to match editmetadataAccesskey in pwdmgrOverlay.properties -->
 <!ENTITY editmetadata.accesskey "m">
 <!ENTITY deletemetadata.label "删除元数据">
 <!ENTITY deletemetadata.accesskey "D">

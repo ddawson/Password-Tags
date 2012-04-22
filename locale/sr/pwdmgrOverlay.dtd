@@ -1,7 +1,10 @@
 <!ENTITY column_tags.label "Ознаке">
+<!ENTITY column_metadata.label "Metadata">
 <!ENTITY edittags.label "Уреди ознаке">
+<!-- Needs to match edittagsAccesskey in pwdmgrOverlay.properties -->
 <!ENTITY edittags.accesskey "у">
 <!ENTITY editmetadata.label "Уреди метаподатке">
+<!-- Needs to match editmetadataAccesskey in pwdmgrOverlay.properties -->
 <!ENTITY editmetadata.accesskey "м">
 <!ENTITY deletemetadata.label "Онемогући метаподатке">
 <!ENTITY deletemetadata.accesskey "н">

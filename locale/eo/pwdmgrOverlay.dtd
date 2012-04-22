@@ -1,7 +1,10 @@
 <!ENTITY column_tags.label "Markoj">
+<!ENTITY column_metadata.label "Metadatumoj">
 <!ENTITY edittags.label "Redakti markojn">
+<!-- Needs to match edittagsAccesskey in pwdmgrOverlay.properties -->
 <!ENTITY edittags.accesskey "r">
 <!ENTITY editmetadata.label "Redakti metadatumojn">
+<!-- Needs to match editmetadataAccesskey in pwdmgrOverlay.properties -->
 <!ENTITY editmetadata.accesskey "m">
 <!ENTITY deletemetadata.label "Forviŝi metadatumojn">
 <!ENTITY deletemetadata.accesskey "F">

@@ -1,3 +1,8 @@
+<!ENTITY encryptMetadataByDefault.label "Metadaty standardnje koděrowaś">
+<!ENTITY encryptMetadataByDefault.accesskey "d">
+<!ENTITY encryptMetadataByDefault.tooltip "Lěc kontrolny kašćik &quot;Metadaty koděrowaś&quot; w editorje jo aktiwěrowany, gaž se nowe metadaty napóraju">
+<!ENTITY promptMasterPwdForEncrMetadata.label "Za głownym gronidłom se pšašaś, gaž metadaty maju se koděrowaś">
+<!ENTITY promptMasterPwdForEncrMetadata.accesskey "o">
 <!ENTITY allowPwdFillByTags.label "Gronidła pśez wobznamjenja zapódaś">
 <!ENTITY allowPwdFillByTags.accesskey "G">
 <!ENTITY allowPwdFillByTags.tooltip "Konteksowy pódmeni za pśizjawjeńske formulary zapśimjeś, kótarež nalicyju wužywarske mjenja a jich wobznamjenja (jolic take su), kótarež wam dowóluju, formular wupołniś, z tym až wuběraśo take.">

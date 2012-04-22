@@ -1,3 +1,8 @@
+<!ENTITY encryptMetadataByDefault.label "Encrypt metadata by default">
+<!ENTITY encryptMetadataByDefault.accesskey "E">
+<!ENTITY encryptMetadataByDefault.tooltip "Whether the &quot;Encrypt metadata&quot; checkbox in the editor is checked when creating new metadata">
+<!ENTITY promptMasterPwdForEncrMetadata.label "Prompt for master password when editing encrypted metadata">
+<!ENTITY promptMasterPwdForEncrMetadata.accesskey "r">
 <!ENTITY allowPwdFillByTags.label "Дозволи попуњавање лозинке ознакама">
 <!ENTITY allowPwdFillByTags.accesskey "п">
 <!ENTITY allowPwdFillByTags.tooltip "Укључи приручни мени за пријављивање у обрасцима који садрже корисничка имена и повезане ознаке, ако их има">

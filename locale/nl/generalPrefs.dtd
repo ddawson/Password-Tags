@@ -1,3 +1,8 @@
+<!ENTITY encryptMetadataByDefault.label "Metagegevens standaard versleutelen">
+<!ENTITY encryptMetadataByDefault.accesskey "u">
+<!ENTITY encryptMetadataByDefault.tooltip "Of het vakje ‘Metagegevens versleutelen’ in het bewerkingsprogramma is aangevinkt bij het aanmaken van nieuwe metagegevens">
+<!ENTITY promptMasterPwdForEncrMetadata.label "Prompt for master password when editing encrypted metadata">
+<!ENTITY promptMasterPwdForEncrMetadata.accesskey "r">
 <!ENTITY allowPwdFillByTags.label "Wachtwoorden vullen op label toestaan">
 <!ENTITY allowPwdFillByTags.accesskey "s">
 <!ENTITY allowPwdFillByTags.tooltip "Laat een contextsubmenu zien voor aanmeldformulieren met gebruikersnamen en verwante labels (indien aanwezig), zodat u het formulier kunt vullen door er één te selecteren.">

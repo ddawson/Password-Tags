@@ -1,7 +1,10 @@
 <!ENTITY column_tags.label "Marka">
+<!ENTITY column_metadata.label "Metadaty">
 <!ENTITY edittags.label "Marki wobźěłaś">
+<!-- Needs to match edittagsAccesskey in pwdmgrOverlay.properties -->
 <!ENTITY edittags.accesskey "m">
 <!ENTITY editmetadata.label "Metadaty wobźěłaś">
+<!-- Needs to match editmetadataAccesskey in pwdmgrOverlay.properties -->
 <!ENTITY editmetadata.accesskey "m">
 <!ENTITY deletemetadata.label "Metadaty wulašowaś">
 <!ENTITY deletemetadata.accesskey "d">

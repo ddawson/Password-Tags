@@ -1,3 +1,8 @@
+<!ENTITY encryptMetadataByDefault.label "Metadaty standardnje zaklučować">
+<!ENTITY encryptMetadataByDefault.accesskey "d">
+<!ENTITY encryptMetadataByDefault.tooltip "Hač kontrolny kašćik &quot;Metadaty zaklučować&quot; w editorje je aktiwizowany, hdyž so nowe metadaty wutworjeja">
+<!ENTITY promptMasterPwdForEncrMetadata.label "Za hłownym hesłom so prašeć, hdyž so zaklučowane metadaty wobdźěłuja">
+<!ENTITY promptMasterPwdForEncrMetadata.accesskey "o">
 <!ENTITY allowPwdFillByTags.label "Hesła přez znački zapodać">
 <!ENTITY allowPwdFillByTags.accesskey "H">
 <!ENTITY allowPwdFillByTags.tooltip "Kontekstowy podmeni za přizjewjenske formulary zapřijeć, kotryž wužiwarske mjena a z nimi zwjazane znački (jeli tajke su) nalistuje, kotryž wam zmóžnja formular wupjelnić, z tym, zo zapisk wuběraće.">
@@ -16,5 +21,5 @@
 <!ENTITY useSyncService.label "Sycnhronizacisku słužbu za waše metadaty wužiwać">
 <!ENTITY useSyncService.accesskey "S">
 <!ENTITY deleteAllMetadata.label "Wšě metadaty zhašeć">
-<!ENTITY deleteAllMetadata.accesskey "m">
+<!ENTITY deleteAllMetadata.accesskey "t">
 <!ENTITY deleteAllMetadata.tooltip "Wšě waše znački a metadaty na přeco zhašeć.">

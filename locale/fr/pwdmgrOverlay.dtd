@@ -1,7 +1,10 @@
 <!ENTITY column_tags.label "Étiquettes">
+<!ENTITY column_metadata.label "Métadonnées">
 <!ENTITY edittags.label "Modifier les étiquettes">
+<!-- Needs to match edittagsAccesskey in pwdmgrOverlay.properties -->
 <!ENTITY edittags.accesskey "t">
 <!ENTITY editmetadata.label "Modifier les métadonnées">
+<!-- Needs to match editmetadataAccesskey in pwdmgrOverlay.properties -->
 <!ENTITY editmetadata.accesskey "m">
 <!ENTITY deletemetadata.label "Supprimer des métadonnées">
 <!ENTITY deletemetadata.accesskey "S">

@@ -1,7 +1,10 @@
 <!ENTITY column_tags.label "Labels">
+<!ENTITY column_metadata.label "Metadata">
 <!ENTITY edittags.label "Labels bewerken">
+<!-- Needs to match edittagsAccesskey in pwdmgrOverlay.properties -->
 <!ENTITY edittags.accesskey "w">
 <!ENTITY editmetadata.label "Metagegevens bewerken">
+<!-- Needs to match editmetadataAccesskey in pwdmgrOverlay.properties -->
 <!ENTITY editmetadata.accesskey "M">
 <!ENTITY deletemetadata.label "Metagegevens verwijderen">
 <!ENTITY deletemetadata.accesskey "v">

@@ -5,6 +5,9 @@
 <!ENTITY tags.label "Markoj:">
 <!ENTITY tags.accesskey "M">
 <!ENTITY tags.tooltip "La markoj, kiuj apartenas al la aktuala ensaluto, separitaj per komoj">
+<!ENTITY encryptmetadata.label "Ĉifri metadatumojn">
+<!ENTITY encryptmetadata.accesskey "f">
+<!ENTITY encryptmetadata.tooltip "Uzi la Secret Decoder Ring (= pasvorta ĉifrado) por ĉifri ĉi tiujn metadatumojn.">
 <!ENTITY nametype.label "Nomo/Tipo">
 <!ENTITY value.label "Valoro">
 <!ENTITY addbutton.label "Aldoni">

@@ -5,6 +5,9 @@
 <!ENTITY tags.label "תגיות:">
 <!ENTITY tags.accesskey "ת">
 <!ENTITY tags.tooltip "תגיות השייכות להתחברות הנוכחית, יופרדו בפסיקים">
+<!ENTITY encryptmetadata.label "מטא-נתונים מוצפנים">
+<!ENTITY encryptmetadata.accesskey "מ">
+<!ENTITY encryptmetadata.tooltip "שימוש בקוד ההצפנה (זהה להצפנת הססמה) כדי להצפין מטא-נתונים אלו.">
 <!ENTITY nametype.label "שם/סוג">
 <!ENTITY value.label "ערך">
 <!ENTITY addbutton.label "הוספה">

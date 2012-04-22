@@ -1,10 +1,13 @@
 <!ENTITY metadataEditor.title "Password Tags 後設資料編輯器">
-<!ENTITY host.label "主機：">
-<!ENTITY submitPrefix.label "提交前置詞（prefix）：">
-<!ENTITY username.label "使用者名稱：">
-<!ENTITY tags.label "標籤：">
+<!ENTITY host.label "主機:">
+<!ENTITY submitPrefix.label "提交前置詞（prefix）:">
+<!ENTITY username.label "使用者名稱:">
+<!ENTITY tags.label "標籤:">
 <!ENTITY tags.accesskey "T">
 <!ENTITY tags.tooltip "目前所開啟登入資料的相關標籤，以逗號分隔">
+<!ENTITY encryptmetadata.label "加密後設資料">
+<!ENTITY encryptmetadata.accesskey "E">
+<!ENTITY encryptmetadata.tooltip "以 Secret Decoder Ring（與密碼相同的方式）加密這組後設資料。">
 <!ENTITY nametype.label "名稱/類型">
 <!ENTITY value.label "值">
 <!ENTITY addbutton.label "新增">

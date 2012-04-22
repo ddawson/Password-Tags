@@ -5,6 +5,9 @@
 <!ENTITY tags.label "Znački:">
 <!ENTITY tags.accesskey "Z">
 <!ENTITY tags.tooltip "Znački zwjazane z aktualnym přizjewjenjom, dźělenych přez komy">
+<!ENTITY encryptmetadata.label "Metadaty zaklučować">
+<!ENTITY encryptmetadata.accesskey "M">
+<!ENTITY encryptmetadata.tooltip "Secret Decoder Ring (= hesłowe zaklučowanje) wužiwać, zo by tute metadaty zaklučowało.">
 <!ENTITY nametype.label "Mjeno/Typ">
 <!ENTITY value.label "Hódnota">
 <!ENTITY addbutton.label "Přidać">

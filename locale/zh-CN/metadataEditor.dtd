@@ -5,6 +5,9 @@
 <!ENTITY tags.label "标签：">
 <!ENTITY tags.accesskey "T">
 <!ENTITY tags.tooltip "与当前登录相关的标签，用逗号分隔">
+<!ENTITY encryptmetadata.label "加密元数据">
+<!ENTITY encryptmetadata.accesskey "E">
+<!ENTITY encryptmetadata.tooltip "使用 Secret Decoder Ring (等同于密码加密) 加密此元数据。">
 <!ENTITY nametype.label "名称/类型">
 <!ENTITY value.label "值">
 <!ENTITY addbutton.label "添加">

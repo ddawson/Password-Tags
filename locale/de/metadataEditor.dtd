@@ -5,6 +5,9 @@
 <!ENTITY tags.label "Tags:">
 <!ENTITY tags.accesskey "T">
 <!ENTITY tags.tooltip "Die mit der aktuellen Anmeldung verbundenen Tags, getrennt durch Kommas">
+<!ENTITY encryptmetadata.label "Metadaten verschlüsseln">
+<!ENTITY encryptmetadata.accesskey "M">
+<!ENTITY encryptmetadata.tooltip "Secret Decoder Ring (= Passwortverschlüsselung) verwenden, um diese Metadaten zu verschlüsseln.">
 <!ENTITY nametype.label "Name/Typ">
 <!ENTITY value.label "Wert">
 <!ENTITY addbutton.label "Hinzufügen">

@@ -5,6 +5,9 @@
 <!ENTITY tags.label "Ознаке:">
 <!ENTITY tags.accesskey "О">
 <!ENTITY tags.tooltip "Ознаке повезане са тренутном пријавом, одвојене запетама">
+<!ENTITY encryptmetadata.label "Encrypt metadata">
+<!ENTITY encryptmetadata.accesskey "E">
+<!ENTITY encryptmetadata.tooltip "Use the Secret Decoder Ring (same as password encryption) to encrypt this metadata.">
 <!ENTITY nametype.label "Назив/тип">
 <!ENTITY value.label "Вредност">
 <!ENTITY addbutton.label "Додај">

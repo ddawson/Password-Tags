@@ -5,6 +5,9 @@
 <!ENTITY tags.label "Étiquettes :">
 <!ENTITY tags.accesskey "t">
 <!ENTITY tags.tooltip "Les étiquettes associées aux identifiants en cours, séparées par des virgules">
+<!ENTITY encryptmetadata.label "Chiffrer les métadonnées">
+<!ENTITY encryptmetadata.accesskey "C">
+<!ENTITY encryptmetadata.tooltip "Utiliser la clé de déchiffrement (celle du chiffrement du mot de passe) pour chiffrer ces métadonnées.">
 <!ENTITY nametype.label "Nom/type">
 <!ENTITY value.label "Valeur">
 <!ENTITY addbutton.label "Ajouter">

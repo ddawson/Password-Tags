@@ -1,7 +1,10 @@
 <!ENTITY column_tags.label "Znački">
+<!ENTITY column_metadata.label "Metadaty">
 <!ENTITY edittags.label "Znački wobdźěłać">
+<!-- Needs to match edittagsAccesskey in pwdmgrOverlay.properties -->
 <!ENTITY edittags.accesskey "w">
 <!ENTITY editmetadata.label "Metadaty wobdźěłać">
+<!-- Needs to match editmetadataAccesskey in pwdmgrOverlay.properties -->
 <!ENTITY editmetadata.accesskey "m">
 <!ENTITY deletemetadata.label "Metadaty zhašeć">
 <!ENTITY deletemetadata.accesskey "d">

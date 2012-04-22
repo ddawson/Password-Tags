@@ -5,6 +5,9 @@
 <!ENTITY tags.label "Wobznamjenja:">
 <!ENTITY tags.accesskey "W">
 <!ENTITY tags.tooltip "Wobznamjenja, kótarež słušaju k aktualnemu pśizjawjenjeju, zělone pśez komy">
+<!ENTITY encryptmetadata.label "Metdaty koděrowaś">
+<!ENTITY encryptmetadata.accesskey "M">
+<!ENTITY encryptmetadata.tooltip "Secret Decoder Ring (= gronidłowe skoděrowanje) wužywaś, aby se toś te metadaty koděrowało.">
 <!ENTITY nametype.label "Mě/Typ">
 <!ENTITY value.label "Gódnota">
 <!ENTITY addbutton.label "Pśidaś">

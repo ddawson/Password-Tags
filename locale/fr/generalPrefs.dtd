@@ -1,8 +1,13 @@
+<!ENTITY encryptMetadataByDefault.label "Chiffrer les métadonnées par défaut">
+<!ENTITY encryptMetadataByDefault.accesskey "C">
+<!ENTITY encryptMetadataByDefault.tooltip "Si la case &quot;Chiffrer les métadonnées&quot; est cochée quand sont créées de nouvelles métadonnées">
+<!ENTITY promptMasterPwdForEncrMetadata.label "Demander le mot de passe principal pour l'édition des métadonnées chiffrées">
+<!ENTITY promptMasterPwdForEncrMetadata.accesskey "D">
 <!ENTITY allowPwdFillByTags.label "Autoriser le remplissage des mots de passe par des étiquettes">
 <!ENTITY allowPwdFillByTags.accesskey "A">
 <!ENTITY allowPwdFillByTags.tooltip "Inclure un sous-menu contextuel (clic droit) pour les formulaires d'identification qui liste les noms d'utilisateurs et leurs étiquettes associées (si elles existent), ce qui vous permet de remplir les champs en cliquant sur eux.">
 <!ENTITY keepMetadataForDeletedLogins.label "Conserver les métadonnées pour les identifiants supprimés">
-<!ENTITY keepMetadataForDeletedLogins.accesskey "C">
+<!ENTITY keepMetadataForDeletedLogins.accesskey "o">
 <!ENTITY keepMetadataForDeletedLogins.tooltip "Si cette cas est décochée, les étiquettes et métadonnées associées à un identifiant seront supprimées si l'identifiant lui-même est supprimé.">
 <!ENTITY cleanupOrphanedMetadata.label "Effacer les métadonnées orphelines">
 <!ENTITY cleanupOrphanedMetadata.accesskey "E">

@@ -1,3 +1,8 @@
+<!ENTITY encryptMetadataByDefault.label "Ĉifri metadatumojn defaŭlte">
+<!ENTITY encryptMetadataByDefault.accesskey "f">
+<!ENTITY encryptMetadataByDefault.tooltip "Ĉu la markobutono &quot;Ĉifri metadatumojn&quot; en la redaktilo estas ŝaltita, kiam novaj metadatumoj estas kreataj">
+<!ENTITY promptMasterPwdForEncrMetadata.label "Demandi pri ĉefpasvorto, kiam ĉifritaj metadatumoj estu redaktataj">
+<!ENTITY promptMasterPwdForEncrMetadata.accesskey "D">
 <!ENTITY allowPwdFillByTags.label "Ebligi enmetadon de pasvortoj per markoj">
 <!ENTITY allowPwdFillByTags.accesskey "E">
 <!ENTITY allowPwdFillByTags.tooltip "Inkludi kuntekstan submenuon por ensalutaj formularoj, kiu listigas salutnomojn kaj la respektivajn markojn (se tiaj ekzistas), kiuj ebligas al vi plenigi la formularon, se vi elektas tian.">

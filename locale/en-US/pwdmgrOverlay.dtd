@@ -1,10 +1,10 @@
 <!ENTITY column_tags.label "Tags">
 <!ENTITY column_metadata.label "Metadata">
 <!ENTITY edittags.label "Edit tags">
-<!-- Needs to match edittagsAccesskey in pwdtags.properties -->
+<!-- Needs to match edittagsAccesskey in pwdmgrOverlay.properties -->
 <!ENTITY edittags.accesskey "t">
 <!ENTITY editmetadata.label "Edit metadata">
-<!-- Needs to match editmetadataAccesskey in pwdtags.properties -->
+<!-- Needs to match editmetadataAccesskey in pwdmgrOverlay.properties -->
 <!ENTITY editmetadata.accesskey "m">
 <!ENTITY deletemetadata.label "Delete metadata">
 <!ENTITY deletemetadata.accesskey "D">

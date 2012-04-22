@@ -5,6 +5,9 @@
 <!ENTITY tags.label "Labels:">
 <!ENTITY tags.accesskey "L">
 <!ENTITY tags.tooltip "De labels behorend bij de huisige aanmeldgegevens, gescheiden door komma’s">
+<!ENTITY encryptmetadata.label "Metagegevens versleutelen">
+<!ENTITY encryptmetadata.accesskey "u">
+<!ENTITY encryptmetadata.tooltip "Geheime Decoderring (vergelijkbaar met wachtwoordversleuteling) gebruiken om deze metagegevens te versleutelen.">
 <!ENTITY nametype.label "Naam/type">
 <!ENTITY value.label "Waarde">
 <!ENTITY addbutton.label "Toevoegen">
