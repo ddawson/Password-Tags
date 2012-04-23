@@ -16,7 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-const Cu = Components.utils;
+const Cc = Components.classes, Ci = Components.interfaces,
+      Cu = Components.utils;
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 Cu.import("resource://passwordtags/signonMetadataStorage.jsm");
 
@@ -28,9 +29,10 @@ XPCOMUtils.defineLazyGetter(
 XPCOMUtils.defineLazyGetter(
   this, "strings",
   function () el("metadataeditor-strings"));
-XPCOMUtils.defineLazyServiceGetter(
-  this, "prefs",
-  "@mozilla.org/preferences-service;1", "nsIPrefService");
+XPCOMUtils.defineLazyGetter(
+  this, "prefs", function ()
+    Cc["@mozilla.org/preferences-service;1"].
+    getService(Ci.nsIPrefService).getBranch(""));
 XPCOMUtils.defineLazyServiceGetter(
   this, "promptSvc",
   "@mozilla.org/embedcomp/prompt-service;1", "nsIPromptService");
@@ -40,9 +42,8 @@ var [signon, callback] = arguments,
     gridRows = el("metadataeditor-gridrows"), rows = [];
 
 function login () {
-  var token = Components.classes["@mozilla.org/security/pk11tokendb;1"].
-                createInstance(Components.interfaces.nsIPK11TokenDB).
-                getInternalKeyToken();
+  var token = Cc["@mozilla.org/security/pk11tokendb;1"].
+                createInstance(Ci.nsIPK11TokenDB).getInternalKeyToken();
   if (!token.checkPassword("")) {
     try {
       token.login(true);
