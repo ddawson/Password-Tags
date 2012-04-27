@@ -23,7 +23,10 @@ const Cc = Components.classes,
       Cr = Components.results,
       Cu = Components.utils,
       MD_DBFILENAME = "signons.sqlite",
-      MD_FILENAME = "signoncats.xml";
+      MD_FILENAME = "signoncats.xml",
+      MIGRATE_INTERSTITIAL_THRESHOLD = 100,
+      MIGRATE_MAX_DELAY = 250,
+      MIGRATE_BACKOFF_TIME = 5000;
 
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 
@@ -151,6 +154,9 @@ var signonMetadataStorage = {
 
   _metadataChangeListeners: [],
   _defaultChangeListeners: [],
+  _migrateEnable: true,
+  _migrate_startTimer: 0, 
+  _migrate_lastTime: 0,
 
   getMetadata: function (aSignon) {
     var mdspec = this._getMetadataRaw(aSignon);
@@ -544,6 +550,15 @@ var signonMetadataStorage = {
   },
 
   _findMetadataByData: function (aSignon) {
+    var now = Date.now();
+    if (this._migrateEnable) { 
+      if (now - this._migrate_lastTime > MIGRATE_INTERSTITIAL_THRESHOLD)
+        this._migrate_startTime = now;
+    } else if (now - _migrate_lastTime > MIGRATE_BACKOFF_TIME) {
+      this._migrateEnable = true;
+      this._migrate_startTime = now;
+    }
+
     var stmt;
     try {
       let stmtStr =
@@ -571,9 +586,12 @@ var signonMetadataStorage = {
             guid: stmt.row.guid };
 
           // Migrate to salted hash if necessary.
-          if (ver < 2) {
+          if (ver < 2 && this._migrateEnable) {
             mdSpec.usernameHash = this._hash(aSignon.username);
             this._updateRow(stmt.row.guid, mdSpec, false);
+            this._migrate_lastTime = now;
+            if (now - this._migrate_startTime > MIGRATE_MAX_DELAY)
+              this._migrateEnable = false;
           }
 
           return mdSpec;

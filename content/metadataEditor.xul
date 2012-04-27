@@ -76,7 +76,7 @@
         <column id="value-column" flex="1"/>
       </columns>
       <rows id="metadataeditor-gridrows">
-        <row class="header">
+        <row id="metadataeditor-headerrow" class="header">
           <spacer/>
           <label value="&nametype.label;"/>
           <label value="&value.label;"/>

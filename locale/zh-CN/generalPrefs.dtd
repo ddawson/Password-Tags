@@ -1,7 +1,7 @@
 <!ENTITY encryptMetadataByDefault.label "默认加密元数据">
 <!ENTITY encryptMetadataByDefault.accesskey "E">
 <!ENTITY encryptMetadataByDefault.tooltip "无论新建元数据时编辑器中的 &quot;加密元数据&quot; 复选框是否选中">
-<!ENTITY promptMasterPwdForEncrMetadata.label "Prompt for master password when editing encrypted metadata">
+<!ENTITY promptMasterPwdForEncrMetadata.label "当编辑加密的元数据时提示输入主密码">
 <!ENTITY promptMasterPwdForEncrMetadata.accesskey "r">
 <!ENTITY allowPwdFillByTags.label "允许按标签填写密码">
 <!ENTITY allowPwdFillByTags.accesskey "A">

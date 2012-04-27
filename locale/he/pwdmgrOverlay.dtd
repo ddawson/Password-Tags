@@ -1,5 +1,5 @@
 <!ENTITY column_tags.label "תגיות">
-<!ENTITY column_metadata.label "Metadata">
+<!ENTITY column_metadata.label "מטא-נתונים">
 <!ENTITY edittags.label "עריכת תגיות">
 <!-- Needs to match edittagsAccesskey in pwdmgrOverlay.properties -->
 <!ENTITY edittags.accesskey "ע">

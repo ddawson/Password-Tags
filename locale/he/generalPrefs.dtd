@@ -1,14 +1,14 @@
 <!ENTITY encryptMetadataByDefault.label "הצפנת מטא-נתונים כברירת מחדל">
 <!ENTITY encryptMetadataByDefault.accesskey "ה">
 <!ENTITY encryptMetadataByDefault.tooltip "בין אם תיבת הסימון של &quot;הצפנת מטא-נתונים&quot; בעורך מסומנת בעת יצירת מטא-נתונים חדשים">
-<!ENTITY promptMasterPwdForEncrMetadata.label "Prompt for master password when editing encrypted metadata">
-<!ENTITY promptMasterPwdForEncrMetadata.accesskey "r">
+<!ENTITY promptMasterPwdForEncrMetadata.label "בקשת סיסמת המאסטר בזמן עריכת מטא-נתונים מוצפנים">
+<!ENTITY promptMasterPwdForEncrMetadata.accesskey "ב">
 <!ENTITY allowPwdFillByTags.label "אפשור מילוי סיסמה לפי תגיות">
 <!ENTITY allowPwdFillByTags.accesskey "א">
-<!ENTITY allowPwdFillByTags.tooltip "כלילת תת-תפריט בתפריט הלחצן הימני לטפסי התחברות אשר כוללים רשימת שמות משתמש ותגיות שייכות (אם ישנן), מאפשר למלא את הטופס על ידי בחירת אחד מהם.">
+<!ENTITY allowPwdFillByTags.tooltip "הוספת תת-תפריט בתפריט הלחצן הימני לטפסי התחברות אשר כולל רשימת שמות משתמש ותגיות שייכות (אם ישנן), המאפשר למלא את הטופס על ידי בחירת אחד מהם.">
 <!ENTITY keepMetadataForDeletedLogins.label "שמירת המטא-נתונים עבור התחברויות שנמחקו">
 <!ENTITY keepMetadataForDeletedLogins.accesskey "ש">
-<!ENTITY keepMetadataForDeletedLogins.tooltip "אם מסומן, תגיות ומטא-נתונים השייכים להתחברות ימחקו אם ההתחברות עצמה נמחקה.">
+<!ENTITY keepMetadataForDeletedLogins.tooltip "אם לא מסומן, תגיות ומטא-נתונים השייכים להתחברות ימחקו אם ההתחברות עצמה תמחק.">
 <!ENTITY cleanupOrphanedMetadata.label "ניקוי מטא-נתונים מיותמים">
 <!ENTITY cleanupOrphanedMetadata.accesskey "נ">
 <!ENTITY cleanupOrphanedMetadata.tooltip "הסרת מטא-נתונים שלא ניתן למצוא עבורם התחברות מתאימה">

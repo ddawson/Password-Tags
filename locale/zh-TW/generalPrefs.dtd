@@ -1,7 +1,7 @@
 <!ENTITY encryptMetadataByDefault.label "預設加密後設資料">
 <!ENTITY encryptMetadataByDefault.accesskey "E">
 <!ENTITY encryptMetadataByDefault.tooltip "新增後設資料時，無論「加密後設資料」是否勾選都會進行加密">
-<!ENTITY promptMasterPwdForEncrMetadata.label "Prompt for master password when editing encrypted metadata">
+<!ENTITY promptMasterPwdForEncrMetadata.label "編輯已加密的後設資料前，必須輸入主控密碼">
 <!ENTITY promptMasterPwdForEncrMetadata.accesskey "r">
 <!ENTITY allowPwdFillByTags.label "允許根據標籤填寫密碼">
 <!ENTITY allowPwdFillByTags.accesskey "A">

@@ -72,6 +72,11 @@ function removeField (aEvt) {
   for (let i = idx; i < rows.length; i++)
     rows[i].row.setAttribute("index", i);
 
+  if (rows.length < 2) {
+    el("encrypt-ck").hidden = true;
+    el("metadataeditor-headerrow").hidden = true;
+  }
+
   window.setTimeout(function () {
     if (idx < rows.length)
       rows[idx].nameFld.select();
@@ -151,6 +156,9 @@ function selectFieldType (aEvt) {
 }
 
 function addField () {
+  el("encrypt-ck").hidden = false;
+  el("metadataeditor-headerrow").hidden = false;
+
   var rowEntry = buildRow({
     name: sharedStrings.getString("newFieldName"),
     type: "text",
@@ -183,6 +191,9 @@ function deleteAll () {
     gridRows.removeChild(cur);
     cur = next;
   }
+
+  el("encrypt-ck").hidden = true;
+  el("metadataeditor-headerrow").hidden = true;
 
   window.setTimeout(function () {
     el("add-button").focus();
@@ -328,6 +339,11 @@ function init () {
       || (curMetadata.metadataType == -1
           && prefs.getBoolPref(
                "extensions.passwordtags.encryptMetadataByDefault")));
+
+  if (curMetadata.metadata.length == 0) {
+    el("encrypt-ck").hidden = true;
+    el("metadataeditor-headerrow").hidden = true;
+  }
 
   for (let i = 0; i < curMetadata.metadata.length; i++) {
     let rowEntry = buildRow(curMetadata.getField(i), i,

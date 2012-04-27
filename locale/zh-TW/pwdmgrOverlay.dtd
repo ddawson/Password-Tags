@@ -1,5 +1,5 @@
 <!ENTITY column_tags.label "標籤">
-<!ENTITY column_metadata.label "Metadata">
+<!ENTITY column_metadata.label "後設資料">
 <!ENTITY edittags.label "編輯標籤">
 <!-- Needs to match edittagsAccesskey in pwdmgrOverlay.properties -->
 <!ENTITY edittags.accesskey "T">
