@@ -1,5 +1,5 @@
 <!ENTITY column_tags.label "Ознаке">
-<!ENTITY column_metadata.label "Metadata">
+<!ENTITY column_metadata.label "Метаподаци">
 <!ENTITY edittags.label "Уреди ознаке">
 <!-- Needs to match edittagsAccesskey in pwdmgrOverlay.properties -->
 <!ENTITY edittags.accesskey "у">
