@@ -7,6 +7,7 @@
     <name>Password Tags</name>
     <version>2.1</version>
     <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+    <contributor>Joseph A. Alfano</contributor>
     <translator>bg-BG: arris</translator>
     <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
     <translator>dsb: milupo</translator>
@@ -32,28 +33,28 @@
       <RDF:Description>
         <id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</id> <!-- Firefox -->
         <minVersion>3.6</minVersion>
-        <maxVersion>14.0a1</maxVersion>
+        <maxVersion>15.0a1</maxVersion>
       </RDF:Description>
     </targetApplication>
     <targetApplication>
       <RDF:Description>
         <id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</id> <!-- SeaMonkey -->
         <minVersion>2.1</minVersion>
-        <maxVersion>2.11a1</maxVersion>
+        <maxVersion>2.12a1</maxVersion>
       </RDF:Description>
     </targetApplication>
     <targetApplication>
       <RDF:Description>
         <id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</id> <!-- Thunderbird -->
         <minVersion>3.1</minVersion>
-        <maxVersion>14.0a1</maxVersion>
+        <maxVersion>15.0a1</maxVersion>
       </RDF:Description>
     </targetApplication>
     <targetApplication>
       <RDF:Description>
         <id>toolkit@mozilla.org</id> <!-- All applications -->
         <minVersion>1.9.2</minVersion>
-        <maxVersion>14.0.*</maxVersion>
+        <maxVersion>15.0.*</maxVersion>
       </RDF:Description>
     </targetApplication>
 
@@ -62,6 +63,7 @@
         <locale>bg-BG</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <contributor>Joseph A. Alfano</contributor>
         <translator>bg-BG: arris</translator>
         <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
@@ -86,6 +88,7 @@
         <locale>de</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <contributor>Joseph A. Alfano</contributor>
         <translator>bg-BG: arris</translator>
         <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
@@ -110,6 +113,7 @@
         <locale>dsb</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <contributor>Joseph A. Alfano</contributor>
         <translator>bg-BG: arris</translator>
         <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
@@ -134,6 +138,7 @@
         <locale>eo</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <contributor>Joseph A. Alfano</contributor>
         <translator>bg-BG: arris</translator>
         <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
@@ -158,6 +163,7 @@
         <locale>fr</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <contributor>Joseph A. Alfano</contributor>
         <translator>bg-BG: arris</translator>
         <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
@@ -182,6 +188,7 @@
         <locale>he</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <contributor>Joseph A. Alfano</contributor>
         <translator>bg-BG: arris</translator>
         <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
@@ -206,6 +213,7 @@
         <locale>hsb</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <contributor>Joseph A. Alfano</contributor>
         <translator>bg-BG: arris</translator>
         <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
@@ -230,6 +238,7 @@
         <locale>hu-HU</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <contributor>Joseph A. Alfano</contributor>
         <translator>bg-BG: arris</translator>
         <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
@@ -254,6 +263,7 @@
         <locale>nl</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <contributor>Joseph A. Alfano</contributor>
         <translator>bg-BG: arris</translator>
         <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
@@ -278,6 +288,7 @@
         <locale>pl</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <contributor>Joseph A. Alfano</contributor>
         <translator>bg-BG: arris</translator>
         <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
@@ -302,6 +313,7 @@
         <locale>ru</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <contributor>Joseph A. Alfano</contributor>
         <translator>bg-BG: arris</translator>
         <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
@@ -326,6 +338,7 @@
         <locale>sr</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <contributor>Joseph A. Alfano</contributor>
         <translator>bg-BG: arris</translator>
         <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
@@ -349,6 +362,8 @@
       <RDF:Description>
         <locale>sv-SE</locale>
         <name>Password Tags</name>
+        <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <contributor>Joseph A. Alfano</contributor>
         <translator>bg-BG: arris</translator>
         <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
@@ -373,6 +388,7 @@
         <locale>uk-UA</locale>
         <name>Password Tags</name>
         <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <contributor>Joseph A. Alfano</contributor>
         <translator>bg-BG: arris</translator>
         <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
@@ -396,6 +412,8 @@
       <RDF:Description>
         <locale>zh-CN</locale>
         <name>Password Tags</name>
+        <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <contributor>Joseph A. Alfano</contributor>
         <translator>bg-BG: arris</translator>
         <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>
@@ -419,6 +437,8 @@
       <RDF:Description>
         <locale>zh-TW</locale>
         <name>Password Tags</name>
+        <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <contributor>Joseph A. Alfano</contributor>
         <translator>bg-BG: arris</translator>
         <translator>de: ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <translator>dsb: milupo</translator>

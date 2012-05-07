@@ -23,10 +23,7 @@ const Cc = Components.classes,
       Cr = Components.results,
       Cu = Components.utils,
       MD_DBFILENAME = "signons.sqlite",
-      MD_FILENAME = "signoncats.xml",
-      MIGRATE_INTERSTITIAL_THRESHOLD = 100,
-      MIGRATE_MAX_DELAY = 250,
-      MIGRATE_BACKOFF_TIME = 5000;
+      MD_FILENAME = "signoncats.xml";
 
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 
@@ -154,9 +151,6 @@ var signonMetadataStorage = {
 
   _metadataChangeListeners: [],
   _defaultChangeListeners: [],
-  _migrateEnable: true,
-  _migrate_startTimer: 0, 
-  _migrate_lastTime: 0,
 
   getMetadata: function (aSignon) {
     var mdspec = this._getMetadataRaw(aSignon);
@@ -414,14 +408,17 @@ var signonMetadataStorage = {
   },
 
   observe: function (aSubject, aTopic, aData) {
-    if (aTopic == "nsPref:changed") {
+    switch (aTopic) {
+    case "nsPref:changed":
       // For now, only the one pref is being observed.
       this._readDefaultFields();
       for (let i = 0; i < this._defaultChangeListeners.length; i++)
         try {
           this._defaultChangeListeners[i].handleDefaultChange();
         } catch (e) {}
-    } else if (aTopic == "passwordmgr-storage-changed") {
+      break;
+
+    case "passwordmgr-storage-changed":
       if (aData == "modifyLogin") {
         let oldLogin = aSubject.QueryInterface(Ci.nsIArray).
                        queryElementAt(0, Ci.nsILoginInfo),
@@ -440,6 +437,12 @@ var signonMetadataStorage = {
       else if (aData == "removeAllLogins"
                  && !prefs.getBoolPref("keepMetadataForDeletedLogins"))
         this._deleteAllRows(false);
+      break;
+
+    case "quit-application":
+      for each (let stmt in this._dbStmts) stmt.finalize();
+      this._dbConnection.asyncClose();
+      break;
     }
   },
 
@@ -522,143 +525,91 @@ var signonMetadataStorage = {
   },
 
   _findMetadata: function (aGUID) {
-    var stmt;
-    try {
-      stmt = this._createStatement(
-        "SELECT * FROM dd_passwordtags_metadata WHERE guid = :guid");
-      stmt.params.guid = aGUID;
-      if (stmt.executeStep()) {
-        let mdSpec = {
-          id: stmt.row.id,
-          hostname: stmt.row.hostname,
-          httpRealm: stmt.row.httpRealm,
-          formSubmitURL: stmt.row.formSubmitURL,
-          usernameHash: stmt.row.usernameHash,
-          tags: stmt.row.tags,
-          metadata: stmt.row.metadata,
-          guid: stmt.row.guid };
-        let [ver, salt, hash] = this._parseSaltedHash(mdSpec.usernameHash);
-        mdSpec.hashVersion = ver;
-        return mdSpec;
-      } else
-        return null;
-    } catch (e) {
-      log("_findMetadata failed with exception: " + e);
-    } finally {
-      if (stmt) stmt.reset();
-    }
+    var cMDSpec = this._byGUID[aGUID];
+    if (cMDSpec) {
+      let mdSpec = {};
+      for each (let propname in ["hostname", "httpRealm", "formSubmitURL",
+                                 "usernameHash", "tags", "metadata", "guid"])
+        mdSpec[propname] = cMDSpec[propname];
+      let [ver, salt, hash] = this._parseSaltedHash(mdSpec.usernameHash);
+      mdSpec.hashVersion = ver;
+      return mdSpec;
+    } else
+      return null;
   },
 
   _findMetadataByData: function (aSignon) {
-    var now = Date.now();
-    if (this._migrateEnable) { 
-      if (now - this._migrate_lastTime > MIGRATE_INTERSTITIAL_THRESHOLD)
-        this._migrate_startTime = now;
-    } else if (now - _migrate_lastTime > MIGRATE_BACKOFF_TIME) {
-      this._migrateEnable = true;
-      this._migrate_startTime = now;
-    }
+    var candidates = this._searchCacheForData(aSignon);
 
-    var stmt;
-    try {
-      let stmtStr =
-        "SELECT * FROM dd_passwordtags_metadata WHERE hostname = :hostname";
-      if (aSignon.httpRealm) stmtStr += " AND httpRealm = :httpRealm";
-      if (aSignon.formSubmitURL)
-        stmtStr += " AND formSubmitURL = :formSubmitURL";
-      stmt = this._createStatement(stmtStr);
-      stmt.params.hostname = aSignon.hostname;
-      if (aSignon.httpRealm) stmt.params.httpRealm = aSignon.httpRealm;
-      if (aSignon.formSubmitURL)
-        stmt.params.formSubmitURL = aSignon.formSubmitURL;
+    for each (let cand in candidates) {
+      let saltedHash = cand.usernameHash,
+          [ver, salt, hash] = this._parseSaltedHash(saltedHash);
+      if (saltedHash == this._hash(aSignon.username, ver, salt)) {
+        let mdSpec = {};
+        for each (let propname in ["hostname", "httpRealm", "formSubmitURL",
+                                   "usernameHash", "tags", "metadata", "guid"])
+          mdSpec[propname] = cand[propname];
 
-      while (stmt.executeStep()) {
-        let saltedHash = stmt.row.usernameHash,
-            [ver, salt, hash] = this._parseSaltedHash(saltedHash);
-        if (saltedHash == this._hash(aSignon.username, ver, salt)) {
-          let mdSpec = {
-            hostname: stmt.row.hostname,
-            httpRealm: stmt.row.httpRealm,
-            formSubmitURL: stmt.row.formSubmitURL,
-            usernameHash: saltedHash,
-            tags: stmt.row.tags,
-            metadata: stmt.row.metadata,
-            guid: stmt.row.guid };
-
-          // Migrate to salted hash if necessary.
-          if (ver < 2 && this._migrateEnable) {
-            mdSpec.usernameHash = this._hash(aSignon.username);
-            this._updateRow(stmt.row.guid, mdSpec, false);
-            this._migrate_lastTime = now;
-            if (now - this._migrate_startTime > MIGRATE_MAX_DELAY)
-              this._migrateEnable = false;
-          }
-
-          return mdSpec;
+        // Migrate to salted hash if necessary.
+        if (ver < 2) {
+          mdSpec.usernameHash = this._hash(aSignon.username);
+          this._updateRow(mdSpec.guid, mdSpec, false);
         }
-      }
 
-      return null;
-    } catch (e) {
-      log("_findMetadataByData failed with exception: " + e);
-    } finally {
-      if (stmt) stmt.reset();
+        return mdSpec;
+      }
     }
+
+    return null;
   },
 
   _getAllMetadata: function () {
     if (!this._dbConnection) this._init();
-
-    var stmt;
-    try {
-      let allMetadata = [];
-      stmt = this._dbConnection.createStatement(
-        "SELECT * FROM dd_passwordtags_metadata");
-      while (stmt.executeStep()) {
-        let mdSpec = {
-          hostname: stmt.row.hostname,
-          httpRealm: stmt.row.httpRealm,
-          formSubmitURL: stmt.row.formSubmitURL,
-          usernameHash: stmt.row.usernameHash,
-          tags: stmt.row.tags,
-          metadata: stmt.row.metadata,
-          guid: stmt.row.guid };
-        allMetadata.push(mdSpec);
-      }
-
-      return allMetadata;
-    } catch (e) {
-      log("_getAllMetadata failed with exception: " + e);
-    } finally {
-      if (stmt) stmt.reset();
+    var list = [];
+    for each (let cMDSpec in this._byGUID) {
+      let mdSpec = {}
+      for each (let propname in ["hostname", "httpRealm", "formSubmitURL",
+                                 "usernameHash", "tags", "metadata", "guid"])
+        mdSpec[propname] = cMDSpec[propname];
+      list.push(mdSpec);
     }
+    return list;
   },
 
   _addRow: function (aMDSpec, aFromSync) {
-    var stmt;
+    var propnameList = ["hostname", "httpRealm", "formSubmitURL",
+                        "usernameHash", "tags", "metadata", "guid"];
+    var cMDSpec = {};
+    for each (let propname in propnameList)
+      cMDSpec[propname] = aMDSpec[propname];
+    this._updateCache(cMDSpec);
+
     try {
-      stmt = this._createStatement(
+      let stmt = this._createStatement(
         "INSERT INTO dd_passwordtags_metadata "
         + "(hostname, httpRealm, formSubmitURL, usernameHash, "
         + "tags, metadata, guid) VALUES "
         + "(:hostname, :httpRealm, :formSubmitURL, :usernameHash, "
         + ":tags, :metadata, :guid)");
-      for each (let name in ["hostname", "httpRealm", "formSubmitURL",
-                             "usernameHash", "tags", "metadata", "guid"])
-        stmt.params[name] = aMDSpec[name];
-      stmt.execute();
-      if (!aFromSync) this.notifyMetadataChangeListeners(aMDSpec.guid);
+      for each (let propname in propnameList)
+        stmt.params[propname] = cMDSpec[propname];
+      stmt.executeAsync();
+      if (!aFromSync) this.notifyMetadataChangeListeners(cMDSpec.guid);
     } catch (e) {
       log("_addRow failed with exception: " + e);
-    } finally {
-      if (stmt) stmt.reset();
     }
   },
 
   _updateRow: function (aGUID, aMDSpec, aFromSync) {
-    var stmt;
+    var cMDSpec = {};
+    for each (let propname in ["hostname", "httpRealm", "formSubmitURL",
+                               "usernameHash", "tags", "metadata", "guid"])
+      cMDSpec[propname] = aMDSpec[propname];
+    this._removeFromCache(cMDSpec, aGUID);
+    this._updateCache(cMDSpec);
+
     try {
-      stmt = this._createStatement(
+      let stmt = this._createStatement(
         "UPDATE dd_passwordtags_metadata SET "
         + "hostname = :hostname, "
         + "httpRealm = :httpRealm, "
@@ -670,72 +621,72 @@ var signonMetadataStorage = {
         + "WHERE guid = :oldguid");
       for each (let name in ["hostname", "httpRealm", "formSubmitURL",
                              "usernameHash", "tags", "metadata", "guid"])
-        stmt.params[name] = aMDSpec[name];
+        stmt.params[name] = cMDSpec[name];
       stmt.params.oldguid = aGUID;
-      stmt.execute();
-      if (!aFromSync) this.notifyMetadataChangeListeners(aMDSpec.guid);
+      stmt.executeAsync();
+      if (!aFromSync) this.notifyMetadataChangeListeners(cMDSpec.guid);
     } catch (e) {
       log("_updateRow failed with exception: " + e);
-    } finally {
-      if (stmt) stmt.reset();
     }
   },
 
   _changeGUID: function (aOldGUID, aNewGUID, aFromSync) {
-    var stmt;
+    var mdSpec = this._byGUID[aOldGUID];
+    this._removeFromCache(mdSpec);
+    mdSpec.guid = aNewGUID;
+    this._updateCache(mdSpec);
+
     try {
-      stmt = this._createStatement(
+      let stmt = this._createStatement(
         "UPDATE dd_passwordtags_metadata "
         + "SET guid = :newGUID WHERE guid = :oldGUID");
       stmt.params.oldGUID = aOldGUID;
       stmt.params.newGUID = aNewGUID;
-      stmt.execute();
+      stmt.executeAsync();
       if (!aFromSync) {
         this.notifyMetadataChangeListeners(aOldGUID);
         this.notifyMetadataChangeListeners(aNewGUID);
       }
     } catch (e) {
       log("_changeGUID failed with exception: " + e);
-    } finally {
-      if (stmt) stmt.reset();
     }
   },
 
   _deleteRow: function (aGUID, aFromSync) {
-    var stmt;
+    var mdSpec = this._byGUID[aGUID];
+    this._removeFromCache(mdSpec, aGUID);
+
     try {
-      stmt = this._createStatement(
+      let stmt = this._createStatement(
         "DELETE FROM dd_passwordtags_metadata WHERE guid = :guid");
       stmt.params.guid = aGUID;
-      stmt.execute();
+      stmt.executeAsync();
       if (!aFromSync) this.notifyMetadataChangeListeners(aGUID);
     } catch (e) {
       log("_deleteRow failed with exception: " + e);
-    } finally {
-      if (stmt) stmt.reset();
     }
   },
 
   _deleteAllRows: function (aFromSync) {
+    this._byGUID = {};
+    this._byData_realm = {};
+    this._byData_submit = {};
+
     try {
-      this._dbConnection.executeSimpleSQL(
+      let stmt = this._createStatement(
         "DELETE FROM dd_passwordtags_metadata");
+      stmt.executeAsync();
       if (!aFromSync) this.notifyMetadataChangeListenersAllGUIDs();
     } catch (e) {
       log("_deleteAllRows failed with exception: " + e);
     }
   },
 
-  _createStatement: function (aStmtStr) {
-    var stmt = this._dbStmts[aStmtStr];
-    if (stmt) return stmt;
-    stmt = this._dbConnection.createStatement(aStmtStr);
-    this._dbStmts[aStmtStr] = stmt;
-    return stmt;
-  },
-
   _init: function () {
     this._dbStmts = [];
+    this._byGUID = {};
+    this._byData_realm = {};
+    this._byData_submit = {};
 
     if (!this._initDBConnection()) {
       let metadataAry = this._readMetadataFile();
@@ -765,6 +716,21 @@ var signonMetadataStorage = {
 
       if (this._metadataFile.exists())
         this._metadataFile.remove(false);
+    } else {
+      let stmt = this._dbConnection.createStatement(
+        "SELECT * FROM dd_passwordtags_metadata");
+      while (stmt.executeStep()) {
+        let mdSpec = {
+          hostname: stmt.row.hostname,
+          httpRealm: stmt.row.httpRealm,
+          formSubmitURL: stmt.row.formSubmitURL,
+          usernameHash: stmt.row.usernameHash,
+          tags: stmt.row.tags,
+          metadata: stmt.row.metadata,
+          guid: stmt.row.guid };
+        this._updateCache(mdSpec);
+      }
+      stmt.finalize();
     }
   },
 
@@ -799,15 +765,97 @@ var signonMetadataStorage = {
     indices: {
       dd_passwordtags_metadata_hostname_formSubmitURL_index:
         "hostname, formSubmitURL",
-      dd_passwordtags_metadata_hostname_formSubmitURL_usernameHash_index:
-        "hostname, formSubmitURL, usernameHash",
-      dd_passwordtags_metadata_hostname_httpRealm_usernameHash_index:
-        "hostname, httpRealm, usernameHash",
-      dd_passwordtags_metadata_hostname_usernameHash_index:
-        "hostname, usernameHash",
+      dd_passwordtags_metadata_hostname_httpRealm_index:
+        "hostname, httpRealm",
+      dd_passwordtags_metadata_hostname_index:
+        "hostname",
       dd_passwordtags_metadata_guid_index:
         "guid",
     },
+  },
+
+  _createStatement: function (aStmtStr) {
+    var stmt = this._dbStmts[aStmtStr];
+    if (stmt) return stmt;
+    stmt = this._dbConnection.createStatement(aStmtStr);
+    this._dbStmts[aStmtStr] = stmt;
+    return stmt;
+  },
+
+  _updateCache: function (aMDSpec) {
+    var { hostname, httpRealm, formSubmitURL, guid } = aMDSpec;
+    this._byGUID[guid] = aMDSpec;
+
+    if (httpRealm) {
+      let byHostname = this._byData_realm[hostname];
+      if (!byHostname)
+        byHostname = this._byData_realm[hostname] = {};
+      let byRealm = byHostname[httpRealm];
+      if (!byRealm)
+        byRealm = byHostname[httpRealm] = {};
+      byRealm[guid] = aMDSpec;
+    } else {
+      let byHostname = this._byData_submit[hostname];
+      if (!byHostname)
+        byHostname = this._byData_submit[hostname] = {};
+      let bySubmit = byHostname[formSubmitURL];
+      if (!bySubmit)
+        bySubmit = byHostname[formSubmitURL] = {};
+      bySubmit[guid] = aMDSpec;
+    }
+  },
+
+  _searchCacheForData: function (aSignon) {
+    var { hostname, httpRealm, formSubmitURL } = aSignon;
+
+    if (httpRealm) {
+      let byHostname = this._byData_realm[hostname];
+      if (byHostname) {
+        let byRealm = byHostname[httpRealm];
+        if (byRealm) return byRealm;
+      }
+    } else {
+      let byHostname = this._byData_submit[hostname];
+      if (byHostname) {
+        let bySubmit = byHostname[formSubmitURL];
+        if (bySubmit) return bySubmit;
+      }
+    }
+
+    return null;
+  },
+
+  _removeFromCache: function (aMDSpec, aOldGUID) {
+    var { hostname, httpRealm, formSubmitURL, guid } = aMDSpec;
+
+    if (aOldGUID)
+      delete this._byGUID[aOldGUID];
+    else
+      delete this._byGUID[guid];
+
+    if (httpRealm) {
+      let byHostname = this._byData_realm[hostname],
+          byRealm = byHostname[httpRealm];
+      if (aOldGUID)
+        delete byRealm[aOldGUID];
+      else
+        delete byRealm[guid]
+      if (!byRealm) {
+        delete byHostname[httpRealm];
+        if (!byHostname) delete this._byData_realm[hostname];
+      }
+    } else {
+      let byHostname = this._byData_submit[hostname],
+          bySubmit = byHostname[formSubmitURL];
+      if (aOldGUID)
+        delete bySubmit[aOldGUID];
+      else
+        delete bySubmit[guid];
+      if (!bySubmit) {
+        delete byHostname[formSubmitURL];
+        if (!byHostname) delete this._byData_submit[hostname];
+      }
+    }
   },
 
   _parseSaltedHash: function (aSalted) {
@@ -954,3 +1002,4 @@ XPCOMUtils.defineLazyGetter(
   });
 
 os.addObserver(signonMetadataStorage, "passwordmgr-storage-changed", true);
+os.addObserver(signonMetadataStorage, "quit-application", true);

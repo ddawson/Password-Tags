@@ -107,9 +107,12 @@ addEventListener(
       "popuphidden",
       function handleCtxmenuHidden (aEvt) {
         if (aEvt.target != popup) return;
-        matches = curInfo = null;
-        while (popup.hasChildNodes())
-          popup.removeChild(popup.lastChild);
+        if (aEvt.target == popup) {
+          matches = null;
+          while (popup.hasChildNodes())
+            popup.removeChild(popup.lastChild);
+        } else if (aEvt.target == ctxMenuPopup)
+          curInfo = null;
       },
       false);
 

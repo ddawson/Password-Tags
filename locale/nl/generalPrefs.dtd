@@ -1,7 +1,7 @@
 <!ENTITY encryptMetadataByDefault.label "Metagegevens standaard versleutelen">
 <!ENTITY encryptMetadataByDefault.accesskey "u">
 <!ENTITY encryptMetadataByDefault.tooltip "Of het vakje ‘Metagegevens versleutelen’ in het bewerkingsprogramma is aangevinkt bij het aanmaken van nieuwe metagegevens">
-<!ENTITY promptMasterPwdForEncrMetadata.label "Prompt for master password when editing encrypted metadata">
+<!ENTITY promptMasterPwdForEncrMetadata.label "Vragen om hoofdwachtwoord bij bewerken versleutelde metagegevens">
 <!ENTITY promptMasterPwdForEncrMetadata.accesskey "r">
 <!ENTITY allowPwdFillByTags.label "Wachtwoorden vullen op label toestaan">
 <!ENTITY allowPwdFillByTags.accesskey "s">
