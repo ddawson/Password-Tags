@@ -68,7 +68,7 @@ Utils.deferGetSet(
   PasswordTagsRecord,
   "cleartext",
   ["hostname", "httpRealm", "formSubmitURL", "usernameHash",
-   "tags", "metadata", "id"]);
+   "tags", "metadata", "metadataType", "id"]);
 
 function PasswordTagsStore (aName) {
   Store.call(this, aName);
@@ -83,7 +83,8 @@ PasswordTagsStore.prototype = {
     var mdspec = signonMetadataStorage.getMetadataByGUID(aId);
     if (mdspec) {
       for each (let name in ["hostname", "httpRealm", "formSubmitURL",
-                             "usernameHash", "tags", "metadata", "guid"])
+                             "usernameHash", "tags", "metadata",
+                             "metadataType", "guid"])
         record[name] = mdspec[name];
     } else
       record.deleted = true;

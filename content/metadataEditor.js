@@ -72,7 +72,7 @@ function removeField (aEvt) {
   for (let i = idx; i < rows.length; i++)
     rows[i].row.setAttribute("index", i);
 
-  if (rows.length < 2) {
+  if (rows.length < 1) {
     el("encrypt-ck").hidden = true;
     el("metadataeditor-headerrow").hidden = true;
   }

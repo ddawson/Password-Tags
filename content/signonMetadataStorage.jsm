@@ -177,6 +177,15 @@ var signonMetadataStorage = {
     return obj;
   },
 
+  getMetadataByGUID: function (aGUID) {
+    var mdspec = this._getMetadataRawByGUID(aGUID);
+    if (mdspec && mdspec.metadata)
+      [mdspec.metadata, mdspec.metadataType] =
+        this._decryptMetadata(mdspec.metadata);
+
+    return mdspec;
+  },
+
   _decryptMetadata: function (aRaw) {
     if (!aRaw) return ["", -1];
     var match = aRaw.match(/^([0-9]+)\|([\s\S]*)$/);
@@ -195,11 +204,6 @@ var signonMetadataStorage = {
 
   getMetadataRaw: function (aSignon) {
     return this._getMetadataRaw(aSignon);
-  },
-
-  getMetadataByGUID: function (aGUID) {
-    var mdspec = this._getMetadataRawByGUID(aGUID);
-    return mdspec;
   },
 
   getAllMetadata: function () {
@@ -234,12 +238,17 @@ var signonMetadataStorage = {
     this._setMetadataRaw(aSignon, tags, metaStr);
   },
 
-  _encryptMetadata: function (aPlaintext) {
-    return "1|" + loginMgrCrypto.encrypt(aPlaintext);
+  setMetadataFromRecord: function (aMDSpec) {
+    if (parseInt(aMDSpec.metadataType) == 1)
+      aMDSpec.metadata = this._encryptMetadata(aMDSpec.metadata);
+    else
+      aMDSpec.metadata = "0|" + aMDSpec.metadata;
+
+    this._setMetadataRawFromRecord(aMDSpec);
   },
 
-  setMetadataFromRecord: function (aMDSpec) {
-    this._setMetadataRawFromRecord(aMDSpec);
+  _encryptMetadata: function (aPlaintext) {
+    return "1|" + loginMgrCrypto.encrypt(aPlaintext);
   },
 
   changeMetadataGUID: function (aOldGUID, aNewGUID) {

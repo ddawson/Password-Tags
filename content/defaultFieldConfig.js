@@ -214,7 +214,7 @@ var defaultFieldConfig = {
   },
 
   _updateDB_edit: function (aIdx, aRow) {
-    if (this_instantApply) {
+    if (this._instantApply) {
       this._ownDefaultChange = true;
       signonMetadataStorage.replaceDefaultField(
         aIdx, aRow.children[1].value, aRow.children[2].value);
