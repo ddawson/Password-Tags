@@ -1,5 +1,5 @@
 /*
-    Password Tags, extension for Firefox 3.6+ and others
+    Password Tags, extension for Firefox and others
     Copyright (C) 2012  Daniel Dawson <ddawson@icehouse.net>
 
     This program is free software: you can redistribute it and/or modify
@@ -17,9 +17,8 @@
 */
 
 const Cc= Components.classes, Ci = Components.interfaces,
-      Cu = Components.utils;
-
-const FIREFOX = "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}",
+      Cu = Components.utils,
+      FIREFOX = "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}",
       SEAMONKEY = "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
 
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
@@ -27,10 +26,7 @@ Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 function PasswordTagsSyncEngineRegister () {}
 
 PasswordTagsSyncEngineRegister.prototype = {
-  classDescription:  "Password Tags Sync engine register",
-  classID:           Components.ID("{0edcc8da-9cd3-4d02-b463-20c69bbe62b9}"),
-  contractID:        "@daniel.dawson/passwordtags/syncengine-register;1",
-  QueryInterface:    XPCOMUtils.generateQI([Ci.nsIObserver]),
+  QueryInterface: XPCOMUtils.generateQI([Ci.nsIObserver]),
 
   observe: function (aSubject, aTopic, aData) {
     if (aTopic == "profile-after-change") {

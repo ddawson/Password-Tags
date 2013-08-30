@@ -1,5 +1,5 @@
 /*
-    Password Tags, extension for Firefox 3.6+ and others
+    Password Tags, extension for Firefox and others
     Copyright (C) 2012  Daniel Dawson <ddawson@icehouse.net>
 
     This program is free software: you can redistribute it and/or modify
