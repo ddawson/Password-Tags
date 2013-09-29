@@ -1,6 +1,6 @@
 /*
     Password Tags, extension for Firefox and others
-    Copyright (C) 2012  Daniel Dawson <ddawson@icehouse.net>
+    Copyright (C) 2013  Daniel Dawson <ddawson@icehouse.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -315,7 +315,8 @@ var signonMetadataStorage = {
   },
 
   addMetadataChangeListener: function (aListener) {
-    this._metadataChangeListeners.push(aListener);
+    if (this._metadataChangeListeners.indexOf(aListener) == -1)
+      this._metadataChangeListeners.push(aListener);
   },
 
   removeMetadataChangeListener: function (aListener) {
@@ -641,6 +642,7 @@ var signonMetadataStorage = {
 
   _changeGUID: function (aOldGUID, aNewGUID, aFromSync) {
     var mdSpec = this._byGUID[aOldGUID];
+    if (!mdSpec) return;
     this._removeFromCache(mdSpec);
     mdSpec.guid = aNewGUID;
     this._updateCache(mdSpec);
@@ -663,6 +665,7 @@ var signonMetadataStorage = {
 
   _deleteRow: function (aGUID, aFromSync) {
     var mdSpec = this._byGUID[aGUID];
+    if (!mdSpec) return;
     this._removeFromCache(mdSpec, aGUID);
 
     try {
@@ -835,6 +838,8 @@ var signonMetadataStorage = {
   },
 
   _removeFromCache: function (aMDSpec, aOldGUID) {
+    if (!aMDSpec) return;
+
     var { hostname, httpRealm, formSubmitURL, guid } = aMDSpec;
 
     if (aOldGUID)

@@ -1,6 +1,6 @@
 /*
     Password Tags, extension for Firefox and others
-    Copyright (C) 2012  Daniel Dawson <ddawson@icehouse.net>
+    Copyright (C) 2013  Daniel Dawson <ddawson@icehouse.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,6 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+"use strict";
+
 const Cc= Components.classes, Ci = Components.interfaces,
       Cu = Components.utils,
       FIREFOX = "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}",
@@ -26,7 +28,9 @@ Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 function PasswordTagsSyncEngineRegister () {}
 
 PasswordTagsSyncEngineRegister.prototype = {
-  QueryInterface: XPCOMUtils.generateQI([Ci.nsIObserver]),
+  classDescription: "Registers Sync engine for Password Tags",
+  classID:          Components.ID("{0edcc8da-9cd3-4d02-b463-20c69bbe62b9}"),
+  QueryInterface:   XPCOMUtils.generateQI([Ci.nsIObserver]),
 
   observe: function (aSubject, aTopic, aData) {
     if (aTopic == "profile-after-change") {

@@ -1,6 +1,6 @@
 /*
     Password Tags, extension for Firefox and others
-    Copyright (C) 2012  Daniel Dawson <ddawson@icehouse.net>
+    Copyright (C) 2013  Daniel Dawson <ddawson@icehouse.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -44,6 +44,7 @@ function log (aMsg) {
   consoleSvc.logStringMessage("syncEngine: " + aMsg);
 }
 
+Cu.import("resource://services-sync/service.js");
 Cu.import("resource://services-sync/constants.js");
 Cu.import("resource://services-sync/engines.js");
 Cu.import("resource://services-sync/record.js");
@@ -56,7 +57,7 @@ function PasswordTagsRecord (aCollection, aId) {
 
 PasswordTagsRecord.prototype = {
   __proto__: CryptoWrapper.prototype,
-  _logName: "Record.PasswordTags",
+  _logName: "Sync.Record.PasswordTags",
 
   get guid () this.cleartext.id,
   set guid (aGUID) {
@@ -70,8 +71,8 @@ Utils.deferGetSet(
   ["hostname", "httpRealm", "formSubmitURL", "usernameHash",
    "tags", "metadata", "metadataType", "id"]);
 
-function PasswordTagsStore (aName) {
-  Store.call(this, aName);
+function PasswordTagsStore (aName, aEngine) {
+  Store.call(this, aName, aEngine);
 }
 
 PasswordTagsStore.prototype = {
@@ -106,6 +107,7 @@ PasswordTagsStore.prototype = {
     }
 
     if (!signonMetadataStorage.isOrphaned(mdspec)) {
+      this._sleep(0);  // give main thread a chance now
       this._log.trace("Refusing to change ID for non-orphaned metadata");
       return;
     }
@@ -115,12 +117,15 @@ PasswordTagsStore.prototype = {
 
   getAllIDs: function () {
     log("getAllIDs");
-    return signonMetadataStorage.getAllMetadata();
+    var allMetadata = signonMetadataStorage.getAllMetadata();
+    this._sleep(0);  // give main thread a chance now
+    return allMetadata;
   },
 
   wipe: function () {
     log("wipe");
     signonMetadataStorage.removeAllMetadata(true);
+    this._sleep(0);  // give main thread a chance now
   },
 
   update: function (aRecord) {
@@ -136,11 +141,11 @@ PasswordTagsStore.prototype = {
 
 PasswordTagsStore.prototype.create = PasswordTagsStore.prototype.update;
 
-function PasswordTagsTracker (aName, aStore) {
-  Tracker.call(this, aName);
-  this._store = aStore;
+function PasswordTagsTracker (aName, aEngine) {
+  Tracker.call(this, aName, aEngine);
   Svc.Obs.add("weave:engine:start-tracking", this);
   Svc.Obs.add("weave:engine:stop-tracking", this);
+  this._startTracking();
 }
 
 PasswordTagsTracker.prototype = {
@@ -182,7 +187,7 @@ PasswordTagsTracker.prototype = {
 
   handleMetadataChangeAllGUIDs: function () {
     log("Get metadata change for all GUIDs");
-    var ids = Engines.get("passwordtags")._store.getAllIDs();
+    var ids = this.engine._store.getAllIDs();
     for (let id in ids)
       this.addChangedID(id);
     this.score += SCORE_INCREMENT_XLARGE;
@@ -191,7 +196,7 @@ PasswordTagsTracker.prototype = {
   _startTracking: function () {
     log("Tracker now tracking");
     this._tracking = true;
-    if (Engines.get("passwordtags").syncEnabled())
+    if (this.engine.syncEnabled())
       this._goAhead();
     else
       this.disable();
@@ -201,7 +206,7 @@ PasswordTagsTracker.prototype = {
     log("Tracker no longer tracking");
     this._tracking = false;
     this._stop();
-    Engines.get("passwordtags").syncDisabled();
+    this.engine.syncDisabled();
   },
 
   _goAhead: function () {
@@ -215,8 +220,8 @@ PasswordTagsTracker.prototype = {
   },
 };
 
-function PasswordTagsEngine () {
-  SyncEngine.call(this, "PasswordTags");
+function PasswordTagsEngine (aService) {
+  SyncEngine.call(this, "PasswordTags", aService);
   if (ussPref.getBoolPref(""))
     this._tracker.enable();
   else
@@ -273,5 +278,5 @@ PasswordTagsEngine.prototype = {
 PasswordTagsEngine.register = function () {
   log("Registering self");
   syncPref.setBoolPref("", ussPref.getBoolPref(""));
-  Engines.register(this);
+  Service.engineManager.register(this);
 }
