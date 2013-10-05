@@ -1,6 +1,6 @@
 /*
     Password Tags, extension for Firefox and others
-    Copyright (C) 2012  Daniel Dawson <ddawson@icehouse.net>
+    Copyright (C) 2013  Daniel Dawson <ddawson@icehouse.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -99,6 +99,8 @@ function moveFieldUp (aEvt) {
   lo.row.setAttribute("index", idx - 1);
   hi.row.setAttribute("index", idx);
   lo.upBtn.blur();
+  var valueFld = rows[idx].valueFld;
+  valueFld.setAttribute("value", valueFld.value);
   gridRows.insertBefore(lo.row, hi.row);
   rows.splice(idx - 1, 0, rows.splice(idx, 1)[0]);
 
@@ -122,6 +124,8 @@ function moveFieldDown (aEvt) {
   hi.row.setAttribute("index", idx + 1);
   lo.row.setAttribute("index", idx);
   hi.downBtn.blur();
+  var valueFld = rows[idx + 1].valueFld;
+  valueFld.setAttribute("value", valueFld.value);
   gridRows.insertBefore(lo.row, hi.row);
   rows.splice(idx + 1, 0, rows.splice(idx, 1)[0]);
 
@@ -135,22 +139,41 @@ function moveFieldDown (aEvt) {
 
 function selectFieldType (aEvt) {
   var idx = getRowIndexFromField(aEvt.target),
-      type = rows[idx].typeLst.value,
-      valueFld = rows[idx].valueFld;
+      row = rows[idx],
+      type = row.typeLst.value,
+      valueFld = row.valueFld;
+
+  if (valueFld.hasAttribute("type")
+      && valueFld.getAttribute("type") == "number")
+    row.numVal = valueFld.value;
+  else if (valueFld.hasAttribute("multiline")
+           && valueFld.getAttribute("multiline") == "true")
+    row.mlText = valueFld.value;
+  else
+    row.slText = valueFld.value;
 
   switch (type) {
   case "text":
+    if (row.slText == null)
+      row.slText = row.mlText != null ? row.mlText : row.numVal;
+
     valueFld.removeAttribute("type");
     valueFld.removeAttribute("multiline");
+    valueFld.setAttribute("value", row.slText);
     break;
 
   case "mltext":
+    if (row.mlText == null)
+      row.mlText = row.slText != null ? row.slText : row.numVal;
+
     valueFld.removeAttribute("type");
     valueFld.setAttribute("multiline", "true");
+    valueFld.setAttribute("value", row.mlText);
     break;
 
   case "number":
     valueFld.setAttribute("type", "number");
+    valueFld.setAttribute("value", row.numVal);
     break;
   }
 }
@@ -299,6 +322,9 @@ function buildRow (aField, aIdx, aIsLast) {
   fld.setAttribute("value", aField.value);
   vbox.appendChild(fld);
   row.appendChild(vbox);
+  rowEntry.slText = aField.type == "text" ? aField.value : null;
+  rowEntry.mlText = aField.type == "mltext" ? aField.value : null;
+  rowEntry.numVal = aField.type == "number" ? aField.value : "0";
 
   return rowEntry;
 }

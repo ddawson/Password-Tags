@@ -1,6 +1,6 @@
 /*
     Password Tags, extension for Firefox and others
-    Copyright (C) 2012  Daniel Dawson <ddawson@icehouse.net>
+    Copyright (C) 2013  Daniel Dawson <ddawson@icehouse.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -15,6 +15,8 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+"use strict";
 
 document.addEventListener(
   "DOMContentLoaded",
@@ -54,11 +56,9 @@ document.addEventListener(
             strings.getString("encrypted.celltext")
           : strings.getString("unencrypted.celltext");
         break;
-
-      default:
-        return origGetCellText.call(this, row, column);
-        break;
       }
+
+      return origGetCellText.call(this, row, column);
     }
     signonsTreeView.getCellText = ptagsGetCellText;
 
@@ -97,8 +97,10 @@ document.addEventListener(
         passwordTags.editMetadata();
       else if (tree.editingRow == -1)
         return origHandleSignonKeyPress(evt);
+
+      return true;
     }
-    HandleSignonKeyPress = ptagsHandleSignonKeyPress;
+    window.HandleSignonKeyPress = ptagsHandleSignonKeyPress;
 
     var origGetColumnByName = window.getColumnByName;
     if (!origGetColumnByName) origGetColumnByName = function () null;
@@ -106,7 +108,7 @@ document.addEventListener(
       column == "tags" ? document.getElementById("tagsCol") :
       column == "metadataType" ? document.getElementById("metadataCol") :
                                  origGetColumnByName(column);
-    getColumnByName = ptagsGetColumnByName;
+    window.getColumnByName = ptagsGetColumnByName;
 
     function cloneLoginInfo (loginInfo) {
       loginInfo.QueryInterface(Components.interfaces.nsILoginMetaInfo);
@@ -154,7 +156,7 @@ document.addEventListener(
       }
       origSignonColumnSort(column);
     }
-    SignonColumnSort = ptagsSignonColumnSort;
+    window.SignonColumnSort = ptagsSignonColumnSort;
 
     var origSignonMatchesFilter = window.SignonMatchesFilter;
     if (!origSignonMatchesFilter) origSignonMatchesFilter = function () false;
@@ -168,14 +170,14 @@ document.addEventListener(
         return true;
       return false;
     }
-    SignonMatchesFilter = ptagsSignonMatchesFilter;
+    window.SignonMatchesFilter = ptagsSignonMatchesFilter;
 
     var origSortTree = window.SortTree;
     function ptagsSortTree (tree, view, table, column, lastSortColumn,
                             lastSortAscending, updateSelection) {
       var ascending = (column == lastSortColumn) ? !lastSortAscending : true;
       if (column == "tags") {
-        function compareFunc (first, second) {
+        let compareFunc = function (first, second) {
           let firstTags = first[column].split(","),
               secondTags = second[column].split(",");
           let i = 0;
@@ -188,7 +190,7 @@ document.addEventListener(
             if (comp != 0) return comp;
             i++;
           }
-        }
+        };
         table.sort(ascending ? compareFunc :
                    function (first, second) -compareFunc(first, second));
 
@@ -211,7 +213,7 @@ document.addEventListener(
         return origSortTree(tree, view, table, column, lastSortColumn,
                             lastSortAscending, updateSelection);
     }
-    SortTree = ptagsSortTree;
+    window.SortTree = ptagsSortTree;
 
     document.removeEventListener("DOMContentLoaded", dclHandler, false);
   },
