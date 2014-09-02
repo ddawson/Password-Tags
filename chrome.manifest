@@ -21,7 +21,9 @@ locale	passwordtags	fr	locale/fr/
 locale	passwordtags	he	locale/he/
 locale	passwordtags	hsb	locale/hsb/
 locale	passwordtags	nl	locale/nl/
+locale	passwordtags	pl	locale/pl/
 locale	passwordtags	sr	locale/sr/
+locale	passwordtags	uk-UA	locale/uk-UA/
 locale	passwordtags	zh-CN	locale/zh-CN/
 locale	passwordtags	zh-TW	locale/zh-TW/
 

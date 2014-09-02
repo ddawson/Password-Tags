@@ -175,6 +175,9 @@ document.addEventListener(
     var origSortTree = window.SortTree;
     function ptagsSortTree (tree, view, table, column, lastSortColumn,
                             lastSortAscending, updateSelection) {
+      var selections = GetTreeSelections(tree);
+      var selectedNumber =
+        selections.length ? table[selections[0]].number : -1;
       var ascending = (column == lastSortColumn) ? !lastSortAscending : true;
       if (column == "tags") {
         let compareFunc = function (first, second) {
@@ -186,32 +189,44 @@ document.addEventListener(
             if (t2 && !t1) return -1;
             if (t1 && !t2) return 1;
             if (!t1 && !t2) return 0;
-            let comp = CompareLowerCase(t1, t2);
+            let t1l = t1.toLowerCase(), t2l = t2.toLowerCase();
+            let comp = t1l < t2l ? -1 : t1l > t2l ? 1 : 0;
             if (comp != 0) return comp;
             i++;
           }
         };
         table.sort(ascending ? compareFunc :
                    function (first, second) -compareFunc(first, second));
-
-        tree.treeBoxObject.invalidate();
-        return ascending;
       } else if (column == "metadataType") {
         let compareFunc;
 
         if (ascending)
           compareFunc = function (first, second)
-            CompareLowerCase(first[column], second[column]);
+            first[column].localeCompare(second[column]);
         else
           compareFunc = function (first, second)
-            CompareLowerCase(second[column], first[column]);
+            second[column].localeCompare(first[column]);
         table.sort(compareFunc);
-
-        tree.treeBoxObject.invalidate();
-        return ascending;
       } else
         return origSortTree(tree, view, table, column, lastSortColumn,
                             lastSortAscending, updateSelection);
+
+      var selectedRow = -1;
+      if (selectedNumber>=0 && updateSelection) {
+        for (var s=0; s<table.length; s++) {
+          if (table[s].number == selectedNumber) {
+            tree.view.selection.select(-1);
+            tree.view.selection.select(s);
+            selectedRow = s;
+            break;
+          }
+        }
+      }
+
+      tree.treeBoxObject.invalidate();
+      if (selectedRow >= 0)
+        tree.treeBoxObject.ensureRowIsVisible(selectedRow);
+      return ascending;
     }
     window.SortTree = ptagsSortTree;
 

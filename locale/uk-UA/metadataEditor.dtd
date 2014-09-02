@@ -1,0 +1,20 @@
+<!ENTITY metadataEditor.title "Редактор метаданих Password Tags">
+<!ENTITY host.label "Хост:">
+<!ENTITY submitPrefix.label "Submit prefix:">
+<!ENTITY username.label "Ім'я користувача:">
+<!ENTITY tags.label "Мітки:">
+<!ENTITY tags.accesskey "М">
+<!ENTITY tags.tooltip "Мітки, пов'язанні з поточним записом, відокремлені комами">
+<!ENTITY encryptmetadata.label "Шифрувати метадані">
+<!ENTITY encryptmetadata.accesskey "Ш">
+<!ENTITY encryptmetadata.tooltip "Використовуйте Secret Decoder Ring (те ж, що і шифрування паролів) для шифрування цих метаданих.">
+<!ENTITY nametype.label "Назва/Тип">
+<!ENTITY value.label "Значення">
+<!ENTITY addbutton.label "Додати">
+<!ENTITY addbutton.accesskey "Д">
+<!ENTITY addbutton.tooltip "Додати нове поле метаданих.">
+<!ENTITY deleteallbutton.label "Видалити усе">
+<!ENTITY deleteallbutton.accesskey "В">
+<!ENTITY deleteallbutton.tooltip "Видалити усі ці метадані, у т.ч. мітки.">
+<!ENTITY configDefaultFields.label "Налаштування типових полів">
+<!ENTITY configDefaultFields.accesskey "Н">

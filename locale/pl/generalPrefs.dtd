@@ -1,0 +1,25 @@
+<!ENTITY encryptMetadataByDefault.label "Domyślne szyfrowanie metadanych">
+<!ENTITY encryptMetadataByDefault.accesskey "s">
+<!ENTITY encryptMetadataByDefault.tooltip "Niezależnie od tego czy &quot;Szyfrowanie metadanych&quot; w edytorze jest odhaczone podczas tworzenia nowych metadanych">
+<!ENTITY promptMasterPwdForEncrMetadata.label "Pytaj o hasło główne podczas edytowania szyfrowanych metadanych">
+<!ENTITY promptMasterPwdForEncrMetadata.accesskey "P">
+<!ENTITY allowPwdFillByTags.label "Zezwól na wypełnianie hasłem przez znaczniki">
+<!ENTITY allowPwdFillByTags.accesskey "w">
+<!ENTITY allowPwdFillByTags.tooltip "Zawieraj podmenu kontekstowe w formularzach logowania z listą nazw użytkowników oraz przypisanymi znacznikami (jeśli są), które po wybraniu pozwolą na wypełnienie formularza.">
+<!ENTITY keepMetadataForDeletedLogins.label "Zachowaj metadane usuniętych logowań">
+<!ENTITY keepMetadataForDeletedLogins.accesskey "Z">
+<!ENTITY keepMetadataForDeletedLogins.tooltip "Jeśli odznaczone, znaczniki i metadane związane z logowaniem zostaną usunięte, jeśli samo logowanie jest usunięte.">
+<!ENTITY cleanupOrphanedMetadata.label "Oczyść pozostawione metadane">
+<!ENTITY cleanupOrphanedMetadata.accesskey "c">
+<!ENTITY cleanupOrphanedMetadata.tooltip "Usuń metadane, dla których nie można znaleźć odpowiedniego logowania">
+<!ENTITY promptForDeleteMetadata.label "Pytaj o usuwanie metadanych">
+<!ENTITY promptForDeleteMetadata.accesskey "P">
+<!ENTITY promptForDeleteMetadata.tooltip "Zapytaj o potwierdzenie, czy na pewno usunąć metadane z logowania.">
+<!ENTITY syncIntegration.label "Integracja Sync">
+<!ENTITY syncIntegration.description "Za zgodą, ten dodatek pozwala na używanie usługi Mozilla-Sync do synchronizowania Twoich metadanych. Aby to działało, oprócz zaznaczenia pola poniżej, należy również ustawić synchronizację przechodząc do opcji Narzędzia &gt; Ustaw Sync... i postępować zgodnie z instrukcjami.">
+<!ENTITY readPrivacyPolicy.label "Przeczytaj politykę prywatności dodatku Znaczniki Haseł.">
+<!ENTITY useSyncService.label "Użyj usługi Sync do zsynchronizowania metadanych">
+<!ENTITY useSyncService.accesskey "S">
+<!ENTITY deleteAllMetadata.label "Usuń wszystkie metadane">
+<!ENTITY deleteAllMetadata.accesskey "U">
+<!ENTITY deleteAllMetadata.tooltip "Trwale usuwa wszystkie znaczniki i metadane.">

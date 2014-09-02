@@ -1,0 +1,9 @@
+<!ENTITY defaultFieldExplanation.label "Для зручності, при відкритті редактора метаданих пароля, який ще їх не має, ці поля будуть на початку списку.">
+<!ENTITY nameColumn.label "Назва">
+<!ENTITY typeColumn.label "Тип">
+<!ENTITY addDefaultField.label "Додати">
+<!ENTITY addDefaultField.accesskey "Д">
+<!ENTITY addDefaultField.tooltip "Додати нове типове поле.">
+<!ENTITY resetToOriginal.label "Скинути до початкового">
+<!ENTITY resetToOriginal.accesskey "С">
+<!ENTITY resetToOriginal.tooltip "Скинути список типових полів до початкового списку, встановленого Password Tags.">

@@ -1,0 +1,20 @@
+<!ENTITY metadataEditor.title "Znaczniki Haseł - edytor metadanych">
+<!ENTITY host.label "Host:">
+<!ENTITY submitPrefix.label "Prefiks przesyłania:">
+<!ENTITY username.label "Użytkownik:">
+<!ENTITY tags.label "Znaczniki:">
+<!ENTITY tags.accesskey "T">
+<!ENTITY tags.tooltip "Znaczniki związane z bieżącym logowaniem, oddzielone przecinkami">
+<!ENTITY encryptmetadata.label "Szyfrowanie metadanych">
+<!ENTITY encryptmetadata.accesskey "S">
+<!ENTITY encryptmetadata.tooltip "Użyj Secret Decoder Ring (tak jak szyfrowanie hasła) do szyfrowania metadanych.">
+<!ENTITY nametype.label "Nazwa/Rodzaj">
+<!ENTITY value.label "Wartość">
+<!ENTITY addbutton.label "Dodaj">
+<!ENTITY addbutton.accesskey "D">
+<!ENTITY addbutton.tooltip "Dodaj nowe pole metadanych.">
+<!ENTITY deleteallbutton.label "Usuń wszystko">
+<!ENTITY deleteallbutton.accesskey "U">
+<!ENTITY deleteallbutton.tooltip "Usuń wszystkie metadane, zawierające znaczniki.">
+<!ENTITY configDefaultFields.label "Konfigurowanie pól domyślnych">
+<!ENTITY configDefaultFields.accesskey "g">

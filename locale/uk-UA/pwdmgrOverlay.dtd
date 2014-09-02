@@ -1,0 +1,10 @@
+<!ENTITY column_tags.label "Мітки">
+<!ENTITY column_metadata.label "Метадані">
+<!ENTITY edittags.label "Редагувати мітки">
+<!-- Needs to match edittagsAccesskey in pwdmgrOverlay.properties -->
+<!ENTITY edittags.accesskey "т">
+<!ENTITY editmetadata.label "Редагувати метадані">
+<!-- Needs to match editmetadataAccesskey in pwdmgrOverlay.properties -->
+<!ENTITY editmetadata.accesskey "м">
+<!ENTITY deletemetadata.label "Видалити метадані">
+<!ENTITY deletemetadata.accesskey "В">

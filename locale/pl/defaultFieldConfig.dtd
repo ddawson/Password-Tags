@@ -1,0 +1,9 @@
+<!ENTITY defaultFieldExplanation.label "Dla wygody, po otwarciu edytora metadanych na hasło, które nie ma jeszcze metadanych, pola te będą na początku listy.">
+<!ENTITY nameColumn.label "Nazwa">
+<!ENTITY typeColumn.label "Rodzaj">
+<!ENTITY addDefaultField.label "Dodaj">
+<!ENTITY addDefaultField.accesskey "D">
+<!ENTITY addDefaultField.tooltip "Dodaj nowe pole domyślne.">
+<!ENTITY resetToOriginal.label "Reset do oryginału">
+<!ENTITY resetToOriginal.accesskey "R">
+<!ENTITY resetToOriginal.tooltip "Resetuje listę domyślnych pól do oryginalnej listy dostarczonej przez Znaczniki Haseł.">

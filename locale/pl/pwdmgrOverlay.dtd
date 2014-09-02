@@ -1,0 +1,10 @@
+<!ENTITY column_tags.label "Znaczniki">
+<!ENTITY column_metadata.label "Metadane">
+<!ENTITY edittags.label "Edytuj znaczniki">
+<!-- Needs to match edittagsAccesskey in pwdmgrOverlay.properties -->
+<!ENTITY edittags.accesskey "t">
+<!ENTITY editmetadata.label "Edytuj metadane">
+<!-- Needs to match editmetadataAccesskey in pwdmgrOverlay.properties -->
+<!ENTITY editmetadata.accesskey "m">
+<!ENTITY deletemetadata.label "Usuń metadane">
+<!ENTITY deletemetadata.accesskey "U">

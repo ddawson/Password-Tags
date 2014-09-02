@@ -1,0 +1,25 @@
+<!ENTITY encryptMetadataByDefault.label "Завжди шифрувати метадані">
+<!ENTITY encryptMetadataByDefault.accesskey "З">
+<!ENTITY encryptMetadataByDefault.tooltip "При створенні нових метаданих, вони автоматично шифруються, якщо прапорець встановлений">
+<!ENTITY promptMasterPwdForEncrMetadata.label "Запитувати майстер-пароль при редагуванні зашифрованих метадані">
+<!ENTITY promptMasterPwdForEncrMetadata.accesskey "п">
+<!ENTITY allowPwdFillByTags.label "Дозволити заповнювати пароль за мітками">
+<!ENTITY allowPwdFillByTags.accesskey "Д">
+<!ENTITY allowPwdFillByTags.tooltip "Додає контекстне підменю до форм входу, в якому є список імен користувачів та пов'язаних із ними міток (якщо такі є), що дозволяє заповнити форму, вибравши один із записів.">
+<!ENTITY keepMetadataForDeletedLogins.label "Архівувати метадані для видалених записів">
+<!ENTITY keepMetadataForDeletedLogins.accesskey "А">
+<!ENTITY keepMetadataForDeletedLogins.tooltip "Якщо не встановлено, мітки і метадані, пов'язані із записом будуть видалені разом із ним.">
+<!ENTITY cleanupOrphanedMetadata.label "Очистити архівні метадані">
+<!ENTITY cleanupOrphanedMetadata.accesskey "О">
+<!ENTITY cleanupOrphanedMetadata.tooltip "Видаляє метадані, які не мають пов'язаних записів">
+<!ENTITY promptForDeleteMetadata.label "Запитувати видалення метаданих">
+<!ENTITY promptForDeleteMetadata.accesskey "в">
+<!ENTITY promptForDeleteMetadata.tooltip "Запитує чи ви впевнені що хочете вилучити метадані із запису.">
+<!ENTITY syncIntegration.label "Інтеграція із Синхронізацією">
+<!ENTITY syncIntegration.description "З вашої згоди, цей додаток може використовувати службу Синхронізації Mozilla для синхронізації метаданих паролів. Для того щоб це працювало, додатково встановіть прапорець нижче. Також ви повинні налаштувати саму Синхронізацію, якщо ви ще цього не зробили, для цього перейдіть в меню Інструменти -&gt; Налаштування -&gt; Синхронізація ... і слідуйте відповідним інструкціям.">
+<!ENTITY readPrivacyPolicy.label "Прочитати політику конфіденційності Password Tags.">
+<!ENTITY useSyncService.label "Використовувати Синхронізацію для синхронізації ваших метаданих">
+<!ENTITY useSyncService.accesskey "С">
+<!ENTITY deleteAllMetadata.label "Видалити усі метадані">
+<!ENTITY deleteAllMetadata.accesskey "В">
+<!ENTITY deleteAllMetadata.tooltip "Повністю видаляє усі ваші мітки та метадані.">
