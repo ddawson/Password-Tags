@@ -1,6 +1,6 @@
 /*
     Password Tags, extension for Firefox and others
-    Copyright (C) 2013  Daniel Dawson <ddawson@icehouse.net>
+    Copyright (C) 2016  Daniel Dawson <danielcdawson@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -15,6 +15,8 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+"use strict";
 
 var EXPORTED_SYMBOLS = ["SignonMetadata", "signonMetadataStorage"];
 
@@ -263,7 +265,7 @@ var signonMetadataStorage = {
   _normalizeTags: function (aTags) {
     for each (let ch in COMMA_CHARS)
       aTags = aTags.replace(ch, ",", "g");
-    let tagsAry = [str.trim() for each (str in aTags.split(","))];
+    let tagsAry = aTags.split(",").map(str => str.trim());
     tagsAry.sort();
     let prevString = null;
     let i = 0;

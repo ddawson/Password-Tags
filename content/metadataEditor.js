@@ -1,6 +1,6 @@
 /*
     Password Tags, extension for Firefox and others
-    Copyright (C) 2013  Daniel Dawson <ddawson@icehouse.net>
+    Copyright (C) 2016  Daniel Dawson <danielcdawson@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,23 +16,22 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+"use strict";
+
 const Cc = Components.classes, Ci = Components.interfaces,
       Cu = Components.utils;
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 Cu.import("resource://passwordtags/signonMetadataStorage.jsm");
 
-function el (aEl) document.getElementById(aEl);
+function el (aEl) { return document.getElementById(aEl); }
 
+XPCOMUtils.defineLazyGetter(this, "sharedStrings", () => el("shared-strings"));
 XPCOMUtils.defineLazyGetter(
-  this, "sharedStrings",
-  function () el("shared-strings"));
+  this, "strings", () => el("metadataeditor-strings"));
 XPCOMUtils.defineLazyGetter(
-  this, "strings",
-  function () el("metadataeditor-strings"));
-XPCOMUtils.defineLazyGetter(
-  this, "prefs", function ()
-    Cc["@mozilla.org/preferences-service;1"].
-    getService(Ci.nsIPrefService).getBranch(""));
+  this, "prefs",
+  () => Cc["@mozilla.org/preferences-service;1"].
+        getService(Ci.nsIPrefService).getBranch(""));
 XPCOMUtils.defineLazyServiceGetter(
   this, "promptSvc",
   "@mozilla.org/embedcomp/prompt-service;1", "nsIPromptService");
@@ -53,11 +52,14 @@ function login () {
   return true;
 }
 
-function getRowIndexFromButton (aEl)
-  Number(aEl.parentElement.parentElement.parentElement.getAttribute("index"));
+function getRowIndexFromButton (aEl) {
+  return Number(
+    aEl.parentElement.parentElement.parentElement.getAttribute("index"));
+}
 
-function getRowIndexFromField (aEl)
-  Number(aEl.parentElement.parentElement.getAttribute("index"));
+function getRowIndexFromField (aEl) {
+  return Number(aEl.parentElement.parentElement.getAttribute("index"));
+}
 
 function removeField (aEvt) {
   var idx = getRowIndexFromButton(aEvt.target);

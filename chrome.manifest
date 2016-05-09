@@ -1,9 +1,4 @@
 # Functional content
-## Component
-component	{0edcc8da-9cd3-4d02-b463-20c69bbe62b9}	components/PasswordTagsSyncEngineRegister.js
-contract	@daniel.dawson/passwordtags/syncengine-register;1	{0edcc8da-9cd3-4d02-b463-20c69bbe62b9}
-category	profile-after-change	PasswordTagsSyncEngineRegister	@daniel.dawson/passwordtags/syncengine-register;1
-
 ## Modules
 resource	passwordtags	content/
 

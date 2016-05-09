@@ -1,6 +1,6 @@
 /*
     Password Tags, extension for Firefox and others
-    Copyright (C) 2012  Daniel Dawson <ddawson@icehouse.net>
+    Copyright (C) 2016  Daniel Dawson <danielcdawson@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -15,6 +15,8 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+"use strict";
 
 var defaultFieldConfig = {
   _registered: false,
@@ -324,21 +326,19 @@ var defaultFieldConfig = {
 };
 
 XPCOMUtils.defineLazyGetter(
-  defaultFieldConfig, "strings",
-  function () el("defaultfieldconfig-strings"));
+  defaultFieldConfig, "strings", () => el("defaultfieldconfig-strings"));
 XPCOMUtils.defineLazyGetter(
   defaultFieldConfig, "sharedStrings",
-  function () el("defaultfieldconfig-shared-strings"));
+  () => el("defaultfieldconfig-shared-strings"));
 XPCOMUtils.defineLazyGetter(
-  defaultFieldConfig, "gridRows",
-  function () el("defaultfieldconfig-gridrows"));
+  defaultFieldConfig, "gridRows", () => el("defaultfieldconfig-gridrows"));
 XPCOMUtils.defineLazyServiceGetter(
   defaultFieldConfig, "prefSvc",
   "@mozilla.org/preferences-service;1", "nsIPrefService");
 XPCOMUtils.defineLazyGetter(
   defaultFieldConfig, "brPrefs",
-  function () defaultFieldConfig.prefSvc.getBranch(""));
+  () => defaultFieldConfig.prefSvc.getBranch(""));
 XPCOMUtils.defineLazyGetter(
   defaultFieldConfig, "prefs",
-  function () defaultFieldConfig.prefSvc.getBranch("extensions.passwordtags.").
-              QueryInterface(Ci.nsIPrefBranch2));
+  () => defaultFieldConfig.prefSvc.getBranch("extensions.passwordtags.").
+        QueryInterface(Ci.nsIPrefBranch2));

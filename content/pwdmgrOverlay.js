@@ -1,6 +1,6 @@
 /*
     Password Tags, extension for Firefox and others
-    Copyright (C) 2013  Daniel Dawson <ddawson@icehouse.net>
+    Copyright (C) 2013  Daniel Dawson <danielcdawson@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

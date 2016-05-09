@@ -5,8 +5,8 @@
     <id>passwordcategories@daniel.dawson</id>
     <type>2</type>
     <name>Password Tags</name>
-    <version>2.1.5</version>
-    <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+    <version>2.1.6</version>
+    <creator>Daniel Dawson &lt;danielcdawson@gmail.com&gt;</creator>
     <contributor>Joseph A. Alfano</contributor>
     <description>Adds metadata and sortable tags to the password manager.</description>
 
@@ -38,7 +38,7 @@
       <RDF:Description>
         <locale>de</locale>
         <name>Password Tags</name>
-        <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <creator>Daniel Dawson &lt;danielcdawson@gmail.com&gt;</creator>
         <contributor>Joseph A. Alfano</contributor>
         <translator>ucn (http://unrealstuff.bplaced.de/), milupo</translator>
         <description>Fügt dem Passwortmanager Metadaten und sortierbare Tags hinzu.</description>
@@ -47,7 +47,7 @@
       <RDF:Description>
         <locale>dsb</locale>
         <name>Password Tags</name>
-        <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <creator>Daniel Dawson &lt;danielcdawson@gmail.com&gt;</creator>
         <contributor>Joseph A. Alfano</contributor>
         <translator>milupo</translator>
         <description>Pśidawa zastojnikoju gronidłow metadaty a sortěrujobne wobznamjenja.</description>
@@ -56,7 +56,7 @@
       <RDF:Description>
         <locale>eo</locale>
         <name>Password Tags</name>
-        <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <creator>Daniel Dawson &lt;danielcdawson@gmail.com&gt;</creator>
         <contributor>Joseph A. Alfano</contributor>
         <translator>milupo</translator>
         <description>Aldonas metadatumojn kaj ordigeblajn markojn al la pasvorta administrilo.</description>
@@ -65,7 +65,7 @@
       <RDF:Description>
         <locale>fr</locale>
         <name>Password Tags</name>
-        <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <creator>Daniel Dawson &lt;danielcdawson@gmail.com&gt;</creator>
         <contributor>Joseph A. Alfano</contributor>
         <translator>Goofy</translator>
         <description>Adds metadata and sortable tags to the password manager.</description>
@@ -74,7 +74,7 @@
       <RDF:Description>
         <locale>he</locale>
         <name>Password Tags</name>
-        <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <creator>Daniel Dawson &lt;danielcdawson@gmail.com&gt;</creator>
         <contributor>Joseph A. Alfano</contributor>
         <translator>SiiiE</translator>
         <description>הוספת מטא-נתונים ותגיות הניתנות למיון למנהל הססמאות.</description>
@@ -83,7 +83,7 @@
       <RDF:Description>
         <locale>hsb</locale>
         <name>Password Tags</name>
-        <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <creator>Daniel Dawson &lt;danielcdawson@gmail.com&gt;</creator>
         <contributor>Joseph A. Alfano</contributor>
         <translator>milupo</translator>
         <description>Přidawa zrjadowakej hesłow metadaty a sortěrujomne znački.</description>
@@ -92,7 +92,7 @@
       <RDF:Description>
         <locale>nl</locale>
         <name>Password Tags</name>
-        <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <creator>Daniel Dawson &lt;danielcdawson@gmail.com&gt;</creator>
         <contributor>Joseph A. Alfano</contributor>
         <translator>markh</translator>
         <description>Voegt sorteerbare door de gebruiker opgegeven labels toe aan de wachtwoordbeheerder.</description>
@@ -101,7 +101,7 @@
       <RDF:Description>
         <locale>pl</locale>
         <name>Password Tags</name>
-        <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <creator>Daniel Dawson &lt;danielcdawson@gmail.com&gt;</creator>
         <contributor>Joseph A. Alfano</contributor>
         <translator>Marcin Borowczyk "MarcinB"</translator>
         <description>Dodaje metadane oraz możliwość sortowania znaczników do menadżera haseł.</description>
@@ -110,7 +110,7 @@
       <RDF:Description>
         <locale>sr</locale>
         <name>Password Tags</name>
-        <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <creator>Daniel Dawson &lt;danielcdawson@gmail.com&gt;</creator>
         <contributor>Joseph A. Alfano</contributor>
         <translator>ДакСРБИЈА</translator>
         <description>Adds metadata and sortable tags to the password manager.</description>
@@ -119,7 +119,7 @@
       <RDF:Description>
         <locale>uk-UA</locale>
         <name>Password Tags</name>
-        <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <creator>Daniel Dawson &lt;danielcdawson@gmail.com&gt;</creator>
         <contributor>Joseph A. Alfano</contributor>
         <translator>Володимир Савчук "Sappa"</translator>
         <description>Adds metadata and sortable tags to the password manager.</description>
@@ -128,7 +128,7 @@
       <RDF:Description>
         <locale>zh-CN</locale>
         <name>Password Tags</name>
-        <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <creator>Daniel Dawson &lt;danielcdawson@gmail.com&gt;</creator>
         <contributor>Joseph A. Alfano</contributor>
         <translator>mozillazg "BruceH"</translator>
         <description>添加可排序的用户指定的标签到密码管理器。</description>
@@ -137,7 +137,7 @@
       <RDF:Description>
         <locale>zh-TW</locale>
         <name>Password Tags</name>
-        <creator>Daniel Dawson &lt;ddawson@icehouse.net&gt;</creator>
+        <creator>Daniel Dawson &lt;danielcdawson@gmail.com&gt;</creator>
         <contributor>Joseph A. Alfano</contributor>
         <translator>Velociraptor</translator>
         <description>在密碼管理員中加入可排序的使用者自訂標籤。</description>

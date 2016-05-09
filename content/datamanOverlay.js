@@ -1,6 +1,6 @@
 /*
     Password Tags, extension for Firefox and others
-    Copyright (C) 2012  Daniel Dawson <ddawson@icehouse.net>
+    Copyright (C) 2016  Daniel Dawson <danielcdawson@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -15,6 +15,8 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+"use strict";
 
 document.addEventListener(
   "DOMContentLoaded",
@@ -39,7 +41,7 @@ document.addEventListener(
     // Replacing functions to "wedge" in our functionality
     // Is there a better way to accomplish this?
     var origGetCellText = gPasswords.getCellText;
-    function ptagsGetCellText (aRow, aColumn) {
+    gPasswords.getCellText = function (aRow, aColumn) {
       var signon = this.displayedSignons[aRow];
       switch (aColumn.id) {
       case "pwdTagsCol":
@@ -64,17 +66,17 @@ document.addEventListener(
         break;
       }
     }
-    gPasswords.getCellText = ptagsGetCellText;
 
     var origIsEditable = gPasswords.isEditable;
-    if (!origIsEditable) origIsEditable = function () false;
-    function ptagsIsEditable (aRow, aCol)
-      aCol.id == "pwdTagsCol" ? true : origIsEditable.call(this, aRow, aCol);
-    gPasswords.isEditable = ptagsIsEditable;
+    if (!origIsEditable) origIsEditable = () => false;
+    gPasswords.isEditable = function (aRow, aCol) {
+      return aCol.id == "pwdTagsCol" ? true
+                                     : origIsEditable.call(this, aRow, aCol);
+    }
 
     var origSetCellText = gPasswords.setCellText;
     if (!origSetCellText) origSetCellText = function () {};
-    function ptagsSetCellText (aRow, aCol, aValue) {
+    gPasswords.setCellText = function (aRow, aCol, aValue) {
       if (aCol.id == "pwdTagsCol") {
         let signon = this.displayedSignons[aRow];
         signonMetadataStorage.setTags(signon, aValue);
@@ -82,17 +84,15 @@ document.addEventListener(
       }
       origSetCellText.call(this, aRow, aCol, aValue);
     }
-    gPasswords.setCellText = ptagsSetCellText;
 
-    function ptagsEdittags (evt) {
+    gPasswords.ptags_edittags = function (evt) {
         var idx = this.tree.currentIndex;
         var tagsColObj = this.tree.columns.getNamedColumn("pwdTagsCol");
         this.tree.startEditing(idx, tagsColObj);
         evt.stopPropagation();
     }
-    gPasswords.ptags_edittags = ptagsEdittags;
 
-    function ptagsEditmetadata (evt) {
+    gPasswords.ptags_editmetadata = function (evt) {
       var selections = gDataman.getTreeSelections(gPasswords.tree);
 
       function __finish () {
@@ -115,9 +115,8 @@ document.addEventListener(
       else
         oldWin.focus();
     }
-    gPasswords.ptags_editmetadata = ptagsEditmetadata;
 
-    function ptagsDeletemetadata (evt) {
+    gPasswords.ptags_deletemetadata = function (evt) {
       const Cc = Components.classes, Ci = Components.interfaces;
       var prefBranch = Cc["@mozilla.org/preferences-service;1"].
                        getService(Ci.nsIPrefService).
@@ -148,10 +147,9 @@ document.addEventListener(
       gPasswords.initialize();
       gPasswords.tree.view.selection.select(selections[0]);
     }
-    gPasswords.ptags_deletemetadata = ptagsDeletemetadata;
 
     var origHandleKeyPress = gPasswords.handleKeyPress;
-    function ptagsHandleKeyPress (evt) {
+    gPasswords.handleKeyPress = function (evt) {
       if (evt.charCode ==
             document.getElementById("pwdtagsStrbundle").
               getString("edittagsAccesskey").charCodeAt(0) &&
@@ -167,7 +165,6 @@ document.addEventListener(
       } else if (this.tree.editingRow == -1)
         return origHandleKeyPress.call(this, evt);
     }
-    gPasswords.handleKeyPress = ptagsHandleKeyPress;
 
     function cloneLoginInfo (aLoginInfo) {
       var obj = {
@@ -192,7 +189,7 @@ document.addEventListener(
     }
 
     var origSort = gPasswords.sort;
-    function ptagsSort (aColumn, aUpdateSelection, aInvertDirection) {
+    gPasswords.sort = function (aColumn, aUpdateSelection, aInvertDirection) {
       // Duplicates and changes some code from gPasswords.sort() in
       // chrome://communicator/content/dataman/dataman.js
 
@@ -234,7 +231,7 @@ document.addEventListener(
       // compare function for two signons
       let compfunc;
       if (column.id == "pwdTagsCol")
-        compfunc = function ptags_compare (aOne, aTwo) {
+        compfunc = function (aOne, aTwo) {
           let oneTags = aOne.tags.split(","),
               twoTags = aTwo.tags.split(",");
           let i = 0;
@@ -250,7 +247,7 @@ document.addEventListener(
           }
         };
       else
-        compfunc = function ptags_compare (aOne, aTwo) {
+        compfunc = function (aOne, aTwo) {
           var oneLC = aOne.metadataType.toLowerCase(),
               twoLC = aTwo.metadataType.toLowerCase();
           var comp = oneLC < twoLC ? -1 : oneLC > twoLC ? 1 : 0;
@@ -277,7 +274,6 @@ document.addEventListener(
       column.setAttribute("sortDirection", dirAscending ? "ascending"
                                                         : "descending");
     }
-    gPasswords.sort = ptagsSort;
 
     document.removeEventListener("DOMContentLoaded", dclHandler, false);
   },

@@ -1,6 +1,6 @@
 /*
     Password Tags, extension for Firefox and others
-    Copyright (C) 2012  Daniel Dawson <ddawson@icehouse.net>
+    Copyright (C) 2016  Daniel Dawson <danielcdawson@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,8 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-const PRIVACYPOLICY_URL =
-        "https://addons.mozilla.org/addon/password-categories/privacy/";
+"use strict";
 
 Cu.import("resource://passwordtags/signonMetadataStorage.jsm");
 
@@ -36,11 +35,6 @@ function cleanup () {
     el("generalprefs-strings").getString("metadataCleanedup.msg"));
 }
 
-function showPrivacyPolicy () {
-  window.close();
-  openURL(PRIVACYPOLICY_URL);
-}
-
 function deleteAllMetadata () {
   var res = promptSvc.confirmEx(
     window,
@@ -56,14 +50,3 @@ function deleteAllMetadata () {
     el("generalprefs-strings").getString("allMetadataDeleted.title"),
     el("generalprefs-strings").getString("allMetadataDeleted.msg"));
 }
-
-document.addEventListener(
-  "DOMContentLoaded",
-  function () {
-    if (!((Application.name == "Firefox"
-           && vc.compare(Application.version, "4.0") >= 0)
-          || (Application.name == "SeaMonkey"))) {
-      el("syncintegration-group").hidden = true;
-    }
-  },
-  false);
