@@ -1,6 +1,6 @@
 /*
     Password Tags, extension for Firefox and others
-    Copyright (C) 2013  Daniel Dawson <danielcdawson@gmail.com>
+    Copyright (C) 2016  Daniel Dawson <danielcdawson@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@ document.addEventListener(
     // Replacing functions to "wedge" in our functionality
     // Is there a better way to accomplish this?
     var origGetCellText = signonsTreeView.getCellText;
-    function ptagsGetCellText (row, column) {
+    signonsTreeView.getCellText = function (row, column) {
       var signon = this._filterSet.length ?
                    this._filterSet[row] : signons[row];
       switch (column.id) {
@@ -60,17 +60,16 @@ document.addEventListener(
 
       return origGetCellText.call(this, row, column);
     }
-    signonsTreeView.getCellText = ptagsGetCellText;
 
     var origIsEditable = signonsTreeView.isEditable;
-    if (!origIsEditable) origIsEditable = function () false;
-    function ptagsIsEditable (row, col)
-      col.id == "tagsCol" ? true : origIsEditable.call(this, row, col);
-    signonsTreeView.isEditable = ptagsIsEditable;
+    if (!origIsEditable) origIsEditable = () => false;
+    signonsTreeView.isEditable = function (row, col) {
+      return col.id == "tagsCol" ? true : origIsEditable.call(this, row, col);
+    }
 
     var origSetCellText = signonsTreeView.setCellText;
     if (!origSetCellText) origSetCellText = function () {};
-    function ptagsSetCellText (row, col, value) {
+    signonsTreeView.setCellText = function (row, col, value) {
       if (col.id == "tagsCol") {
         let signon = this._filterSet.length ?
                      this._filterSet[row] : signons[row];
@@ -79,10 +78,9 @@ document.addEventListener(
       }
       origSetCellText.call(this, row, col, value);
     }
-    signonsTreeView.setCellText = ptagsSetCellText;
 
     var origHandleSignonKeyPress = window.HandleSignonKeyPress;
-    function ptagsHandleSignonKeyPress (evt) {
+    window.HandleSignonKeyPress = function (evt) {
       let tree = document.getElementById("signonsTree");
       if (evt.charCode ==
             document.getElementById("pwdtagsStrbundle").
@@ -100,15 +98,13 @@ document.addEventListener(
 
       return true;
     }
-    window.HandleSignonKeyPress = ptagsHandleSignonKeyPress;
 
     var origGetColumnByName = window.getColumnByName;
-    if (!origGetColumnByName) origGetColumnByName = function () null;
-    function ptagsGetColumnByName (column)
+    if (!origGetColumnByName) origGetColumnByName = () => null;
+    window.getColumnByName = (column) =>
       column == "tags" ? document.getElementById("tagsCol") :
       column == "metadataType" ? document.getElementById("metadataCol") :
                                  origGetColumnByName(column);
-    window.getColumnByName = ptagsGetColumnByName;
 
     function cloneLoginInfo (loginInfo) {
       loginInfo.QueryInterface(Components.interfaces.nsILoginMetaInfo);
@@ -129,7 +125,7 @@ document.addEventListener(
 
     var origSignonColumnSort = window.SignonColumnSort;
     if (!origSignonColumnSort) origSignonColumnSort = function () {};
-    function ptagsSignonColumnSort (column) {
+    window.SignonColumnSort = function (column) {
       var l = signonsTreeView._filterSet.length;
       if (!l) {
         l = signons.length;
@@ -156,11 +152,10 @@ document.addEventListener(
       }
       origSignonColumnSort(column);
     }
-    window.SignonColumnSort = ptagsSignonColumnSort;
 
     var origSignonMatchesFilter = window.SignonMatchesFilter;
-    if (!origSignonMatchesFilter) origSignonMatchesFilter = function () false;
-    function ptagsSignonMatchesFilter (signon, filterValue) {
+    if (!origSignonMatchesFilter) origSignonMatchesFilter = () => false;
+    window.SignonMatchesFilter = function (signon, filterValue) {
       if (origSignonMatchesFilter(signon, filterValue)) return true;
       if (signon.tags &&
           signon.tags.toLowerCase().indexOf(filterValue) != -1)
@@ -170,11 +165,10 @@ document.addEventListener(
         return true;
       return false;
     }
-    window.SignonMatchesFilter = ptagsSignonMatchesFilter;
 
     var origSortTree = window.SortTree;
-    function ptagsSortTree (tree, view, table, column, lastSortColumn,
-                            lastSortAscending, updateSelection) {
+    window.SortTree = function (tree, view, table, column, lastSortColumn,
+                                lastSortAscending, updateSelection) {
       var selections = GetTreeSelections(tree);
       var selectedNumber =
         selections.length ? table[selections[0]].number : -1;
@@ -228,7 +222,6 @@ document.addEventListener(
         tree.treeBoxObject.ensureRowIsVisible(selectedRow);
       return ascending;
     }
-    window.SortTree = ptagsSortTree;
 
     document.removeEventListener("DOMContentLoaded", dclHandler, false);
   },
