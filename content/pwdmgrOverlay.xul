@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
     Password Tags, extension for Firefox and others
-    Copyright (C) 2012  Daniel Dawson <danielcdawson@gmail.com>
+    Copyright (C) 2017  Daniel Dawson <danielcdawson@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -31,9 +31,9 @@
   <window id="SignonViewerDialog">
     <popupset id="signonsTreeContextSet">
       <menupopup id="signonsTreeContextMenu">
-        <menuitem id="menu_editTags" label="&edittags.label;"
+        <!--<menuitem id="menu_editTags" label="&edittags.label;"
                   accesskey="&edittags.accesskey;"
-                  oncommand="passwordTags.editTags();"/>
+                  oncommand="passwordTags.editTags();"/>-->
         <menuitem id="menu_editMetadata" label="&editmetadata.label;"
                   accesskey="&editmetadata.accesskey;"
                   oncommand="passwordTags.editMetadata();"/>
@@ -44,10 +44,12 @@
     </popupset>
   </window>
 
-  <tree id="signonsTree" context="signonsTreeContextMenu" editable="true">
+  <!-- Removed for now until I figure out if I can even overlay the tree
+       anymore (perhaps in a non-Mozilla browser or something.
+  <tree id="signonsTree" context="signonsTreeContextMenu" editable="true">-->
     <!-- This is not the correct place to put these. Unfortunately, the
          correct place has no id, so it can't be properly overlayed. Thus,
-         I must put them somewhere, then move them in a script. -->
+         I must put them somewhere, then move them in a script. --><!--
     <splitter id="tagsColSplitter" class="tree-splitter"
               resizeafter="farthest"/>
     <treecol id="tagsCol" label="&column_tags.label;" editable="true"
@@ -56,5 +58,5 @@
               resizeafter="farthest"/>
     <treecol id="metadataCol" label="&column_metadata.label;"
              onclick="SignonColumnSort('metadataType');" persist="width"/>
-  </tree>
+  </tree>-->
 </overlay>

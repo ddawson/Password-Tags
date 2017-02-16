@@ -1,6 +1,6 @@
 /*
     Password Tags, extension for Firefox and others
-    Copyright (C) 2013  Daniel Dawson <danielcdawson@gmail.com>
+    Copyright (C) 2017  Daniel Dawson <danielcdawson@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,6 +17,9 @@
 */
 
 "use strict";
+
+window.messageManager.loadFrameScript(
+  "chrome://passwordtags/content/frame-script.js", true);
 
 addEventListener(
   "load",
@@ -44,97 +47,39 @@ addEventListener(
     }
 
     var curInfo, matches;
-
-    function shouldShowSubmenu (aElement) {
-      if (aElement instanceof Ci.nsIDOMHTMLInputElement && aElement.form)
-        var form = aElement.form;
-      else
-        return false;
-
-      var curDoc = aElement.ownerDocument;
-      var curLocation = curDoc.defaultView.location;
-      var hostname = curLocation.protocol + "//" + curLocation.host;
-      var passwordField = null;
-      for (var i = 0; i < form.elements.length; i++) {
-        let element = form.elements[i];
-        if (element instanceof Ci.nsIDOMHTMLInputElement
-            && element.type.toLowerCase() == "password") {
-          passwordField = element;
-          break;
-        }
-      }
-      if (!passwordField) return false;
-
-      var usernameField = null;
-      for (i = i - 1; i >= 0; i--) {
-        let element = form.elements[i];
-        if (!element instanceof Ci.nsIDOMHTMLInputElement) continue;
-        let elType = (element.getAttribute("type") || "").toLowerCase();
-        if (!elType ||
-            ["text", "email", "url", "tel", "number"].indexOf(elType) != -1) {
-          usernameField = element;
-          break;
-        }
-      }
-      if (!usernameField) return false;
-
-      var formAction = form.action;
-      var res =
-        formAction ? /^([0-9-_A-Za-z]+:\/\/[^/]+)\//.exec(formAction)[1]
-                   : hostname;
-
-      curInfo = {
-        hostname: hostname,
-        formSubmitURL: res,
-        usernameField: usernameField,
-        passwordField: passwordField,
-      };
-      return true;
-    }
-
-    var ctxMenuPopup = document.getElementById("contentAreaContextMenu");
-
-    ctxMenuPopup.addEventListener(
-      "popupshowing",
-      function () {
-        document.getElementById("passwordtags-fillbytags").hidden =
-          !prefs.getBoolPref("allowPwdFillByTags")
-          || !shouldShowSubmenu(gContextMenu.target);
-      },
-      false);
-
     var popup = document.getElementById("passwordtags-fillbytags-popup");
 
-    ctxMenuPopup.addEventListener(
-      "popuphidden",
-      function handleCtxmenuHidden (aEvt) {
-        if (aEvt.target != popup) return;
-        if (aEvt.target == popup) {
-          matches = null;
-          while (popup.hasChildNodes())
-            popup.removeChild(popup.lastChild);
-        } else if (aEvt.target == ctxMenuPopup)
-          curInfo = null;
-      },
-      false);
+    function handleCommand (aEvt) {
+      var target = aEvt.target;
+      if (target.tagName != "menuitem") return;
+      var idx = target.value;
+      var mm = gBrowser.selectedBrowser.messageManager;
+      mm.sendAsyncMessage(
+        "PasswordTags:fillFormData",
+        { username: matches[idx].username, password: matches[idx].password });
+    }
 
-    popup.addEventListener(
-      "popupshowing",
-      function () {
+    var contextshowingHandler = {
+      receiveMessage({ data }) {
+        curInfo = data;
+        document.getElementById("passwordtags-fillbytags").hidden =
+          !prefs.getBoolPref("allowPwdFillByTags") || !curInfo;
         while (popup.hasChildNodes()) popup.removeChild(popup.firstChild);
         matches =
           loginMgr.findLogins({}, curInfo.hostname, curInfo.formSubmitURL,
                               null);
-        if (matches.length > 0)
+
+        if (matches.length > 0) {
           for (let i = 0; i < matches.length; i++) {
             let tags = signonMetadataStorage.getTags(matches[i]);
             let item = document.createElement("menuitem");
             item.setAttribute("value", i);
             item.setAttribute("label", matches[i].username
                                        + (tags ? " (" + tags + ")" : ""));
+	    item.addEventListener("command", handleCommand, false);
             popup.appendChild(item);
           }
-        else {
+        } else {
           let item = document.createElement("menuitem");
           item.setAttribute("label",
                             strings.GetStringFromName("nologins.label"));
@@ -142,17 +87,9 @@ addEventListener(
           popup.appendChild(item);
         }
       },
-      false);
+    };
 
-    popup.addEventListener(
-      "command",
-      function (aEvt) {
-        var target = aEvt.target;
-        if (target.tagName != "menuitem") return;
-        var idx = target.value;
-        curInfo.usernameField.value = matches[idx].username;
-        curInfo.passwordField.value = matches[idx].password;
-      },
-      false);
+    window.messageManager.addMessageListener(
+      "PasswordTags:contextshowing", contextshowingHandler);
   },
   false);

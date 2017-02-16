@@ -1,6 +1,6 @@
 /*
     Password Tags, extension for Firefox and others
-    Copyright (C) 2016  Daniel Dawson <danielcdawson@gmail.com>
+    Copyright (C) 2017  Daniel Dawson <danielcdawson@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -31,8 +31,8 @@ document.addEventListener(
 
     var cols = document.getElementById("passwordsTree").firstChild;
     var ord = parseInt(cols.lastChild.ordinal) + 1;
-    for each (let id in ["pwdTagsColSplitter", "pwdTagsCol",
-                         "pwdMetadataColSplitter", "pwdMetadataCol"]) {
+    for (let id of ["pwdTagsColSplitter", "pwdTagsCol",
+                    "pwdMetadataColSplitter", "pwdMetadataCol"]) {
       let el = document.getElementById(id);
       el.ordinal = ord++;
       cols.appendChild(el);
@@ -179,11 +179,10 @@ document.addEventListener(
         cloned: true
       };
       aLoginInfo.QueryInterface(Components.interfaces.nsILoginMetaInfo);
-      for each (let name in ["hostname", "httpRealm", "formSubmitURL",
-                             "username", "password", "usernameField",
-                             "passwordField", "guid", "timeCreated",
-                             "timeLastUsed", "timePasswordChanged",
-                             "timesUsed"])
+      for (let name of ["hostname", "httpRealm", "formSubmitURL", "username",
+                        "password", "usernameField", "passwordField", "guid",
+                        "timeCreated", "timeLastUsed", "timePasswordChanged",
+                        "timesUsed"])
         obj[name] = aLoginInfo[name];
       return obj;
     }
@@ -199,11 +198,17 @@ document.addEventListener(
         let sortedCol = this.tree.columns.getSortedColumn();
         if (sortedCol)
           column = sortedCol.element;
+        else
+          column = document.getElementById("pwdHostCol");
       }
+      else if (column.localName == "treecols"
+               || column.localName == "splitter")
+        return;
 
       if (!column || (column.id != "pwdTagsCol"
                       && column.id != "pwdMetadataCol"))
-        return origSort.call(this, column, aUpdateSelection, aInvertDirection);
+        return origSort.call(
+          this, aColumn, aUpdateSelection, aInvertDirection);
 
       var signons = this.displayedSignons;
       var tagsCol = document.getElementById("pwdTagsCol"),

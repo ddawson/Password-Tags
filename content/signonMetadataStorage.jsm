@@ -1,6 +1,6 @@
 /*
     Password Tags, extension for Firefox and others
-    Copyright (C) 2016  Daniel Dawson <danielcdawson@gmail.com>
+    Copyright (C) 2017  Daniel Dawson <danielcdawson@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -33,28 +33,27 @@ XPCOMUtils.defineLazyServiceGetter(
   this, "os", "@mozilla.org/observer-service;1", "nsIObserverService");
 XPCOMUtils.defineLazyGetter(
   this, "uc",
-  function () Cc["@mozilla.org/intl/scriptableunicodeconverter"].
-              createInstance(Ci.nsIScriptableUnicodeConverter));
+  () => Cc["@mozilla.org/intl/scriptableunicodeconverter"].
+        createInstance(Ci.nsIScriptableUnicodeConverter));
 XPCOMUtils.defineLazyGetter(
   this, "rand",
-  function () Cc["@mozilla.org/security/random-generator;1"].
-              createInstance(Ci.nsIRandomGenerator));
+  () => Cc["@mozilla.org/security/random-generator;1"].
+        createInstance(Ci.nsIRandomGenerator));
 XPCOMUtils.defineLazyGetter(
   this, "ch",
-  function () Cc["@mozilla.org/security/hash;1"].
-              createInstance(Ci.nsICryptoHash));
+  () => Cc["@mozilla.org/security/hash;1"].
+        createInstance(Ci.nsICryptoHash));
 XPCOMUtils.defineLazyGetter(
   this, "prefs",
-  function () Cc["@mozilla.org/preferences-service;1"].
-              getService(Ci.nsIPrefService).
-              getBranch("extensions.passwordtags.").
-              QueryInterface(Ci.nsIPrefBranch2));
+  () => Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService).
+        getBranch("extensions.passwordtags.").
+        QueryInterface(Ci.nsIPrefBranch2));
 XPCOMUtils.defineLazyGetter(
   this, "strings",
-  function () Cc["@mozilla.org/intl/stringbundle;1"].
-              getService(Ci.nsIStringBundleService).
-              createBundle(
-                "chrome://passwordtags/locale/defaultFieldConfig.properties"));
+  () => Cc["@mozilla.org/intl/stringbundle;1"].
+        getService(Ci.nsIStringBundleService).
+        createBundle(
+          "chrome://passwordtags/locale/defaultFieldConfig.properties"));
 XPCOMUtils.defineLazyServiceGetter(
   this, "loginMgr",
   "@mozilla.org/login-manager;1", "nsILoginManager");
@@ -80,12 +79,12 @@ const COMMA_CHARS =
   ",\u055d\u060c\u07f8\u1363\u3001\ua60d\ufe50\ufe51\uff0c\uff64";
 const SALT_BYTES = 3;
 
-function escape (aRawStr)
+var escape = (aRawStr) =>
   aRawStr.replace(/=/g, "==")
          .replace(/\|/g, "=/")
          .replace(/:/g, "=;");
 
-function unescape (aEStr)
+var unescape = (aEStr) =>
   aEStr.replace(/=;/g, ":")
        .replace(/=\//g, "|")
        .replace(/==/g, "=");
@@ -263,7 +262,7 @@ var signonMetadataStorage = {
   },
 
   _normalizeTags: function (aTags) {
-    for each (let ch in COMMA_CHARS)
+    for (let ch of COMMA_CHARS)
       aTags = aTags.replace(ch, ",", "g");
     let tagsAry = aTags.split(",").map(str => str.trim());
     tagsAry.sort();
@@ -452,7 +451,7 @@ var signonMetadataStorage = {
       break;
 
     case "quit-application":
-      for each (let stmt in this._dbStmts) stmt.finalize();
+      for (let stmt of this._dbStmts) stmt.finalize();
       this._dbConnection.asyncClose();
       break;
     }
@@ -540,8 +539,8 @@ var signonMetadataStorage = {
     var cMDSpec = this._byGUID[aGUID];
     if (cMDSpec) {
       let mdSpec = {};
-      for each (let propname in ["hostname", "httpRealm", "formSubmitURL",
-                                 "usernameHash", "tags", "metadata", "guid"])
+      for (let propname of ["hostname", "httpRealm", "formSubmitURL",
+                            "usernameHash", "tags", "metadata", "guid"])
         mdSpec[propname] = cMDSpec[propname];
       let [ver, salt, hash] = this._parseSaltedHash(mdSpec.usernameHash);
       mdSpec.hashVersion = ver;
@@ -551,15 +550,15 @@ var signonMetadataStorage = {
   },
 
   _findMetadataByData: function (aSignon) {
-    var candidates = this._searchCacheForData(aSignon);
+    var candidates = Object.values(this._searchCacheForData(aSignon));
 
-    for each (let cand in candidates) {
+    for (let cand of candidates) {
       let saltedHash = cand.usernameHash,
           [ver, salt, hash] = this._parseSaltedHash(saltedHash);
       if (saltedHash == this._hash(aSignon.username, ver, salt)) {
         let mdSpec = {};
-        for each (let propname in ["hostname", "httpRealm", "formSubmitURL",
-                                   "usernameHash", "tags", "metadata", "guid"])
+        for (let propname of ["hostname", "httpRealm", "formSubmitURL",
+                              "usernameHash", "tags", "metadata", "guid"])
           mdSpec[propname] = cand[propname];
 
         // Migrate to salted hash if necessary.
@@ -578,10 +577,10 @@ var signonMetadataStorage = {
   _getAllMetadata: function () {
     if (!this._dbConnection) this._init();
     var list = [];
-    for each (let cMDSpec in this._byGUID) {
+    for (let cMDSpec of this._byGUID) {
       let mdSpec = {}
-      for each (let propname in ["hostname", "httpRealm", "formSubmitURL",
-                                 "usernameHash", "tags", "metadata", "guid"])
+      for (let propname of ["hostname", "httpRealm", "formSubmitURL",
+                            "usernameHash", "tags", "metadata", "guid"])
         mdSpec[propname] = cMDSpec[propname];
       list.push(mdSpec);
     }
@@ -592,7 +591,7 @@ var signonMetadataStorage = {
     var propnameList = ["hostname", "httpRealm", "formSubmitURL",
                         "usernameHash", "tags", "metadata", "guid"];
     var cMDSpec = {};
-    for each (let propname in propnameList)
+    for (let propname of propnameList)
       cMDSpec[propname] = aMDSpec[propname];
     this._updateCache(cMDSpec);
 
@@ -603,7 +602,7 @@ var signonMetadataStorage = {
         + "tags, metadata, guid) VALUES "
         + "(:hostname, :httpRealm, :formSubmitURL, :usernameHash, "
         + ":tags, :metadata, :guid)");
-      for each (let propname in propnameList)
+      for (let propname of propnameList)
         stmt.params[propname] = cMDSpec[propname];
       stmt.executeAsync();
       if (!aFromSync) this.notifyMetadataChangeListeners(cMDSpec.guid);
@@ -614,8 +613,8 @@ var signonMetadataStorage = {
 
   _updateRow: function (aGUID, aMDSpec, aFromSync) {
     var cMDSpec = {};
-    for each (let propname in ["hostname", "httpRealm", "formSubmitURL",
-                               "usernameHash", "tags", "metadata", "guid"])
+    for (let propname of ["hostname", "httpRealm", "formSubmitURL",
+                          "usernameHash", "tags", "metadata", "guid"])
       cMDSpec[propname] = aMDSpec[propname];
     this._removeFromCache(cMDSpec, aGUID);
     this._updateCache(cMDSpec);
@@ -631,8 +630,8 @@ var signonMetadataStorage = {
         + "metadata = :metadata, "
         + "guid = :guid "
         + "WHERE guid = :oldguid");
-      for each (let name in ["hostname", "httpRealm", "formSubmitURL",
-                             "usernameHash", "tags", "metadata", "guid"])
+      for (let name of ["hostname", "httpRealm", "formSubmitURL",
+                        "usernameHash", "tags", "metadata", "guid"])
         stmt.params[name] = cMDSpec[name];
       stmt.params.oldguid = aGUID;
       stmt.executeAsync();
@@ -836,7 +835,7 @@ var signonMetadataStorage = {
       }
     }
 
-    return null;
+    return [];
   },
 
   _removeFromCache: function (aMDSpec, aOldGUID) {
