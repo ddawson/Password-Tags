@@ -6,7 +6,7 @@
     <type>2</type>
     <multiprocessCompatible>true</multiprocessCompatible>
     <name>Password Tags</name>
-    <version>2.1.7</version>
+    <version>2.2a</version>
     <creator>Daniel Dawson &lt;danielcdawson@gmail.com&gt;</creator>
     <contributor>Joseph A. Alfano</contributor>
     <description>Adds metadata and sortable tags to the password manager.</description>

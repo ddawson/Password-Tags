@@ -269,7 +269,7 @@ var passwordTags = {
       "chrome://passwordtags/content/metadataEditor.xul", "",
       "centerscreen,dependent,dialog,chrome,modal,resizable",
       signon, null);
-    LoadSignons();
+    //LoadSignons();
   },
 
   deleteMetadata: function () {
@@ -300,7 +300,7 @@ var passwordTags = {
     var idx = this.signonsTree.currentIndex;
     var signon = this.getFilterSet()[idx];
     this.signonMetadataStorage.removeMetadata(signon);
-    LoadSignons();
+    //LoadSignons();
   },
 };
 

@@ -32,9 +32,8 @@ Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 XPCOMUtils.defineLazyServiceGetter(
   this, "os", "@mozilla.org/observer-service;1", "nsIObserverService");
 XPCOMUtils.defineLazyGetter(
-  this, "uc",
-  () => Cc["@mozilla.org/intl/scriptableunicodeconverter"].
-        createInstance(Ci.nsIScriptableUnicodeConverter));
+  this, "encoder",
+  () => new TextEncoder("UTF-8"));
 XPCOMUtils.defineLazyGetter(
   this, "rand",
   () => Cc["@mozilla.org/security/random-generator;1"].
@@ -77,7 +76,6 @@ function log (aMsg) {
 
 const COMMA_CHARS =
   ",\u055d\u060c\u07f8\u1363\u3001\ua60d\ufe50\ufe51\uff0c\uff64";
-const SALT_BYTES = 3;
 
 var escape = (aRawStr) =>
   aRawStr.replace(/=/g, "==")
@@ -701,35 +699,7 @@ var signonMetadataStorage = {
     this._byData_realm = {};
     this._byData_submit = {};
 
-    if (!this._initDBConnection()) {
-      let metadataAry = this._readMetadataFile();
-      if (metadataAry) {
-        for (let i = 0; i < metadataAry.length; i++) {
-          let metadata = metadataAry[i];
-          let res = loginMgr.findLogins(
-            {}, metadata.hostname, metadata.formSubmitURL || null,
-            metadata.httpRealm || null);
-
-          let j;
-          for (j = 0; j < res.length; j++) {
-            let cand = res[j];
-            let hash = this._hash(cand.username, 1);
-            if (hash == metadata.usernameHash) {
-              metadata.usernameHash = this._hash(cand.username);
-              metadata.guid = cand.QueryInterface(Ci.nsILoginMetaInfo).guid;
-              break;
-            }
-          }
-          if (j == res.length)
-            metadata.guid = uuidGen.generateUUID().toString();
-
-          this._addRow(metadata, false);
-        }
-      }
-
-      if (this._metadataFile.exists())
-        this._metadataFile.remove(false);
-    } else {
+    if (this._initDBConnection()) {
       let stmt = this._dbConnection.createStatement(
         "SELECT * FROM dd_passwordtags_metadata");
       while (stmt.executeStep()) {
@@ -884,8 +854,7 @@ var signonMetadataStorage = {
     var ver = aVer || 2;
     var salt = ver < 2 ? "" : aSalt || this._generateSalt();
     var composite = salt + aPlain;
-    uc.charset = "UTF-8";
-    var bytes = uc.convertToByteArray(composite, new Array(composite.length));
+    var bytes = encoder.encode(composite);
     ch.init(ch.MD5);
     ch.update(bytes, bytes.length);
     var hash = ch.finish(true);
@@ -896,59 +865,26 @@ var signonMetadataStorage = {
   },
 
   _generateSalt: function () {
-    var bytes = rand.generateRandomBytes(SALT_BYTES);
-    uc.charset = "US-ASCII";
-    return btoa(uc.convertFromByteArray(bytes, SALT_BYTES));
-  },
+    const num_blocks = 3; // Generate 9 bytes
+    var bytes = rand.generateRandomBytes(num_blocks*3);
 
-  _readMetadataFile: function () {
-    if (!this._metadataFile.exists()) return null;
-    var metadataAry = new Array();
+    // Implementing base64 encoding, because btoa() is stupid, expecting
+    // the standard String type which doesn't represent arbitrary byte
+    // sequences because it's Unicode.
+    //
+    // This is only for multiples of 3 bytes, for simplicity.
+    const a =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    var output = "";
 
-    var fstream = Cc["@mozilla.org/network/file-input-stream;1"].
-                  createInstance(Ci.nsIFileInputStream);
-    var sstream = Cc["@mozilla.org/scriptableinputstream;1"].
-                  createInstance(Ci.nsIScriptableInputStream);
-    fstream.init(this._metadataFile, -1, 0, 0);
-    sstream.init(fstream);
-    var contents = sstream.read(sstream.available());
-    sstream.close();
-    fstream.close();
-
-    uc.charset = "UTF-8";
-    contents = uc.ConvertToUnicode(contents);
-
-    var doc = Cc["@mozilla.org/xmlextras/domparser;1"].
-              createInstance(Ci.nsIDOMParser).
-              parseFromString(contents, "text/xml");
-
-    var root = doc.documentElement;
-    if ((root.tagName != "cats" && root.tagName != "tags" &&
-         root.tagName != "metadata") || !root.hasAttribute("version"))
-      return;
-    let version = root.getAttribute("version");
-    if (version != "1" && version != "2" && version != "3")
-      return;
-
-    var soSection = root;
-    for (let elem = soSection.firstChild; elem; elem = elem.nextSibling) {
-      if (elem.nodeType != 1 || elem.tagName != "signon")
-        continue;
-      let hostname = elem.getAttribute("hostname"),
-          httpRealm = elem.getAttribute("httpRealm"),
-          formSubmitURL = elem.getAttribute("formSubmitURL"),
-          usernameHash = elem.getAttribute("usernameHash"),
-          tags = elem.getAttribute(version == "1" ? "category" : "tags"),
-          metadata = "";
-      if (version == "3")
-        metadata = elem.getAttribute("metadata");
-
-      metadataAry.push({
-        hostname: hostname, httpRealm: httpRealm, formSubmitURL: formSubmitURL,
-        usernameHash: usernameHash, tags: tags, metadata: metadata });
+    for (let i = 0; i < num_blocks; i++) {
+      let ib = bytes.slice(i*3, i*3+3);
+      let ob = a[ib[0]>>2] + a[((ib[0]&3)<<4)|(ib[1]>>4)] +
+               a[((ib[1]&0xf)<<2)|(ib[2]>>6)] + a[ib[2]&0x3f];
+      output += ob;
     }
 
-    return metadataAry;
+    return output;
   },
 
   _readDefaultFields: function () {
@@ -1006,14 +942,6 @@ XPCOMUtils.defineLazyGetter(
                  getService(Ci.nsIProperties).get("ProfD", Ci.nsILocalFile);
     dbFile.append(MD_DBFILENAME);
     return dbFile;
-  });
-XPCOMUtils.defineLazyGetter(
-  signonMetadataStorage, "_metadataFile",
-  function () {
-    let mf = Cc["@mozilla.org/file/directory_service;1"].
-             getService(Ci.nsIProperties).get("ProfD", Ci.nsILocalFile);
-    mf.append(MD_FILENAME);
-    return mf;
   });
 
 os.addObserver(signonMetadataStorage, "passwordmgr-storage-changed", true);
