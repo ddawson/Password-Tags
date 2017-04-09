@@ -24,99 +24,23 @@ document.addEventListener(
     Components.utils.import(
       "resource://passwordtags/signonMetadataStorage.jsm", passwordTags);
 
-    /*
-    var cols = document.getElementById("signonsTree").firstChild;
-    var ord = parseInt(cols.lastChild.ordinal) + 1;
-    for (let id of ["tagsColSplitter", "tagsCol",
-                    "metadataColSplitter", "metadataCol"]) {
-      let el = document.getElementById(id);
-      el.ordinal = ord++;
-      cols.appendChild(el);
-    }
-    */
-
-    passwordTags.signonsTree = document.getElementById("signonsTree");
-
-    // Formerly replacing functions to "wedge" in our functionality.
-    // But this no longer works, so I'm commenting these out until I can
-    // figure out something else I can do.
-    /*
-    var signonsTreeView = passwordTags.signonsTree.view;
-    var origGetCellText = signonsTreeView.getCellText;
-    signonsTreeView.getCellText = function (row, column) {
-      var filterSet = passwordTags.getFilterSet();
-      var signon = filterSet.length ? filterSet[row] : signons[row];
-
-      switch (column.id) {
-      case "tagsCol":
-        return passwordTags.signonMetadataStorage.getTags(signon);
-        break;
-
-      case "metadataCol":
-        let mdRawObj =
-          passwordTags.signonMetadataStorage.getMetadataRaw(signon);
-        let mdRawStr = mdRawObj ? mdRawObj.metadata : "";
-        let strings = document.getElementById("pwdtagsStrbundle");
-        return (!mdRawStr) ? "" :
-          mdRawStr.substr(0, 2) == "0|" ?
-            strings.getString("unencrypted.celltext")
-          : mdRawStr.substr(0, 2) == "1|" ?
-            strings.getString("encrypted.celltext")
-          : strings.getString("unencrypted.celltext");
-        break;
-      }
-
-      return origGetCellText.call(this, row, column);
-    }
-
-    var origIsEditable = signonsTreeView.isEditable;
-    if (!origIsEditable) origIsEditable = () => false;
-    signonsTreeView.isEditable = function (row, col) {
-      return col.id == "tagsCol" ? true : origIsEditable.call(this, row, col);
-    }
-
-    var origSetCellText = signonsTreeView.setCellText;
-    if (!origSetCellText) origSetCellText = function () {};
-    signonsTreeView.setCellText = function (row, col, value) {
-      if (col.id == "tagsCol") {
-        let filterSet = passwordTags.getFilterSet();
-        let signon = filterSet.length ? filterSet[row] : signons[row];
-        passwordTags.signonMetadataStorage.setTags(signon, value);
-        _filterPasswords();
-      }
-      origSetCellText.call(this, row, col, value);
-    }
-    */
+    var tree = document.getElementById("signonsTree");
+    passwordTags.signonsTree = tree;
+    tree.addEventListener("select", passwordTags.updateTagsBox, false);
 
     var origHandleSignonKeyPress = window.HandleSignonKeyPress;
     window.HandleSignonKeyPress = function (evt) {
-      let tree = document.getElementById("signonsTree");
       if (evt.charCode ==
-            document.getElementById("pwdtagsStrbundle").
-              getString("edittagsAccesskey").charCodeAt(0) &&
-          !evt.altKey && !evt.ctrlKey && !evt.metaKey && tree.editingRow == -1)
-        //passwordTags.editTags();
-        ;
-      else if (evt.charCode ==
                  document.getElementById("pwdtagsStrbundle").
-                   getString("editmetadataAccesskey").charCodeAt(0) &&
-               !evt.altKey && !evt.ctrlKey && !evt.metaKey &&
-               tree.editingRow == -1)
+                   getString("editmetadataAccesskey").charCodeAt(0)
+               && tree.view.selection.count <= 1 && !evt.altKey
+	       && !evt.ctrlKey && !evt.metaKey && tree.editingRow == -1)
         passwordTags.editMetadata();
       else if (tree.editingRow == -1)
         return origHandleSignonKeyPress(evt);
 
       return true;
     }
-
-    /*
-    var origGetColumnByName = window.getColumnByName;
-    if (!origGetColumnByName) origGetColumnByName = () => null;
-    window.getColumnByName = (column) =>
-      column == "tags" ? document.getElementById("tagsCol") :
-      column == "metadataType" ? document.getElementById("metadataCol") :
-                                 origGetColumnByName(column);
-    */
 
     function cloneLoginInfo (loginInfo) {
       loginInfo.QueryInterface(Components.interfaces.nsILoginMetaInfo);
@@ -134,106 +58,21 @@ document.addEventListener(
       return obj;
     }
 
-    /*
-    var origSignonColumnSort = window.SignonColumnSort;
-    if (!origSignonColumnSort) origSignonColumnSort = function () {};
-    window.SignonColumnSort = function (column) {
-      var signonsTreeView = passwordTags.signonsTree.view;
-      var fs = passwordTags.getFilterSet();
-      var l = fs.length;
-      if (!l) {
-        l = signons.length;
-        for (let i = 0; i < l; i++) {
-          let tags =
-            signonsTreeView.getCellText(i, {id:"tags"});
-          let metadataType =
-            signonsTreeView.getCellText(i, {id:"metadataType"});
-          if (!signons[i].cloned) signons[i] = cloneLoginInfo(signons[i]);
-          signons[i].tags = tags;
-          signons[i].metadataType = metadataType;
+    document.getElementById("signonsTreeContextMenu").addEventListener(
+      "popupshowing",
+      function () {
+        const ids = ["menu_editMetadata", "menu_deleteMetadata"];
+        var signon = passwordTags.getSelectedOrFocusedSignon();
+
+        if (signon) {
+          for (let id of ids)
+            document.getElementById(id).removeAttribute("disabled");
+        } else {
+          for (let id of ids)
+            document.getElementById(id).setAttribute("disabled", "true");
         }
-      } else {
-        for (let i = 0; i < l; i++) {
-          let tags =
-            signonsTreeView.getCellText(i, {id:"tags"});
-          let metadataType =
-            signonsTreeView.getCellText(i, {id:"metadataType"});
-          if (!fs[i].cloned) fs[i] = cloneLoginInfo(fs[i]);
-          fs[i].tags = tags;
-          fs[i].metadataType = metadataType;
-        }
-      }
-      origSignonColumnSort(column);
-    }
-
-    var origSignonMatchesFilter = window.SignonMatchesFilter;
-    if (!origSignonMatchesFilter) origSignonMatchesFilter = () => false;
-    window.SignonMatchesFilter = function (signon, filterValue) {
-      if (origSignonMatchesFilter(signon, filterValue)) return true;
-      if (signon.tags &&
-          signon.tags.toLowerCase().indexOf(filterValue) != -1)
-        return true;
-      if (signon.metadataType &&
-          signon.metadataType.toLowerCase().indexOf(filterValue) != -1)
-        return true;
-      return false;
-    }
-
-    var origSortTree = window.SortTree;
-    window.SortTree = function (aColumn, aAscending) {
-      var filterSet = passwordTags.getFilterSet();
-      var table = filterSet.length ? filterSet : signons;
-      var selections = GetTreeSelections();
-      var selectedNumber =
-        selections.length ? table[selections[0]].number : -1;
-      if (aColumn == "tags") {
-        let compareFunc = function (first, second) {
-          let firstTags = first[aColumn].split(","),
-              secondTags = second[aColumn].split(",");
-          let i = 0;
-          while (true) {
-            let t1 = firstTags[i], t2 = secondTags[i];
-            if (t2 && !t1) return -1;
-            if (t1 && !t2) return 1;
-            if (!t1 && !t2) return 0;
-            let t1l = t1.toLowerCase(), t2l = t2.toLowerCase();
-            let comp = t1l < t2l ? -1 : t1l > t2l ? 1 : 0;
-            if (comp != 0) return comp;
-            i++;
-          }
-        };
-        table.sort(ascending ? compareFunc :
-                   (first, second) => -compareFunc(first, second));
-      } else if (aColumn == "metadataType") {
-        let compareFunc;
-
-        if (ascending)
-          compareFunc = (first, second) =>
-            first[aColumn].localeCompare(second[aColumn]);
-        else
-          compareFunc = (first, second) =>
-            second[aColumn].localeCompare(first[aColumn]);
-        table.sort(compareFunc);
-      } else
-        return origSortTree(aColumn, aAscending);
-
-      var selectedRow = -1;
-      if (selectedNumber>=0 && updateSelection) {
-        for (var s=0; s<table.length; s++) {
-          if (table[s].number == selectedNumber) {
-            tree.view.selection.select(-1);
-            tree.view.selection.select(s);
-            selectedRow = s;
-            break;
-          }
-        }
-      }
-
-      tree.treeBoxObject.invalidate();
-      if (selectedRow >= 0)
-        tree.treeBoxObject.ensureRowIsVisible(selectedRow);
-    }
-    */
+      },
+      false);
 
     document.removeEventListener("DOMContentLoaded", dclHandler, false);
   },
@@ -241,6 +80,7 @@ document.addEventListener(
 
 var passwordTags = {
   signonsTree: null,
+  editingSignon: null,
 
   getFilterSet: function () {
     if (window.signons) {
@@ -252,19 +92,50 @@ var passwordTags = {
     }
   },
 
-  /*
-  editTags: function () {
-    var tree = document.getElementById("signonsTree");
-    var idx = tree.currentIndex;
-    var tagsColObj = tree.columns.getNamedColumn("tagsCol");
-    tree.startEditing(idx, tagsColObj);
+  getSelectedSignon: function () {
+    var selection = this.signonsTree.view.selection;
+    if (selection.count != 1) return null;
+    let start = new Object(), end = new Object();
+    selection.getRangeAt(0, start, end);
+    return this.getFilterSet()[start.value];
   },
-  */
+
+  getSelectedOrFocusedSignon: function () {
+    var signon = this.getSelectedSignon();
+    if (signon) return signon;
+    if (this.signonsTree.view.selection.count == 0) {
+      let idx = this.signonsTree.currentIndex;
+      return this.getFilterSet()[idx];
+    }
+    return null;
+  },
+
+  updateTagsBox: function () {
+    var signon = passwordTags.getSelectedSignon();
+    var editbox = document.getElementById("tagsEdit");
+
+    if (!signon) {
+      editbox.value = "";
+      editbox.disabled = "true";
+      passwordTags.editingSignon = null;
+    } else {
+      let tags = passwordTags.signonMetadataStorage.getTags(signon);
+      editbox.removeAttribute("disabled");
+      editbox.value = tags;
+      passwordTags.editingSignon = signon;
+    }
+  },
+
+  setTags: function () {
+    if (!this.editingSignon) return;
+    this.signonMetadataStorage.setTags(
+      this.editingSignon, document.getElementById("tagsEdit").value);
+  },
 
   editMetadata: function () {
-    var tree = document.getElementById("signonsTree");
-    var idx = tree.currentIndex;
-    var signon = this.getFilterSet()[idx];
+    var signon = this.getSelectedOrFocusedSignon();
+    if (!signon) return;
+
     window.openDialog(
       "chrome://passwordtags/content/metadataEditor.xul", "",
       "centerscreen,dependent,dialog,chrome,modal,resizable",
@@ -297,8 +168,9 @@ var passwordTags = {
         prefBranch.setBoolPref("promptForDeleteMetadata", false);
     }
 
-    var idx = this.signonsTree.currentIndex;
-    var signon = this.getFilterSet()[idx];
+    var signon = this.getSelectedOrFocusedSignon();
+    if (!signon) return;
+
     this.signonMetadataStorage.removeMetadata(signon);
     //LoadSignons();
   },
