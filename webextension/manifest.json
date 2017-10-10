@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "Password Tags WebExtension",
+  "version": "2.2.1",
+  "description": "Migrate data from Password Tags overlay extension",
+
+  "permissions": [
+    "storage",
+    "unlimitedStorage"
+  ],
+
+  "background": {
+    "scripts": ["background.js"]
+  }
+}

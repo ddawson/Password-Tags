@@ -43,7 +43,7 @@ XPCOMUtils.defineLazyGetter(
   this, "prefs",
   () => Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService).
         getBranch("extensions.passwordtags.").
-        QueryInterface(Ci.nsIPrefBranch2));
+        QueryInterface(Ci.nsIPrefBranch));
 XPCOMUtils.defineLazyGetter(
   this, "strings",
   () => Cc["@mozilla.org/intl/stringbundle;1"].
@@ -70,6 +70,7 @@ function log (aMsg) {
   consoleSvc.logStringMessage(aMsg);
 }
 
+Cu.import("resource://passwordtags/webext-migrate.jsm");
 
 const COMMA_CHARS =
   ",\u055d\u060c\u07f8\u1363\u3001\ua60d\ufe50\ufe51\uff0c\uff64";
@@ -225,26 +226,27 @@ var signonMetadataStorage = {
   setMetadata: function (aSignon, aSignonMeta) {
     var tags = this._normalizeTags(aSignonMeta.tags);
     var metaStr = aSignonMeta.serializeMetadata();
+    var unencrMeta = metaStr;
     if (metaStr == "")
       metaStr = null;
     else if (aSignonMeta.metadataType == 0)
       metaStr = "0|" + metaStr;
     else if (aSignonMeta.metadataType == 1)
       metaStr = this._encryptMetadata(metaStr);
-    this._setMetadataRaw(aSignon, tags, metaStr);
-  },
-
-  setMetadataFromRecord: function (aMDSpec) {
-    if (parseInt(aMDSpec.metadataType) == 1)
-      aMDSpec.metadata = this._encryptMetadata(aMDSpec.metadata);
-    else
-      aMDSpec.metadata = "0|" + aMDSpec.metadata;
-
-    this._setMetadataRawFromRecord(aMDSpec);
+    this._setMetadataRaw(aSignon, tags, metaStr, unencrMeta);
   },
 
   _encryptMetadata: function (aPlaintext) {
     return "1|" + loginMgrCrypto.encrypt(aPlaintext);
+  },
+
+  convertAllMetadata: function () {
+    var logins = loginMgr.getAllLogins();
+
+    for (let login of logins)
+      this._rekeyMetadata(login, login);
+
+    return true;
   },
 
   changeMetadataGUID: function (aOldGUID, aNewGUID) {
@@ -468,7 +470,7 @@ var signonMetadataStorage = {
     return this._findMetadata(aGUID);
   },
 
-  _setMetadataRaw: function (aSignon, aTags, aMetadata) {
+  _setMetadataRaw: function (aSignon, aTags, aMetadata, aUnencrMeta) {
     if (!this._loaded) this._init();
     aSignon.QueryInterface(Ci.nsILoginMetaInfo);
 
@@ -480,26 +482,21 @@ var signonMetadataStorage = {
       let mdSpec = this._findMetadata(guid);
       if (mdSpec) {
         mdSpec.tags = aTags;
-        if (aMetadata !== undefined) mdSpec.metadata = aMetadata;
+        if (aMetadata !== undefined) {
+          mdSpec.metadata = aMetadata;
+          mdSpec.unencrMeta = aUnencrMeta;
+	}
         this._updateRow(guid, mdSpec, false);
       } else {
         mdSpec = {
           hostname: aSignon.hostname, httpRealm: aSignon.httpRealm,
           formSubmitURL: aSignon.formSubmitURL,
           usernameHash: this._hash(aSignon.username),
-          tags: aTags, metadata: aMetadata || null, guid: guid };
+          tags: aTags, metadata: aMetadata || null,
+          unencrMeta: aUnencrMeta || null, guid: guid };
         this._addRow(mdSpec, false);
       }
     }
-  },
-
-  _setMetadataRawFromRecord: function (aMDSpec) {
-    if (!this._loaded) this._init();
-
-    if (this._findMetadata(aMDSpec.guid))
-      this._updateRow(aMDSpec.guid, aMDSpec, true);
-    else
-      this._addRow(aMDSpec, true);
   },
 
   _rekeyMetadata: function (aOldSignon, aNewSignon) {
@@ -511,6 +508,7 @@ var signonMetadataStorage = {
       mdspec.httpRealm = aNewSignon.httpRealm;
       mdspec.formSubmitURL = aNewSignon.formSubmitURL;
       mdspec.usernameHash = this._hash(aNewSignon.username);
+      mdspec.unencrMeta = this._decryptMetadata(mdspec.metadata)[0];
       this._updateRow(mdspec.guid, mdspec, false);
     }
   },
@@ -591,7 +589,8 @@ var signonMetadataStorage = {
   _updateRow: function (aGUID, aMDSpec, aFromSync) {
     var cMDSpec = {};
     for (let propname of ["hostname", "httpRealm", "formSubmitURL",
-                          "usernameHash", "tags", "metadata", "guid"])
+                          "usernameHash", "tags", "metadata", "unencrMeta",
+                          "guid"])
       cMDSpec[propname] = aMDSpec[propname];
     this._removeFromCache(cMDSpec, aGUID);
     this._updateCache(cMDSpec);
@@ -665,7 +664,10 @@ var signonMetadataStorage = {
 
   _writeCache: function () {
     var obj = { version: 3, metadata: Object.values(this._byGUID) };
-    var encoded = JSON.stringify(obj) + "\n";
+    var encoded = JSON.stringify(
+      obj,
+      (k, v) => k == "unencrMeta" ? undefined : v
+    ) + "\n";
 
     var fstream = Cc["@mozilla.org/network/file-output-stream;1"]
       .createInstance(Ci.nsIFileOutputStream);
@@ -677,6 +679,23 @@ var signonMetadataStorage = {
     cstream.writeString(encoded);
     cstream.close();
     fstream.close();
+
+    var prefsObj = {};
+    for (let name of [
+        "allowPwdFillByTags", "encryptMetadataByDefault",
+        "keepMetadataForDeletedLogins", "logToConsole",
+        "promptForDeleteMetadata", "promptMasterPwdForEncrMetadata"])
+      prefsObj[name] = prefs.getBoolPref(name);
+
+    if (!prefs.prefHasUserValue("defaultFields")) {
+      this._resetDefaults();
+      return;
+    }
+
+    prefsObj.defaultFields =
+      prefs.getComplexValue("defaultFields", Ci.nsISupportsString).data;
+    obj.prefs = prefsObj;
+    PasswordTags_WE.updateData(obj);
   },
 
   _migrateSQLite: function () {
@@ -788,22 +807,29 @@ var signonMetadataStorage = {
   },
 
   _parseSaltedHash: function (aSalted) {
-    if (aSalted.substr(0, 2) != "2|") return [1, "", aSalted];
+    var prefix = aSalted.slice(0, 2);
+    if (prefix != "2|" && prefix != "3|") return [1, "", aSalted];
     var [ver, salt, hash] = aSalted.split("|");
     ver = parseInt(ver);
     return [ver, salt, hash];
   },
 
   _hash: function (aPlain, aVer, aSalt) {
-    var ver = aVer || 2;
+    var ver = aVer || 3;
     var salt = ver < 2 ? "" : aSalt || this._generateSalt();
     var composite = salt + aPlain;
     var bytes = encoder.encode(composite);
-    ch.init(ch.MD5);
+
+    if (ver == 3)
+      ch.init(ch.SHA256);
+    else
+      ch.init(ch.MD5);
+
     ch.update(bytes, bytes.length);
     var hash = ch.finish(true);
+
     if (ver >= 2)
-      return "2" + "|" + salt + "|" + hash;
+      return ver + "|" + salt + "|" + hash;
     else
       return hash;
   },
@@ -866,6 +892,8 @@ var signonMetadataStorage = {
                createInstance(Ci.nsISupportsString);
     sStr.data = str;
     prefs.setComplexValue("defaultFields", Ci.nsISupportsString, sStr);
+
+    this._writeCache();
   },
 
   _resetDefaults: function () {
@@ -880,19 +908,17 @@ var signonMetadataStorage = {
 };
 
 XPCOMUtils.defineLazyGetter(
-  signonMetadataStorage, "_jsonFile",
-  function () {
-    let dbFile = Cc["@mozilla.org/file/directory_service;1"].
-                 getService(Ci.nsIProperties).get("ProfD", Ci.nsILocalFile);
+  signonMetadataStorage, "_jsonFile", () => {
+    let dbFile = Cc["@mozilla.org/file/directory_service;1"]
+      .getService(Ci.nsIProperties).get("ProfD", Ci.nsIFile);
     dbFile.append(MD_FILENAME);
     return dbFile;
   });
 
 XPCOMUtils.defineLazyGetter(
-  signonMetadataStorage, "_dbFile",
-  function () {
-    let dbFile = Cc["@mozilla.org/file/directory_service;1"].
-                 getService(Ci.nsIProperties).get("ProfD", Ci.nsILocalFile);
+  signonMetadataStorage, "_dbFile", () => {
+    let dbFile = Cc["@mozilla.org/file/directory_service;1"]
+      .getService(Ci.nsIProperties).get("ProfD", Ci.nsIFile);
     dbFile.append(MD_DBFILENAME);
     return dbFile;
   });
